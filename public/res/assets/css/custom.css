@@ -29,5 +29,9 @@ ul.timeline > li:before {
     z-index: 400;
 }
 .padleft{
-    padding-left: 5%;
+    padding-left: 25px;
+}
+.datefloat{
+    float: right;
+    padding-right: 2%;
 }

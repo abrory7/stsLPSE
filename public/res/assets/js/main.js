@@ -39,7 +39,7 @@ $(window).on('load', function() {
         });
     };
 
-    notify('Welcome to Able Admin', 'inverse');
+    notify('Selamat Datang di Support Ticketing System LPSE!', 'inverse');
     $('.loader-bg').fadeOut('slow');
 
 });
