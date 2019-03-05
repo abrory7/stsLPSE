@@ -11,12 +11,12 @@
     <ul class="sidebar-menu">
       <li class="nav-level">Navigation</li>
       <li class="active treeview">
-        <a class="waves-effect waves-dark" href="index.html">
+        <a class="waves-effect waves-dark" href="{{ route('index') }}">
           <i class="icon-speedometer"></i><span> Dashboard</span>
         </a>
       </li>
       <li class="treeview">
-        <a class="waves-effect waves-dark" href="basic-table.html">
+        <a class="waves-effect waves-dark" href="{{ route('ongoing') }}">
           <i class="icon-direction"></i><span> On Going Ticket</span>
         </a>
       </li>

@@ -1,6 +1,5 @@
 @extends('layout.base')
 @section('content')
-<div class="container-fluid">
  <div class="row">
      <div class="main-header">
          <h4>Dashboard</h4>
@@ -87,5 +86,4 @@
     </div>
   </div>
 <!-- 2-1 block end -->
-</div>
 @stop

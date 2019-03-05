@@ -13,4 +13,5 @@
 
 Route::get('/', function () {
     return view('index');
-});
+})->name('index');
+Route::get('ongoing', 'linkController@ongoing')->name('ongoing');

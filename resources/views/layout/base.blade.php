@@ -3,7 +3,7 @@
 
   <head>
     <title>Able Pro Responsive Bootstrap 4 Admin Template by Phoenixcoded</title>
-    
+
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
@@ -56,7 +56,9 @@
       <div class="content-wrapper">
         <!-- Container-fluid starts -->
           <!-- Main content starts -->
-          @yield('content')
+          <div class="container-fluid">
+            @yield('content')
+          </div>
           <!-- Main content ends -->
         <!-- Container-fluid ends -->
 
