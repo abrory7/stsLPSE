@@ -10,42 +10,42 @@
  <div class="row m-b-30 dashboard-header">
      <div class="col-lg-3 col-sm-6">
          <div class="col-sm-12 card dashboard-product">
-             <span>Products</span>
-             <h2 class="dashboard-total-products counter">4500</h2>
-             <span class="label label-warning">Orders</span>New Orders
-             <div class="side-box bg-warning">
-                 <i class="icon-docs"></i>
+             <span>On Going Ticket</span>
+             <h2 class="dashboard-total-products counter">3</h2>
+             Tiket
+             <div class="side-box bg-danger">
+                 <i class="icon-direction"></i>
              </div>
          </div>
      </div>
      <div class="col-lg-3 col-sm-6">
          <div class="col-sm-12 card dashboard-product">
-             <span>Products</span>
-             <h2 class="dashboard-total-products counter">37,500</h2>
-             <span class="label label-primary">Sales</span>Last Week Sales
+             <span>Tiket Selesai Minggu Ini</span>
+             <h2 class="dashboard-total-products counter">7</h2>
+             Tiket
+             <div class="side-box bg-info">
+                 <i class="icon-graph"></i>
+             </div>
+         </div>
+     </div>
+     <div class="col-lg-3 col-sm-6">
+         <div class="col-sm-12 card dashboard-product">
+             <span>Tiket Selesai Bulan Ini</span>
+             <h2 class="dashboard-total-products counter">28</h2>
+             Tiket
              <div class="side-box bg-primary">
-                 <i class="icon-docs"></i>
-             </div>
-         </div>
-     </div>
-     <div class="col-lg-3 col-sm-6">
-         <div class="col-sm-12 card dashboard-product">
-             <span>Products</span>
-             <h2 class="dashboard-total-products">$<span class="counter">30,780</span></h2>
-             <span class="label label-success">Sales</span>Total Sales
-             <div class="side-box bg-success">
-                 <i class="icon-docs"></i>
+                 <i class="icon-graph"></i>
              </div>
          </div>
      </div>
 
      <div class="col-lg-3 col-sm-6">
          <div class="col-sm-12 card dashboard-product">
-             <span>Products</span>
-             <h2 class="dashboard-total-products">$<span class="counter">30,780</span></h2>
-             <span class="label label-danger">Views</span>Views Today
-             <div class="side-box bg-danger">
-                 <i class="icon-docs"></i>
+             <span>Tiket Selesai Tahun Ini</span>
+             <h2 class="dashboard-total-products counter">336</h2>
+             Tiket
+             <div class="side-box bg-success">
+                 <i class="icon-graph"></i>
              </div>
          </div>
      </div>

@@ -124,8 +124,7 @@
           <div class="user-panel">
             <div class="f-left image"><img src="{{ ('res/assets/images/avatar-1.png') }}" alt="User Image" class="img-circle"></div>
             <div class="f-left info">
-              <p>John Doe</p>
-              <p class="designation">UX Designer <i class="icofont icofont-caret-down m-l-5"></i></p>
+              <p>Help Desk</p>
             </div>
           </div>
 
