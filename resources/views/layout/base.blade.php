@@ -166,7 +166,17 @@
             </li>
             <li class="treeview">
               <a class="waves-effect waves-dark" href="basic-table.html">
-                <i class="icon-list"></i><span> Table</span>
+                <i class="icon-direction"></i><span> On Going Ticket</span>
+              </a>
+            </li>
+            <li class="treeview">
+              <a class="waves-effect waves-dark" href="basic-table.html">
+                <i class="icon-note"></i><span> Buat Ticket Laporan</span>
+              </a>
+            </li>
+            <li class="treeview">
+              <a class="waves-effect waves-dark" href="basic-table.html">
+                <i class="icon-check"></i><span> Ticket Selesai</span>
               </a>
             </li>
           </ul>
