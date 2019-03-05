@@ -86,7 +86,7 @@
                   <li class="bell-notification">
                     <a href="javascript:;" class="media">
                       <span class="media-left media-icon">
-                        <img class="img-circle" src="assets/images/avatar-2.png" alt="User Image">
+                        <img class="img-circle" src="{{ ('res/assets/images/avatar-2.png') }}" alt="User Image">
                       </span>
                       <div class="media-body"><span class="block">Server Not Working</span><span class="text-muted block-time">20min ago</span></div>
                     </a>
@@ -94,7 +94,7 @@
                   <li class="bell-notification">
                     <a href="javascript:;" class="media">
                       <span class="media-left media-icon">
-                        <img class="img-circle" src="assets/images/avatar-3.png" alt="User Image">
+                        <img class="img-circle" src="{{ ('res/assets/images/avatar-3.png') }}" alt="User Image">
                       </span>
                       <div class="media-body"><span class="block">Transaction xyz complete</span><span class="text-muted block-time">3 hours ago</span></div>
                     </a>
@@ -106,15 +106,13 @@
               </li>
               <!-- window screen -->
               <li class="pc-rheader-submenu">
-                <a href="#!" class="drop icon-circle" onclick="javascript:toggleFullScreen()">
+                <a href="#!" class="drop icon-circle" onclick="javascript:toggleFullScreen()"  data-toggle="tooltip" data-trigger="hover" data-placement="bottom" title="Fullscreen">
                   <i class="icon-size-fullscreen"></i>
                 </a>
               </li>
               <!-- User Menu-->
               <li>
-                <div class="tooltip-link">
-                  <a href="#!"data-toggle="tooltip" data-trigger="hover" data-placement="bottom"><i class="icon-logout"></i></a>
-                </div>
+                <a href="#!" data-toggle="tooltip" data-trigger="hover" data-placement="bottom" title="Logout"><i class="icon-logout"></i></a>
               </li>
             </ul>
           </div>
@@ -130,31 +128,6 @@
               <p class="designation">UX Designer <i class="icofont icofont-caret-down m-l-5"></i></p>
             </div>
           </div>
-
-          <!-- sidebar profile Menu-->
-          <ul class="nav sidebar-menu extra-profile-list">
-            <li>
-              <a class="waves-effect waves-dark" href="profile.html">
-                <i class="icon-user"></i>
-                <span class="menu-text">View Profile</span>
-                <span class="selected"></span>
-              </a>
-            </li>
-            <li>
-              <a class="waves-effect waves-dark" href="javascript:void(0)">
-                <i class="icon-settings"></i>
-                <span class="menu-text">Settings</span>
-                <span class="selected"></span>
-              </a>
-            </li>
-            <li>
-              <a class="waves-effect waves-dark" href="javascript:void(0)">
-                <i class="icon-logout"></i>
-                <span class="menu-text">Logout</span>
-                <span class="selected"></span>
-              </a>
-            </li>
-          </ul>
 
           <!-- Sidebar Menu-->
           <ul class="sidebar-menu">
@@ -240,6 +213,11 @@
         else {
           nav.removeClass('active');
         }
+      });
+    </script>
+    <script>
+      $(document).ready(function(){
+        $('[data-toggle="tooltip"]').tooltip();
       });
     </script>
   </body>
