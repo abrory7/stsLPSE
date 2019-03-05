@@ -3,13 +3,7 @@
 
   <head>
     <title>Able Pro Responsive Bootstrap 4 Admin Template by Phoenixcoded</title>
-    <!-- HTML5 Shim and Respond.js IE9 support of HTML5 elements and media queries -->
-    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
-    <!--[if lt IE 9]>
-    <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-    <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
-    <![endif]-->
-
+    
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
@@ -56,104 +50,9 @@
     <div class="wrapper">
 
       <!-- Navbar-->
-      <header class="main-header-top hidden-print">
-        <a href="index.html" class="logo"><img class="img-fluid able-logo" src="{{ ('res/assets/images/logo.png') }}" alt="Theme-logo"></a>
-        <nav class="navbar navbar-static-top">
-
-          <!-- Sidebar toggle button-->
-          <a href="#!" data-toggle="offcanvas" class="sidebar-toggle"></a>
-
-          <!-- Navbar Right Menu-->
-          <div class="navbar-custom-menu f-right">
-            <ul class="top-nav">
-
-              <!--Notification Menu-->
-              <li class="dropdown notification-menu">
-                <a href="#!" data-toggle="dropdown" aria-expanded="false" class="dropdown-toggle">
-                  <i class="icon-bell"></i>
-                  <span class="badge badge-danger header-badge">9</span>
-                </a>
-                <ul class="dropdown-menu">
-                  <li class="not-head">You have <b class="text-primary">4</b> new notifications.</li>
-                  <li class="bell-notification">
-                    <a href="javascript:;" class="media">
-                      <span class="media-left media-icon">
-                        <img class="img-circle" src="{{ ('res/assets/images/avatar-1.png') }}" alt="User Image">
-                      </span>
-                      <div class="media-body"><span class="block">Lisa sent you a mail</span><span class="text-muted block-time">2min ago</span></div>
-                    </a>
-                  </li>
-                  <li class="bell-notification">
-                    <a href="javascript:;" class="media">
-                      <span class="media-left media-icon">
-                        <img class="img-circle" src="{{ ('res/assets/images/avatar-2.png') }}" alt="User Image">
-                      </span>
-                      <div class="media-body"><span class="block">Server Not Working</span><span class="text-muted block-time">20min ago</span></div>
-                    </a>
-                  </li>
-                  <li class="bell-notification">
-                    <a href="javascript:;" class="media">
-                      <span class="media-left media-icon">
-                        <img class="img-circle" src="{{ ('res/assets/images/avatar-3.png') }}" alt="User Image">
-                      </span>
-                      <div class="media-body"><span class="block">Transaction xyz complete</span><span class="text-muted block-time">3 hours ago</span></div>
-                    </a>
-                  </li>
-                  <li class="not-footer">
-                    <a href="#!">See all notifications.</a>
-                  </li>
-                </ul>
-              </li>
-              <!-- window screen -->
-              <li class="pc-rheader-submenu">
-                <a href="#!" class="drop icon-circle" onclick="javascript:toggleFullScreen()"  data-toggle="tooltip" data-trigger="hover" data-placement="bottom" title="Fullscreen">
-                  <i class="icon-size-fullscreen"></i>
-                </a>
-              </li>
-              <!-- User Menu-->
-              <li>
-                <a href="#!" data-toggle="tooltip" data-trigger="hover" data-placement="bottom" title="Logout"><i class="icon-logout"></i></a>
-              </li>
-            </ul>
-          </div>
-        </nav>
-      </header>
+      @include('layout.navbar')
       <!-- Side-Nav-->
-      <aside class="main-sidebar hidden-print " >
-        <section class="sidebar" id="sidebar-scroll">
-          <div class="user-panel">
-            <div class="f-left image"><img src="{{ ('res/assets/images/avatar-1.png') }}" alt="User Image" class="img-circle"></div>
-            <div class="f-left info">
-              <p>Help Desk</p>
-            </div>
-          </div>
-
-          <!-- Sidebar Menu-->
-          <ul class="sidebar-menu">
-            <li class="nav-level">Navigation</li>
-            <li class="active treeview">
-              <a class="waves-effect waves-dark" href="index.html">
-                <i class="icon-speedometer"></i><span> Dashboard</span>
-              </a>
-            </li>
-            <li class="treeview">
-              <a class="waves-effect waves-dark" href="basic-table.html">
-                <i class="icon-direction"></i><span> On Going Ticket</span>
-              </a>
-            </li>
-            <li class="treeview">
-              <a class="waves-effect waves-dark" href="basic-table.html">
-                <i class="icon-note"></i><span> Buat Ticket Laporan</span>
-              </a>
-            </li>
-            <li class="treeview">
-              <a class="waves-effect waves-dark" href="basic-table.html">
-                <i class="icon-check"></i><span> Ticket Selesai</span>
-              </a>
-            </li>
-          </ul>
-        </section>
-      </aside>
+      @include('layout.sidebar')
       <div class="content-wrapper">
         <!-- Container-fluid starts -->
           <!-- Main content starts -->
@@ -163,61 +62,7 @@
 
       </div>
     </div>
-
-    <!-- Required Jqurey -->
-    <script src="{{ asset('res/assets/plugins/jquery/dist/jquery.min.js') }}"></script>
-    <script src="{{ asset('res/assets/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
-    <script src="{{ asset('res/assets/plugins/tether/dist/js/tether.min.js') }}"></script>
-
-    <!-- Required Fremwork -->
-    <script src="{{ asset('res/assets/plugins/bootstrap/js/bootstrap.min.js') }}"></script>
-
-    <!-- waves effects.js -->
-    <script src="{{ asset('res/assets/plugins/Waves/waves.min.js') }}"></script>
-
-    <!-- Scrollbar JS-->
-    <script src="{{ asset('res/assets/plugins/jquery-slimscroll/jquery.slimscroll.js') }}"></script>
-    <script src="{{ asset('res/assets/plugins/jquery.nicescroll/jquery.nicescroll.min.js') }}"></script>
-
-    <!--classic JS-->
-    <script src="{{ asset('res/assets/plugins/classie/classie.js') }}"></script>
-
-    <!-- notification -->
-    <script src="{{ asset('res/assets/plugins/notification/js/bootstrap-growl.min.js') }}"></script>
-
-    <!-- Rickshaw Chart js -->
-    <script src="{{ asset('res/assets/plugins/d3/d3.js') }}"></script>
-    <script src="{{ asset('res/assets/plugins/rickshaw/rickshaw.js') }}"></script>
-
-    <!-- Sparkline charts -->
-    <script src="{{ asset('res/assets/plugins/jquery-sparkline/dist/jquery.sparkline.js') }}"></script>
-
-    <!-- Counter js  -->
-    <script src="{{ asset('res/assets/plugins/waypoints/jquery.waypoints.min.js') }}"></script>
-    <script src="{{ asset('res/assets/plugins/countdown/js/jquery.counterup.js') }}"></script>
-
-    <!-- custom js -->
-    <script type="text/javascript" src="{{ asset('res/assets/js/main.js') }} "></script>
-    <script type="text/javascript" src="{{ asset('res/assets/pages/dashboard.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('res/assets/pages/elements.js') }}"></script>
-    <script src="{{ asset('res/assets/js/menu.min.js') }}"></script>
-
-    <script>
-      var $window = $(window);
-      var nav = $('.fixed-button');
-      $window.scroll(function(){
-        if ($window.scrollTop() >= 200) {
-          nav.addClass('active');
-        }
-        else {
-          nav.removeClass('active');
-        }
-      });
-    </script>
-    <script>
-      $(document).ready(function(){
-        $('[data-toggle="tooltip"]').tooltip();
-      });
-    </script>
+    <!-- script -->
+    @include('layout.script')
   </body>
 </html>
