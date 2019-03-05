@@ -21,7 +21,7 @@
         </a>
       </li>
       <li class="treeview">
-        <a class="waves-effect waves-dark" href="basic-table.html">
+        <a class="waves-effect waves-dark" href="{{ route('createTicket') }}">
           <i class="icon-note"></i><span> Buat Tiket Laporan</span>
         </a>
       </li>

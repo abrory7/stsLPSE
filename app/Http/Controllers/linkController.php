@@ -10,4 +10,8 @@ class linkController extends Controller
   {
       return view('ongoing');
   }
+  public function createTicket()
+  {
+      return view('createTicket');
+  }
 }
