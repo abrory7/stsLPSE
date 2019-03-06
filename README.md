@@ -8,3 +8,14 @@
 Untuk daftar icon yang bisa dipakai: https://coreui.io/v1/demo/pro/AngularJS_Demo/#!/icons/simple-line-icons
 
 Untuk referensi styling dan yang lainnya, lihat file2 pada folder /public/res
+
+
+## Database Migrations
+
+### TODO
+ [ ] users
+ [ ] ticket
+ [ ] ticket_status
+ [ ] notifikasi
+ [ ] status_solusi
+ [ ] laporan

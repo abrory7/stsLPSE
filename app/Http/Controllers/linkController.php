@@ -8,10 +8,15 @@ class linkController extends Controller
 {
   public function ongoing()
   {
-      return view('ongoing');
+      return view('ticket.ongoing');
   }
   public function createTicket()
   {
-      return view('createTicket');
+      return view('ticket.create');
+  }
+
+  public function trackTicket()
+  {
+      return view('ticket.track');
   }
 }

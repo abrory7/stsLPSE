@@ -15,4 +15,5 @@ Route::get('/', function () {
     return view('index');
 })->name('index');
 Route::get('ongoing', 'linkController@ongoing')->name('ongoing');
-Route::get('buat_tiket', 'linkController@createTicket')->name('createTicket');
+Route::get('buat_tiket', 'linkController@create')->name('createTicket');
+Route::get('track', 'linkController@track')->name('trackTicket');
