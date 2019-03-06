@@ -26,12 +26,7 @@
         </a>
       </li>
       <li class="treeview">
-        <a class="waves-effect waves-dark" href="{{ route('trackTicket') }}">
-          <i class="icon-note"></i><span> Track Tiket</span>
-        </a>
-      </li>
-      <li class="treeview">
-        <a class="waves-effect waves-dark" href="basic-table.html">
+        <a class="waves-effect waves-dark" href="{{ route('finishedTicket') }}">
           <i class="icon-check"></i><span> Tiket Selesai</span>
         </a>
       </li>

@@ -2,7 +2,7 @@
 @section('content')
 <div class="row">
     <div class="main-header">
-        <h4>On Going Ticket</h4>
+        <h4>Tiket Selesai</h4>
     </div>
 </div>
 <div class="card">
@@ -19,7 +19,6 @@
                         <th>Judul Laporan</th>
                         <th>Kategori</th>
                         <th>Dibuat Pada</th>
-                        <th>Limit Penyelesaian</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -30,7 +29,6 @@
                         <td>Lupa Password</td>
                         <td>Akun</td>
                         <td>5 Maret 2018</td>
-                        <td>3 Hari</td>
                     </tr>
                     <tr>
                       <td>2</td>
@@ -39,7 +37,6 @@
                       <td>Lupa Password</td>
                       <td>Akun</td>
                       <td>5 Maret 2018</td>
-                      <td>3 Hari</td>
                     </tr>
                     <tr>
                       <td>3</td>
@@ -48,7 +45,6 @@
                       <td>Lupa Password</td>
                       <td>Akun</td>
                       <td>5 Maret 2018</td>
-                      <td>3 Hari</td>
                     </tr>
                     <tr>
                       <td>4</td>
@@ -57,7 +53,6 @@
                       <td>Lupa Password</td>
                       <td>Akun</td>
                       <td>5 Maret 2018</td>
-                      <td>3 Hari</td>
                     </tr>
                     <tr>
                       <td>5</td>
@@ -66,7 +61,6 @@
                       <td>Lupa Password</td>
                       <td>Akun</td>
                       <td>5 Maret 2018</td>
-                      <td>3 Hari</td>
                     </tr>
                     <tr>
                       <td>6</td>
@@ -75,7 +69,6 @@
                       <td>Lupa Password</td>
                       <td>Akun</td>
                       <td>5 Maret 2018</td>
-                      <td>3 Hari</td>
                     </tr>
                     <tr>
                       <td>7</td>
@@ -84,7 +77,6 @@
                       <td>Lupa Password</td>
                       <td>Akun</td>
                       <td>5 Maret 2018</td>
-                      <td>3 Hari</td>
                     </tr>
                     <tr>
                       <td>8</td>
@@ -93,7 +85,6 @@
                       <td>Lupa Password</td>
                       <td>Akun</td>
                       <td>5 Maret 2018</td>
-                      <td>3 Hari</td>
                     </tr>
                     </tbody>
                 </table>
