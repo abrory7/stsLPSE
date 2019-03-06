@@ -87,3 +87,11 @@
   </div>
 <!-- 2-1 block end -->
 @stop
+@section('AddScript')
+<script type="text/javascript">
+    function actnav() {
+      var element = document.getElementById("home");
+      element.classList.add("active");
+    }
+</script>
+@stop

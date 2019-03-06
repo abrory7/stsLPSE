@@ -42,7 +42,7 @@
     <link rel="stylesheet" type="text/css" href="{{ asset('res/assets/css/color/color-1.min.css') }}" id="color"/>
 
   </head>
-  <body class="sidebar-mini fixed">
+  <body class="sidebar-mini fixed" onload="actnav()">
     <div class="loader-bg">
       <div class="loader-bar">
       </div>

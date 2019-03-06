@@ -43,3 +43,11 @@
   </div>
 </div>
 @stop
+@section('AddScript')
+<script type="text/javascript">
+    function actnav() {
+      var element = document.getElementById("create");
+      element.classList.add("active");
+    }
+</script>
+@stop
