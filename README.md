@@ -13,9 +13,9 @@ Untuk referensi styling dan yang lainnya, lihat file2 pada folder /public/res
 ## Database Migrations
 
 ### TODO
- [ ] users
- [ ] ticket
- [ ] ticket_status
- [ ] notifikasi
- [ ] status_solusi
- [ ] laporan
+- [ ] users
+- [ ] ticket
+- [ ] ticket_status
+- [ ] notifikasi
+- [ ] status_solusi
+- [ ] laporan
