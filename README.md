@@ -9,6 +9,15 @@ Untuk daftar icon yang bisa dipakai: https://coreui.io/v1/demo/pro/AngularJS_Dem
 
 Untuk referensi styling dan yang lainnya, lihat file2 pada folder /public/res
 
+# System Feature
+
+- [ ] Login
+- [ ] Input permasalahan
+- [ ] prioritas
+- [ ] assignment
+- [ ] timeline
+- [ ] input solusi permasalahan
+- [ ] status ticket
 
 ## Database Migrations
 
