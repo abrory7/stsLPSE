@@ -23,3 +23,6 @@ Route::get('test', function(){
 
     return view('test', compact('stats'));
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
