@@ -55,7 +55,7 @@
 						</h3>
 						<div class="md-input-wrapper">
 							<input type="text" id="username" name="username" class="md-form-control" required autofocus>
-							<label>Username</label>
+							<label>Username or email</label>
               @if ($errors->has('username'))
                   <span class="invalid-feedback" role="alert">
                       <strong>{{ $errors->first('username') }}</strong>
