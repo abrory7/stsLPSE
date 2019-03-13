@@ -15,6 +15,10 @@ class TableAssign extends Migration
     {
         Schema::create('assign', function (Blueprint $table) {
             $table->bigIncrements('id');
+            $table->unsignedBigInteger('users_id');
+            $table->unsignedBigInteger('aduan_id');
+            $table->foreign('users_id')->references('id')->on('users');
+            $table->foreign('aduan_id')->references('id')->on('aduan');
             $table->timestamps();
         });
     }
