@@ -54,7 +54,15 @@
         </li>
         <!-- User Menu-->
         <li>
-          <a href="#!" data-toggle="tooltip" data-trigger="hover" data-placement="bottom" title="Logout"><i class="icon-logout"></i></a>
+          <a href="{{ route('logout') }}" data-toggle="tooltip" data-trigger="hover" data-placement="bottom" title="Logout"
+             onclick="event.preventDefault();
+                           document.getElementById('logout-form').submit();">
+              <i class="icon-logout"></i></a>
+          </a>
+
+          <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+              @csrf
+          </form>
         </li>
       </ul>
     </div>
