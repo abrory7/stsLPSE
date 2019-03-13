@@ -8,7 +8,7 @@
 <div class="card">
   <div class="card-block">
     <div class="row">
-      <form action="{{route('insertTicket')}}" method="POST">
+      <form action="{{route('storeTicket')}}" method="POST">
       {{ csrf_field() }}
         <div class="form-group">
           <label for="exampleFormControlInput1">Nama</label>

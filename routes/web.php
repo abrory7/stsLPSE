@@ -23,7 +23,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 // Penamaan "name" pakai style camelCase.
 Route::prefix('tiket')->group(function(){
     Route::get('create', 'linkController@create')->name('createTicket');
-    Route::post('insert', 'linkController@insert')->name('insertTicket');
+    Route::post('store', 'linkController@store')->name('storeTicket');
     Route::get('track', 'linkController@track')->name('trackTicket');
     Route::get('ongoing', 'linkController@ongoing')->name('ongoingTicket');
     Route::get('finish', 'linkController@finished')->name('finishedTicket');
