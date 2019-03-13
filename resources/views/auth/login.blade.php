@@ -45,7 +45,7 @@
 
 			<div class="col-sm-12">
 				<div class="login-card card-block">
-					<form class="md-float-material" action="{{ route('login') }}">
+					<form class="md-float-material" action="{{ route('login') }}" method="post">
             @csrf
 						<div class="text-center">
 							<img src="{{ asset('res/assets/images/logo-blue.png') }}" alt="logo">
@@ -54,11 +54,11 @@
 							Sign In to your account
 						</h3>
 						<div class="md-input-wrapper">
-							<input type="email" id="email" name="email" class="md-form-control" required autofocus>
-							<label>Email</label>
-              @if ($errors->has('email'))
+							<input type="text" id="username" name="username" class="md-form-control" required autofocus>
+							<label>Username</label>
+              @if ($errors->has('username'))
                   <span class="invalid-feedback" role="alert">
-                      <strong>{{ $errors->first('email') }}</strong>
+                      <strong>{{ $errors->first('username') }}</strong>
                   </span>
               @endif
 						</div>
@@ -73,7 +73,7 @@
 						</div
 						<div class="row">
 							<div class="col-xs-10 offset-xs-1">
-								<button type="button" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">LOGIN</button>
+								<button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">LOGIN</button>
 							</div>
 						</div>
 					</form>
