@@ -16,7 +16,7 @@
         </a>
       </li>
       <li id="ongoing" class="treeview">
-        <a class="waves-effect waves-dark" href="{{ route('ongoing') }}">
+        <a class="waves-effect waves-dark" href="{{ route('ongoingTicket') }}">
           <i class="icon-direction"></i><span> On Going Ticket</span>
         </a>
       </li>

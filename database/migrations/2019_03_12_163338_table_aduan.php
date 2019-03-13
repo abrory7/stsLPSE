@@ -32,7 +32,7 @@ class TableAduan extends Migration
             $table->longText('subjek');
             $table->string('gambar')->nullable();
             $table->unsignedBigInteger('kategori_id');
-            $table->foreign('kategori_id')->references('id')->on('kategori');
+            $table->foreign('kategori_id')->references('id')->on('kategori')->onDelete('cascade');
             $table->timestamps();
         });
     }

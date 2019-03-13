@@ -15,13 +15,17 @@ Auth::routes();
 Route::get('/', function () {
     return view('index');
 })->name('index')->middleware('auth');
-Route::get('ongoing', 'linkController@ongoing')->name('ongoing');
-Route::get('buat_tiket', 'linkController@create')->name('createTicket');
-Route::get('track', 'linkController@track')->name('trackTicket');
-Route::get('tiket_selesai', 'linkController@finished')->name('finishedTicket');
-Route::get('track_test', function(){
-    $stats = DB::table('status_ticket')->where('ticket_id', 1)->get();
-
-    return view('test', compact('stats'));
-});
 Route::get('/home', 'HomeController@index')->name('home');
+
+// Group prefix ini berhubungan dengan tiket e.g CRUD, track, status tiket
+// contoh aksesnya localhost:8000/tiket/"create" <= sesuai dengan method
+// https://laravel.com/docs/5.8/routing#route-group-prefixes
+// Penamaan "name" pakai style camelCase.
+Route::prefix('tiket')->group(function(){
+    Route::get('create', 'linkController@create')->name('createTicket');
+    Route::post('insert', 'linkController@insert')->name('insertTicket');
+    Route::get('track', 'linkController@track')->name('trackTicket');
+    Route::get('ongoing', 'linkController@ongoing')->name('ongoingTicket');
+    Route::get('finish', 'linkController@finished')->name('finishedTicket');
+    Route::post('delete', 'linkCOntroller@delete')->name('deleteTicket');
+});
