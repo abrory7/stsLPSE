@@ -13,7 +13,7 @@
 
 Route::get('/', function () {
     return view('index');
-})->name('index');
+})->name('index')->middleware('auth');
 Route::get('ongoing', 'linkController@ongoing')->name('ongoing');
 Route::get('buat_tiket', 'linkController@create')->name('createTicket');
 Route::get('track', 'linkController@track')->name('trackTicket');
@@ -23,3 +23,6 @@ Route::get('track_test', function(){
 
     return view('test', compact('stats'));
 });
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

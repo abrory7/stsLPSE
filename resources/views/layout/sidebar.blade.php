@@ -3,7 +3,7 @@
     <div class="user-panel">
       <div class="f-left image"><img src="{{ ('res/assets/images/avatar-1.png') }}" alt="User Image" class="img-circle"></div>
       <div class="f-left info">
-        <p>Help Desk</p>
+        <p>{{ Auth::user()->name }}</p>
       </div>
     </div>
 
