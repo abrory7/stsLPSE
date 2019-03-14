@@ -29,7 +29,9 @@ Route::prefix('tiket')->group(function(){
     Route::get('track/{nomor_ticket}', 'linkController@track')->name('trackTicket');
     Route::get('ongoing', 'linkController@ongoing')->name('ongoingTicket');
     Route::get('finish', 'linkController@finished')->name('finishedTicket');
-    Route::post('delete', 'linkCOntroller@delete')->name('deleteTicket');
+    Route::post('delete', 'linkController@delete')->name('deleteTicket');
+    Route::get('solution/{id_aduan}', 'linkController@solution')->name('solutionTicket');
+    Route::post('addsolusi', 'linkController@solusi')->name('addSolution');
 });
 
 Route::get('/test', function(){

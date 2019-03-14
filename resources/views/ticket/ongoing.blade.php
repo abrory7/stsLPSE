@@ -19,6 +19,7 @@
                         <th>Kategori</th>
                         <th>Dibuat Pada</th>
                         <th>Limit Penyelesaian</th>
+                        <th>Aksi</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -30,7 +31,11 @@
                         <td>{{$ticket->aduan->kategori->kategori}}</td>
                         <td>{{$ticket->created_at}}</td>
                         <td>{{$ticket->expire}}</td>
-                    </tr>    
+                        <td>
+                          <a href="{{ route('solutionTicket', $ticket->aduan->id) }}" class="btn btn-primary">Beri Solusi</a>
+                          <a href="#" class="btn btn-success">Akhiri Tiket</a>
+                        </td>
+                    </tr>
                     @endforeach
                     </tbody>
                 </table>

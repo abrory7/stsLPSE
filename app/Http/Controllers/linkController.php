@@ -7,19 +7,21 @@ use App\Aduan;
 use App\Kategori;
 use App\Ticket;
 use App\StatusTicket;
+use App\Solusi;
+use Auth;
 
 class linkController extends Controller
 {
-    // PAKAI TAB PLEASE    
-    
+    // PAKAI TAB PLEASE
+
     public function ongoing()
     {
-        $tickets = Ticket::all();        
+        $tickets = Ticket::all();
         return view('ticket.ongoing', compact('tickets'));
     }
 
     public function create()
-    {   
+    {
         $kategori = Kategori::all();
         return view('ticket.create', compact('kategori'));
     }
@@ -27,8 +29,14 @@ class linkController extends Controller
     public function track($nomor_ticket)
     {
         $ticket = Ticket::where('nomor_ticket', $nomor_ticket)->first();
-        $ticket_status = StatusTicket::where('ticket_id', $ticket->id)->get();              
+        $ticket_status = StatusTicket::where('ticket_id', $ticket->id)->get();
         return view('ticket.track', compact('ticket_status'));
+    }
+
+    public function solution($id_aduan)
+    {
+        $aduan = Aduan::where('id', $id_aduan)->first();
+        return view('ticket.solution', compact('aduan'));
     }
 
     public function finished()
@@ -56,9 +64,9 @@ class linkController extends Controller
         $aduan->nama_satuan_kerja = $req->nama_satuan_kerja;
         $aduan->gambar = $req->gambar; // Belum dibuat type file
         $aduan->pesan = $req->pesan;
-        $aduan->subjek = $req->subjek;        
+        $aduan->subjek = $req->subjek;
         $aduan->save();
-        
+
         // Buat Ticket
         $ticket = new Ticket();
         $ticket->aduan_id = $aduan->id;
@@ -67,12 +75,22 @@ class linkController extends Controller
         $ticket->expire = date('d-m-Y', strtotime(Date('d-m-Y'). ' + 2 days'));
         $ticket->save();
 
-        //update status ticket 
+        //update status ticket
         // kode status : 1. Diterima Helpdesk; 2. apalah; 3. apalah;
         $statusTicket = new StatusTicket();
-        $statusTicket->ticket_id = $ticket->id;        
+        $statusTicket->ticket_id = $ticket->id;
         $statusTicket->status = "1";
         $statusTicket->save();
+        return redirect()->route('ongoingTicket');
+    }
+
+    public function solusi(Request $req){
+        $solusi = new Solusi();
+        $solusi->aduan_id =  $req->aduan_id;
+        $solusi->users_id = Auth::user()->id;
+        $solusi->solusi = $req->solusi;
+        $solusi->save();
+
         return redirect()->route('ongoingTicket');
     }
 }

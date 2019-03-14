@@ -24,7 +24,7 @@
                     <tbody>
                     <tr>
                         <td>1</td>
-                        <td><a href="{{ route('trackTicket') }}" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Lacak Tiket Ini"><u>9999</u></a></td>
+                        <td><a href="{{ route('trackTicket', 1) }}" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Lacak Tiket Ini"><u>9999</u></a></td>
                         <td class="bg-danger">Darurat</td>
                         <td>Lupa Password</td>
                         <td>Akun</td>
@@ -32,7 +32,7 @@
                     </tr>
                     <tr>
                       <td>2</td>
-                      <td><a href="{{ route('trackTicket') }}" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Lacak Tiket Ini"><u>999</u></a></td>
+                      <td><a href="{{ route('trackTicket', 2) }}" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Lacak Tiket Ini"><u>999</u></a></td>
                       <td class="bg-warning">Penting</td>
                       <td>Lupa Password</td>
                       <td>Akun</td>
@@ -40,52 +40,22 @@
                     </tr>
                     <tr>
                       <td>3</td>
-                      <td><a href="{{ route('trackTicket') }}" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Lacak Tiket Ini"><u>999</u></a></td>
+                      <td><a href="{{ route('trackTicket', 3) }}" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Lacak Tiket Ini"><u>999</u></a></td>
                       <td class="bg-primary">Sedang</td>
                       <td>Lupa Password</td>
                       <td>Akun</td>
                       <td>5 Maret 2018</td>
                     </tr>
+                    @for($i = 1; $i <= 6; $i++)
                     <tr>
-                      <td>4</td>
-                      <td><a href="{{ route('trackTicket') }}" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Lacak Tiket Ini"><u>999</u></a></td>
+                      <td>{{ 4+$i }}</td>
+                      <td><a href="{{ route('trackTicket', 4+$i) }}" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Lacak Tiket Ini"><u>999</u></a></td>
                       <td>Normal</td>
                       <td>Lupa Password</td>
                       <td>Akun</td>
                       <td>5 Maret 2018</td>
                     </tr>
-                    <tr>
-                      <td>5</td>
-                      <td><a href="{{ route('trackTicket') }}" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Lacak Tiket Ini"><u>999</u></a></td>
-                      <td>Normal</td>
-                      <td>Lupa Password</td>
-                      <td>Akun</td>
-                      <td>5 Maret 2018</td>
-                    </tr>
-                    <tr>
-                      <td>6</td>
-                      <td><a href="{{ route('trackTicket') }}" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Lacak Tiket Ini"><u>999</u></a></td>
-                      <td>Normal</td>
-                      <td>Lupa Password</td>
-                      <td>Akun</td>
-                      <td>5 Maret 2018</td>
-                    </tr>
-                    <tr>
-                      <td>7</td>
-                      <td><a href="{{ route('trackTicket') }}" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Lacak Tiket Ini"><u>999</u></a></td>
-                      <td>Normal</td>
-                      <td>Lupa Password</td>
-                      <td>Akun</td>
-                      <td>5 Maret 2018</td>
-                    </tr>
-                    <tr>
-                      <td>8</td>
-                      <td><a href="{{ route('trackTicket') }}" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Lacak Tiket Ini"><u>999</u></a></td>
-                      <td>Normal</td>
-                      <td>Lupa Password</td>
-                      <td>Akun</td>
-                      <td>5 Maret 2018</td>
-                    </tr>
+                    @endfor
                     </tbody>
                 </table>
             </div>
