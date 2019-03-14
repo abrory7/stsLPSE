@@ -8,34 +8,83 @@
 <div class="card">
   <div class="card-block">
     <div class="row">
-      <form>
+      <form action="{{route('storeTicket')}}" method="POST">
+      {{ csrf_field() }}
         <div class="form-group">
-          <label for="exampleFormControlInput1">Email address</label>
-          <input type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+          <label for="exampleFormControlInput1">Nama</label>
+          <input name="nama" type="text" class="form-control">
         </div>
         <div class="form-group">
-          <label for="exampleFormControlSelect1">Example select</label>
-          <select class="form-control" id="exampleFormControlSelect1">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+          <label for="exampleFormControlInput1">Alamat</label>
+          <input name="alamat" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Perusahaan</label>
+          <input name="perusahaan" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlInput1">NPWP</label>
+          <input name="npwp" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlInput1">no_telp</label>
+          <input name="no_telp" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlInput1">HP</label>
+          <input name="hp" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Fax</label>
+          <input name="fax" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Email</label>
+          <input name="email" type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Username SPSE</label>
+          <input name="username_spse" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Password SPSE</label>
+          <input name="password_spse" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Nama Lelang</label>
+          <input name="nama_lelang" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Kode Lelang</label>
+          <input name="kode_lelang" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Nama Satuan Kerja</label>
+          <input name="nama_satuan_kerja" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Subjek</label>
+          <input name="subjek" type="text" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="exampleFormControlInput1">Pesan</label>
+          <textarea class="form-control" rows="5" name="pesan"> </textarea>
+        </div>
+        <div class="form-group">
+          <label>Kategori Masalah</label>
+          <select name="kategori_id" class="form-control">
+            @foreach($kategori as $kategori)
+              <option value="{{$kategori->id}}">{{$kategori->kategori}}</option>
+            @endforeach
           </select>
         </div>
         <div class="form-group">
-          <label for="exampleFormControlSelect2">Example multiple select</label>
-          <select multiple class="form-control" id="exampleFormControlSelect2">
-            <option>1</option>
-            <option>2</option>
-            <option>3</option>
-            <option>4</option>
-            <option>5</option>
+          <label for="exampleFormControlInput1">Urgensi</label>
+          <select name="urgensi" class="form-control">
+            <option value="Normal">Normal</option>            
+            <option value="Penting">Penting</option>            
+            <option value="Darurat">Darurat</option>
           </select>
-        </div>
-        <div class="form-group">
-          <label for="exampleFormControlTextarea1">Example textarea</label>
-          <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
       </form>
