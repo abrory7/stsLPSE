@@ -13,7 +13,6 @@
                 <table class="table table-hover">
                     <thead>
                     <tr>
-                        <th>#</th>
                         <th>No. Tiket</th>
                         <th>Urgensi</th>
                         <th>Judul Laporan</th>
@@ -24,77 +23,15 @@
                     </thead>
                     <tbody>
                     <tr>
-                        <td>1</td>
-                        <td><a href="{{ route('trackTicket') }}" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Lacak Tiket Ini"><u>9999</u></a></td>
-                        <td class="bg-danger">Darurat</td>
-                        <td>Lupa Password</td>
-                        <td>Akun</td>
-                        <td>5 Maret 2018</td>
-                        <td>3 Hari</td>
-                    </tr>
-                    <tr>
-                      <td>2</td>
-                      <td><a href="{{ route('trackTicket') }}" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Lacak Tiket Ini"><u>999</u></a></td>
-                      <td class="bg-warning">Penting</td>
-                      <td>Lupa Password</td>
-                      <td>Akun</td>
-                      <td>5 Maret 2018</td>
-                      <td>3 Hari</td>
-                    </tr>
-                    <tr>
-                      <td>3</td>
-                      <td><a href="{{ route('trackTicket') }}" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Lacak Tiket Ini"><u>999</u></a></td>
-                      <td class="bg-primary">Sedang</td>
-                      <td>Lupa Password</td>
-                      <td>Akun</td>
-                      <td>5 Maret 2018</td>
-                      <td>3 Hari</td>
-                    </tr>
-                    <tr>
-                      <td>4</td>
-                      <td><a href="{{ route('trackTicket') }}" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Lacak Tiket Ini"><u>999</u></a></td>
-                      <td>Normal</td>
-                      <td>Lupa Password</td>
-                      <td>Akun</td>
-                      <td>5 Maret 2018</td>
-                      <td>3 Hari</td>
-                    </tr>
-                    <tr>
-                      <td>5</td>
-                      <td><a href="{{ route('trackTicket') }}" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Lacak Tiket Ini"><u>999</u></a></td>
-                      <td>Normal</td>
-                      <td>Lupa Password</td>
-                      <td>Akun</td>
-                      <td>5 Maret 2018</td>
-                      <td>3 Hari</td>
-                    </tr>
-                    <tr>
-                      <td>6</td>
-                      <td><a href="{{ route('trackTicket') }}" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Lacak Tiket Ini"><u>999</u></a></td>
-                      <td>Normal</td>
-                      <td>Lupa Password</td>
-                      <td>Akun</td>
-                      <td>5 Maret 2018</td>
-                      <td>3 Hari</td>
-                    </tr>
-                    <tr>
-                      <td>7</td>
-                      <td><a href="{{ route('trackTicket') }}" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Lacak Tiket Ini"><u>999</u></a></td>
-                      <td>Normal</td>
-                      <td>Lupa Password</td>
-                      <td>Akun</td>
-                      <td>5 Maret 2018</td>
-                      <td>3 Hari</td>
-                    </tr>
-                    <tr>
-                      <td>8</td>
-                      <td><a href="{{ route('trackTicket') }}" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Lacak Tiket Ini"><u>999</u></a></td>
-                      <td>Normal</td>
-                      <td>Lupa Password</td>
-                      <td>Akun</td>
-                      <td>5 Maret 2018</td>
-                      <td>3 Hari</td>
-                    </tr>
+                    @foreach($tickets as $ticket)
+                        <td><a href="{{ route('trackTicket') }}" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Lacak Tiket Ini"><u>{{$ticket->nomor_ticket}}</u></a></td>
+                        <td class="bg-danger">{{$ticket->urgensi}}</td>
+                        <td>{{$ticket->aduan->subjek}}</td>
+                        <td>{{$ticket->aduan->kategori->kategori}}</td>
+                        <td>{{$ticket->created_at}}</td>
+                        <td>{{$ticket->expire}}</td>
+                    </tr>    
+                    @endforeach
                     </tbody>
                 </table>
             </div>

@@ -17,6 +17,8 @@ class CreateTableTicket extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('aduan_id');
             $table->string('nomor_ticket');
+            $table->string('urgensi');
+            $table->string('expire');
             $table->foreign('aduan_id')->references('id')->on('aduan')->onDelete('cascade');
             $table->timestamps();
         });

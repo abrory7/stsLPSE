@@ -14,4 +14,8 @@ class Aduan extends Model
         'nama_satuan_kerja', 'pesan', 'subjek', 'gambar',
         'kategori_id'
     ];
+
+    public function kategori(){
+        return $this->belongsTo('App\Kategori');
+    }
 }

@@ -14,7 +14,8 @@ class linkController extends Controller
     
     public function ongoing()
     {
-        return view('ticket.ongoing');
+        $tickets = Ticket::all();        
+        return view('ticket.ongoing', compact('tickets'));
     }
 
     public function create()
@@ -59,15 +60,17 @@ class linkController extends Controller
         // Buat Ticket
         $ticket = new Ticket();
         $ticket->aduan_id = $aduan->id;
+        $ticket->urgensi = $req->urgensi;
         $ticket->nomor_ticket = time();
+        $ticket->expire = date('d-m-Y', strtotime(Date('d-m-Y'). ' + 2 days'));
         $ticket->save();
 
         //update status ticket 
         // kode status : 1. Diterima Helpdesk; 2. apalah; 3. apalah;
         $statusTicket = new StatusTicket();
-        $statusTicket->ticket_id = $ticket->id;
+        $statusTicket->ticket_id = $ticket->id;        
         $statusTicket->status = "1";
         $statusTicket->save();
-        return redirect()->route('home');
+        return redirect()->route('ongoingTicket');
     }
 }

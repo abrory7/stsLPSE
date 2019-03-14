@@ -16,8 +16,7 @@ class CreateTableStatusTicket extends Migration
         Schema::create('status_ticket', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('ticket_id');
-            $table->string('status');
-            $table->string('urgensi');
+            $table->string('status');     
             $table->foreign('ticket_id')->references('id')->on('ticket')->onDelete('cascade');
             $table->timestamps();
         });

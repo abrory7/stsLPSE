@@ -11,6 +11,8 @@
 |
 */
 
+use App\Ticket;
+
 Auth::routes();
 Route::get('/', function () {
     return view('index');
@@ -28,4 +30,11 @@ Route::prefix('tiket')->group(function(){
     Route::get('ongoing', 'linkController@ongoing')->name('ongoingTicket');
     Route::get('finish', 'linkController@finished')->name('finishedTicket');
     Route::post('delete', 'linkCOntroller@delete')->name('deleteTicket');
+});
+
+Route::get('/test', function(){
+    $date = Ticket::where('id', 1)->first()->created_at->format('d-m-Y');
+    $result = date('d-m-Y');
+    //date('d-m-Y', strtotime($date. ' + 2 days'));
+    return $result;
 });
