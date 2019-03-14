@@ -12,4 +12,8 @@ class Ticket extends Model
     public function aduan(){
         return $this->belongsTo('App\Aduan');
     }
+
+    public function status(){
+        return $this->hasMany('App\StatusTicket');
+    }
 }

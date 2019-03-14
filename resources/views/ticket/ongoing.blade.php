@@ -33,7 +33,16 @@
                         <td>{{$ticket->expire}}</td>
                         <td>
                           <a href="{{ route('solutionTicket', $ticket->aduan->id) }}" class="btn btn-primary">Beri Solusi</a>
-                          <a href="#" class="btn btn-success">Akhiri Tiket</a>
+                          <a href="{{ route('closeTicket') }}" class="btn btn-success"
+                             onclick="event.preventDefault();
+                                           document.getElementById('close-ticket').submit();">
+                              Akhiri Tiket
+                          </a>
+
+                          <form id="close-ticket" action="{{ route('closeTicket') }}" method="POST" style="display: none;">
+                              @csrf
+                              <input type="hidden" name="noticket" value="{{ $ticket->id }}">
+                          </form>
                         </td>
                     </tr>
                     @endforeach

@@ -32,6 +32,7 @@ Route::prefix('tiket')->group(function(){
     Route::post('delete', 'linkController@delete')->name('deleteTicket');
     Route::get('solution/{id_aduan}', 'linkController@solution')->name('solutionTicket');
     Route::post('addsolusi', 'linkController@solusi')->name('addSolution');
+    Route::post('close', 'linkController@close')->name('closeTicket');
 });
 
 Route::get('/test', function(){

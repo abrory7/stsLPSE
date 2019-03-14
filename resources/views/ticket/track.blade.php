@@ -6,8 +6,8 @@
         <div class="card-block">
         	<div class="row">
         			<h4>Track Ticket</h4>
-        			<ul class="timeline">							
-							@foreach($ticket_status as $status)						
+        			<ul class="timeline">
+							@foreach($ticket_status as $status)
         				<li>
 									<div class="padleft">
 											<a target="_blank" href="https://www.totoprayogo.com/#">New Web Design</a>
@@ -24,11 +24,13 @@
 															Diterima Admin PPE
 													@elseif($status->status == 4)
 															Diterima Verifikator
+                          @elseif($status->status == 7)
+															Tiket Selesai
 													@endif
 											</p>
 									</div>
 							</li>
-							@endforeach        			
+							@endforeach
         			</ul>
         	</div>
         </div>

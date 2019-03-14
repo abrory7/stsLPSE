@@ -90,7 +90,14 @@ class linkController extends Controller
         $solusi->users_id = Auth::user()->id;
         $solusi->solusi = $req->solusi;
         $solusi->save();
+        return redirect()->route('ongoingTicket');
+    }
 
+    public function close(Request $req){
+        $closeticket = new StatusTicket();
+        $closeticket->ticket_id = $req->noticket;
+        $closeticket->status = "7";
+        $closeticket->save();
         return redirect()->route('ongoingTicket');
     }
 }
