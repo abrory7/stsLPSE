@@ -26,7 +26,7 @@ Route::get('/home', 'HomeController@index')->name('home');
 Route::prefix('tiket')->group(function(){
     Route::get('create', 'linkController@create')->name('createTicket');
     Route::post('store', 'linkController@store')->name('storeTicket');
-    Route::get('track', 'linkController@track')->name('trackTicket');
+    Route::get('track/{nomor_ticket}', 'linkController@track')->name('trackTicket');
     Route::get('ongoing', 'linkController@ongoing')->name('ongoingTicket');
     Route::get('finish', 'linkController@finished')->name('finishedTicket');
     Route::post('delete', 'linkCOntroller@delete')->name('deleteTicket');

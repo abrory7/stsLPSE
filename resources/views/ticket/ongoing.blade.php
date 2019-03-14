@@ -24,7 +24,7 @@
                     <tbody>
                     <tr>
                     @foreach($tickets as $ticket)
-                        <td><a href="{{ route('trackTicket') }}" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Lacak Tiket Ini"><u>{{$ticket->nomor_ticket}}</u></a></td>
+                        <td><a href="{{ route('trackTicket', $ticket->nomor_ticket) }}" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Lacak Tiket Ini"><u>{{$ticket->nomor_ticket}}</u></a></td>
                         <td class="bg-danger">{{$ticket->urgensi}}</td>
                         <td>{{$ticket->aduan->subjek}}</td>
                         <td>{{$ticket->aduan->kategori->kategori}}</td>

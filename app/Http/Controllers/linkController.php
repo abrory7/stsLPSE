@@ -24,9 +24,11 @@ class linkController extends Controller
         return view('ticket.create', compact('kategori'));
     }
 
-    public function track()
+    public function track($nomor_ticket)
     {
-        return view('ticket.track');
+        $ticket = Ticket::where('nomor_ticket', $nomor_ticket)->first();
+        $ticket_status = StatusTicket::where('ticket_id', $ticket->id)->get();              
+        return view('ticket.track', compact('ticket_status'));
     }
 
     public function finished()
