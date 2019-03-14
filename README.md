@@ -11,20 +11,14 @@ Untuk referensi styling dan yang lainnya, lihat file2 pada folder /public/res
 
 # System Feature
 
-- [ ] Login
-- [ ] Input permasalahan
-- [ ] prioritas
+- [x] Login
+- [x] Input permasalahan
+- [x] prioritas
 - [ ] assignment
-- [ ] timeline
+- [x] timeline
 - [ ] input solusi permasalahan
-- [ ] status ticket
+- [x] status ticket
 
-## Database Migrations
-
-### TODO
-- [ ] users
-- [ ] ticket
-- [ ] ticket_status
-- [ ] notifikasi
-- [ ] status_solusi
-- [ ] laporan
+# Front end
+- [ ] Form aduan di paginate
+- [ ] Chart laporan
