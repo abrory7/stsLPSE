@@ -17,6 +17,7 @@ class CreateTableStatusTicket extends Migration
             $table->bigIncrements('id');
             $table->unsignedBigInteger('ticket_id');
             $table->string('status');
+            $table->string('urgensi');
             $table->foreign('ticket_id')->references('id')->on('ticket')->onDelete('cascade');
             $table->timestamps();
         });
