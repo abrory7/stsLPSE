@@ -10,7 +10,7 @@
     <div class="row">
       <form action="{{route('addSolution')}}" method="POST">
         {{ csrf_field() }}
-        <input type="hidden" id="aduan_id" name="aduan_id" value="{{ $aduan->id }}">
+        <input type="hidden" id="aduan_id" name="ticket_id" value="{{ $ticket->id }}">
         <div class="form-group">
           <label for="solusi">Solusi:</label>
           <input type="text" id="solusi" name="solusi" class="form-control" required>

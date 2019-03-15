@@ -16,7 +16,7 @@ class linkController extends Controller
 
     public function ongoing()
     {
-        $tickets = Ticket::all();
+        $tickets = Ticket::where('finish', 0)->get();
         return view('ticket.ongoing', compact('tickets'));
     }
 
@@ -35,13 +35,14 @@ class linkController extends Controller
 
     public function solution($id_aduan)
     {
-        $aduan = Aduan::where('id', $id_aduan)->first();
-        return view('ticket.solution', compact('aduan'));
+        $ticket = Ticket::where('id', $id_aduan)->first();
+        return view('ticket.solution', compact('ticket'));
     }
 
     public function finished()
     {
-        return view('ticket.finished');
+        $tickets = Ticket::where('finish', 1)->get();        
+        return view('ticket.finished', compact('tickets'));
     }
 
     public function store(Request $req){
@@ -86,17 +87,22 @@ class linkController extends Controller
 
     public function solusi(Request $req){
         $solusi = new Solusi();
-        $solusi->aduan_id =  $req->aduan_id;
+        $solusi->ticket_id =  $req->ticket_id;
         $solusi->users_id = Auth::user()->id;
         $solusi->solusi = $req->solusi;
         $solusi->save();
         return redirect()->route('ongoingTicket');
     }
 
-    public function close(Request $req){
-        $closeticket = new StatusTicket();
-        $closeticket->ticket_id = $req->noticket;
-        $closeticket->status = "7";
+    public function close(Request $req){        
+        $closeticket = Ticket::find($req->nomor_ticket);
+        $closeticket->finish = 1;
+        
+        $statusTicket = new StatusTicket();
+        $statusTicket->ticket_id = $closeticket->id;
+        $statusTicket->status = 5;
+        $statusTicket->save();
+        
         $closeticket->save();
         return redirect()->route('ongoingTicket');
     }

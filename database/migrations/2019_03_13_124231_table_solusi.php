@@ -15,11 +15,11 @@ class TableSolusi extends Migration
     {
         Schema::create('solusi', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBigInteger('aduan_id');
+            $table->unsignedBigInteger('ticket_id');
             $table->unsignedBigInteger('users_id');
             $table->string('solusi');
             $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('aduan_id')->references('id')->on('aduan')->onDelete('cascade');
+            $table->foreign('ticket_id')->references('id')->on('ticket')->onDelete('cascade');
             $table->timestamps();
         });
     }

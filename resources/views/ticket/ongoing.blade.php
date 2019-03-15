@@ -41,7 +41,7 @@
 
                           <form id="close-ticket" action="{{ route('closeTicket') }}" method="POST" style="display: none;">
                               @csrf
-                              <input type="hidden" name="noticket" value="{{ $ticket->id }}">
+                              <input type="hidden" name="nomor_ticket" value="{{ $ticket->id }}">
                           </form>
                         </td>
                     </tr>
