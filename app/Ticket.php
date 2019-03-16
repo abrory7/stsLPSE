@@ -15,5 +15,9 @@ class Ticket extends Model
 
     public function status(){
         return $this->hasMany('App\StatusTicket');
+    }    
+
+    public function isAssigned(){
+        return $this->hasOne('App\Assign');
     }
 }

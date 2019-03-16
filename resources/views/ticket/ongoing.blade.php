@@ -31,9 +31,12 @@
                         <td>{{$ticket->aduan->kategori->kategori}}</td>
                         <td>{{$ticket->created_at}}</td>
                         <td>{{$ticket->expire}}</td>
-                        <td>
-                          <!-- <a href="{{ route('solutionTicket', $ticket->aduan->id) }}" class="btn btn-primary">Beri Solusi</a> -->
-                          <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Assign Ticket</button>
+                        <td>                                                  
+                            @if(null !== $ticket->isAssigned)
+                            <button class="btn btn-secondary" data-toggle="modal" data-target="#myModal" disabled>Assigned To {{$ticket->isAssigned->users_id}}</button>
+                            @else
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#myModal{{$ticket->id}}">Assign Ticket</button>                            
+                            @endif
                           <a href="{{ route('closeTicket') }}" class="btn btn-success"
                              onclick="event.preventDefault();
                                            document.getElementById('close-ticket').submit();">
