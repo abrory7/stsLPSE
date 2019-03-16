@@ -32,7 +32,8 @@
                         <td>{{$ticket->created_at}}</td>
                         <td>{{$ticket->expire}}</td>
                         <td>
-                          <a href="{{ route('solutionTicket', $ticket->aduan->id) }}" class="btn btn-primary">Beri Solusi</a>
+                          <!-- <a href="{{ route('solutionTicket', $ticket->aduan->id) }}" class="btn btn-primary">Beri Solusi</a> -->
+                          <button class="btn btn-primary" data-toggle="modal" data-target="#myModal">Assign Ticket</button>
                           <a href="{{ route('closeTicket') }}" class="btn btn-success"
                              onclick="event.preventDefault();
                                            document.getElementById('close-ticket').submit();">
@@ -43,6 +44,40 @@
                               @csrf
                               <input type="hidden" name="nomor_ticket" value="{{ $ticket->id }}">
                           </form>
+
+                            <!-- MODAL -->
+                          <div id="myModal" class="modal fade" role="dialog">
+                            <div class="modal-dialog">
+
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                    <h4 class="modal-title">Assign Ticket</h4>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="{{route('assignTicket')}}" method="POST">
+                                    @php    
+                                        $users = DB::table('users')->get();
+                                    @endphp
+                                        @csrf
+                                        <label for="assign to"> Assign To</label>
+                                        <select name="assignTo" class="form-control">
+                                        @foreach($users as $user)
+                                            <option value="{{$user->id}}">{{$user->name}} | {{$user->role}}</option>
+                                        @endforeach
+                                        </select>
+                                        <input type="hidden" name="ticket_id" value="{{$ticket->id}}" class="form-control">
+                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                    </form>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                                </div>
+
+                            </div>
+                        </div>
                         </td>
                     </tr>
                     @endforeach

@@ -33,6 +33,7 @@ Route::prefix('tiket')->group(function(){
     Route::get('solution/{id_aduan}', 'linkController@solution')->name('solutionTicket');
     Route::post('addsolusi', 'linkController@solusi')->name('addSolution');
     Route::post('close', 'linkController@close')->name('closeTicket');
+    Route::post('assignTicket', 'linkController@assignTicket')->name('assignTicket');
 });
 
 Route::get('/test', function(){

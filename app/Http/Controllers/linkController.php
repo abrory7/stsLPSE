@@ -8,6 +8,7 @@ use App\Kategori;
 use App\Ticket;
 use App\StatusTicket;
 use App\Solusi;
+use App\Assign;
 use Auth;
 
 class linkController extends Controller
@@ -16,7 +17,7 @@ class linkController extends Controller
 
     public function ongoing()
     {
-        $tickets = Ticket::where('finish', 0)->get();
+        $tickets = Ticket::where('finish', 0)->get();        
         return view('ticket.ongoing', compact('tickets'));
     }
 
@@ -104,6 +105,15 @@ class linkController extends Controller
         $statusTicket->save();
         
         $closeticket->save();
+        return redirect()->route('ongoingTicket');
+    }
+
+    public function assignTicket(Request $req){
+        $assign = new Assign();
+        $assign->users_id = $req->assignTo;
+        $assign->ticket_id = $req->ticket_id;
+        $assign->save();
+
         return redirect()->route('ongoingTicket');
     }
 }
