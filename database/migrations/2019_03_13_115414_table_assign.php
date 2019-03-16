@@ -16,9 +16,9 @@ class TableAssign extends Migration
         Schema::create('assign', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('users_id');
-            $table->unsignedBigInteger('aduan_id');            
+            $table->unsignedBigInteger('ticket_id');            
             $table->foreign('users_id')->references('id')->on('users')->onDelete('cascade');
-            $table->foreign('aduan_id')->references('id')->on('aduan')->onDelete('cascade');
+            $table->foreign('ticket_id')->references('id')->on('ticket')->onDelete('cascade');
             $table->timestamps();
         });
     }
