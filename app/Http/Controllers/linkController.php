@@ -9,6 +9,7 @@ use App\Ticket;
 use App\StatusTicket;
 use App\Solusi;
 use App\Assign;
+use App\Notif;
 use Auth;
 
 class linkController extends Controller
@@ -110,8 +111,16 @@ class linkController extends Controller
 
     public function assignTicket(Request $req){
         $assign = new Assign();
+        $notif = new Notif();
+        
         $assign->users_id = $req->assignTo;
         $assign->ticket_id = $req->ticket_id;
+
+        $notif->ticket_id = $req->ticket_id;
+        $notif->role = $req->assignTo;
+        $notif->notif = 1;
+
+        $notif->save();
         $assign->save();
 
         return redirect()->route('ongoingTicket');
