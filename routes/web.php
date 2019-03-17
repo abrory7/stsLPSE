@@ -34,6 +34,7 @@ Route::prefix('tiket')->group(function(){
     Route::post('addsolusi', 'linkController@solusi')->name('addSolution');
     Route::post('close', 'linkController@close')->name('closeTicket');
     Route::post('assignTicket', 'linkController@assignTicket')->name('assignTicket');
+    Route::get('received', 'linkController@received')->name('ReceivedTicket');
 });
 
 Route::get('/test', function(){

@@ -17,8 +17,14 @@ class linkController extends Controller
 
     public function ongoing()
     {
-        $tickets = Ticket::where('finish', 0)->get();        
+        $tickets = Ticket::where('finish', 0)->get();
         return view('ticket.ongoing', compact('tickets'));
+    }
+
+    public function received()
+    {
+        $receives = Assign::where('users_id', Auth::user()->id)->get();
+        return view('ticket.received', compact('receives'));
     }
 
     public function create()
@@ -42,7 +48,7 @@ class linkController extends Controller
 
     public function finished()
     {
-        $tickets = Ticket::where('finish', 1)->get();        
+        $tickets = Ticket::where('finish', 1)->get();
         return view('ticket.finished', compact('tickets'));
     }
 
@@ -95,15 +101,15 @@ class linkController extends Controller
         return redirect()->route('ongoingTicket');
     }
 
-    public function close(Request $req){        
+    public function close(Request $req){
         $closeticket = Ticket::find($req->nomor_ticket);
         $closeticket->finish = 1;
-        
+
         $statusTicket = new StatusTicket();
         $statusTicket->ticket_id = $closeticket->id;
         $statusTicket->status = 5;
         $statusTicket->save();
-        
+
         $closeticket->save();
         return redirect()->route('ongoingTicket');
     }
