@@ -43,3 +43,8 @@ Route::get('/test', function(){
     //date('d-m-Y', strtotime($date. ' + 2 days'));
     return $result;
 });
+
+Route::get('/a', function(){
+    $password = Hash::make('password');
+    return $password;
+});

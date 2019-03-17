@@ -33,7 +33,10 @@
                         <td>{{$ticket->expire}}</td>
                         <td>                                                  
                             @if(null !== $ticket->isAssigned)
-                            <button class="btn btn-secondary" data-toggle="modal" data-target="#myModal" disabled>Assigned To {{$ticket->isAssigned->users_id}}</button>
+                                @php
+                                    $user = DB::table('users')->where('id', $ticket->isAssigned->users_id)->first();
+                                @endphp
+                            <button class="btn btn-secondary" data-toggle="modal" data-target="#myModal" disabled>Assigned To {{$user->role}}</button>
                             @else
                             <button class="btn btn-primary" data-toggle="modal" data-target="#myModal{{$ticket->id}}">Assign Ticket</button>                            
                             @endif
@@ -49,7 +52,7 @@
                           </form>
 
                             <!-- MODAL -->
-                          <div id="myModal" class="modal fade" role="dialog">
+                          <div id="myModal{{$ticket->id}}" class="modal fade" role="dialog">
                             <div class="modal-dialog">
 
                                 <!-- Modal content-->

@@ -15,13 +15,10 @@ class TableNotif extends Migration
     {
         Schema::create('notif', function (Blueprint $table) {
             $table->bigIncrements('id');
-            $table->unsignedBIgInteger('assign_id');
-            $table->bigInteger('notif_hd')->default(0);            
-            $table->bigInteger('notif_adsis')->default(0);
-            $table->bigInteger('notif_adppe')->default(0);
-            $table->bigInteger('notif_verifikator')->default(0);
-            $table->bigInteger('notif_pimpinan')->default(0);
-            $table->foreign('assign_id')->references('id')->on('assign');
+            $table->unsignedBIgInteger('ticket_id');
+            $table->bigInteger('notif')->default(0);
+            $table->string('role');
+            $table->foreign('ticket_id')->references('id')->on('ticket');
             $table->timestamps();
         });
     }
