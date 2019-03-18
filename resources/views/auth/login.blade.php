@@ -53,18 +53,18 @@
 						<h3 class="text-center txt-primary">
 							Sign In to your account
 						</h3>
-						<div class="md-input-wrapper">
-							<input type="text" id="username" name="username" class="md-form-control" required autofocus>
-							<label>Username or email</label>
+						<div class="form-group">
+							<label for="username">Username or email</label>
+							<input type="text" id="username" name="username" class="form-control" required autofocus>
               @if ($errors->has('username'))
                   <span class="invalid-feedback" role="alert">
                       <strong>{{ $errors->first('username') }}</strong>
                   </span>
               @endif
 						</div>
-						<div class="md-input-wrapper">
-							<input type="password" id="password" name="password" class="md-form-control" required>
-							<label>Password</label>
+						<div class="form-group">
+							<label for="password">Password</label>
+							<input type="password" id="password" name="password" class="form-control" required>
               @if ($errors->has('password'))
                   <span class="invalid-feedback" role="alert">
                       <strong>{{ $errors->first('password') }}</strong>
