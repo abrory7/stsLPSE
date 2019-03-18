@@ -32,7 +32,7 @@
       @can('isAdmin')
       <li id="finished" class="treeview">
         <a class="waves-effect waves-dark" href="{{ route('receivedTicket') }}">
-          <i class="icon-check"></i><span> Tiket Masuk</span>
+          <i class="icon-list"></i><span> Tiket Masuk</span>
         </a>
       </li>
       @endcan

@@ -8,41 +8,31 @@
     <!-- Navbar Right Menu-->
     <div class="navbar-custom-menu f-right">
       <ul class="top-nav">
-
-        <!--Notification Menu-->
+          @php     
+            $notif = DB::table('notif')->where('notif', 1)->where('role', Auth::user()->id)->get();                    
+          @endphp
+         
+          
+        <!--Notification Menu-->                
         <li class="dropdown notification-menu">
           <a href="#!" data-toggle="dropdown" aria-expanded="false" class="dropdown-toggle">
             <i class="icon-bell"></i>
-            <span class="badge badge-danger header-badge">9</span>
+            <span class="badge badge-danger header-badge">{{count($notif)}}</span>
           </a>
-          <ul class="dropdown-menu">
-            <li class="not-head">You have <b class="text-primary">4</b> new notifications.</li>
+          <ul class="dropdown-menu">           
+            <li class="not-head">You have <b class="text-primary">{{count($notif)}}</b> new notifications.</li>            
+            @foreach($notif as $ntf)  
+            @php
+              $isiNotif = DB::table('ticket')->where('id', $ntf->ticket_id)->first();
+            @endphp
             <li class="bell-notification">
-              <a href="javascript:;" class="media">
-                <span class="media-left media-icon">
-                  <img class="img-circle" src="{{ asset('res/assets/images/avatar-1.png') }}" alt="User Image">
-                </span>
-                <div class="media-body"><span class="block">Lisa sent you a mail</span><span class="text-muted block-time">2min ago</span></div>
+              <a href="{{route('receivedTicket')}}" class="media">                
+                <div class="media-body"><span class="block">Tiket baru #{{$isiNotif->nomor_ticket}}</span><span class="text-muted block-time">2min ago</span></div>
               </a>
-            </li>
-            <li class="bell-notification">
-              <a href="javascript:;" class="media">
-                <span class="media-left media-icon">
-                  <img class="img-circle" src="{{ asset('res/assets/images/avatar-2.png') }}" alt="User Image">
-                </span>
-                <div class="media-body"><span class="block">Server Not Working</span><span class="text-muted block-time">20min ago</span></div>
-              </a>
-            </li>
-            <li class="bell-notification">
-              <a href="javascript:;" class="media">
-                <span class="media-left media-icon">
-                  <img class="img-circle" src="{{ asset('res/assets/images/avatar-3.png') }}" alt="User Image">
-                </span>
-                <div class="media-body"><span class="block">Transaction xyz complete</span><span class="text-muted block-time">3 hours ago</span></div>
-              </a>
-            </li>
+            </li>       
+            @endforeach          
             <li class="not-footer">
-              <a href="#!">See all notifications.</a>
+              <a href="{{route('receivedTicket')}}">Lihat Tiket Masuk</a>
             </li>
           </ul>
         </li>
