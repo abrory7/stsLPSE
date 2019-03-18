@@ -1,5 +1,5 @@
 <header class="main-header-top hidden-print">
-  <a href="{{route('index')}}" class="logo"><img class="img-fluid able-logo" src="{{ ('res/assets/images/logo.png') }}" alt="Theme-logo"></a>
+  <a href="{{route('index')}}" class="logo"><img class="img-fluid able-logo" src="{{ asset('res/assets/images/logo.png') }}" alt="Theme-logo"></a>
   <nav class="navbar navbar-static-top">
 
     <!-- Sidebar toggle button-->
@@ -20,7 +20,7 @@
             <li class="bell-notification">
               <a href="javascript:;" class="media">
                 <span class="media-left media-icon">
-                  <img class="img-circle" src="{{ ('res/assets/images/avatar-1.png') }}" alt="User Image">
+                  <img class="img-circle" src="{{ asset('res/assets/images/avatar-1.png') }}" alt="User Image">
                 </span>
                 <div class="media-body"><span class="block">Lisa sent you a mail</span><span class="text-muted block-time">2min ago</span></div>
               </a>
@@ -28,7 +28,7 @@
             <li class="bell-notification">
               <a href="javascript:;" class="media">
                 <span class="media-left media-icon">
-                  <img class="img-circle" src="{{ ('res/assets/images/avatar-2.png') }}" alt="User Image">
+                  <img class="img-circle" src="{{ asset('res/assets/images/avatar-2.png') }}" alt="User Image">
                 </span>
                 <div class="media-body"><span class="block">Server Not Working</span><span class="text-muted block-time">20min ago</span></div>
               </a>
@@ -36,7 +36,7 @@
             <li class="bell-notification">
               <a href="javascript:;" class="media">
                 <span class="media-left media-icon">
-                  <img class="img-circle" src="{{ ('res/assets/images/avatar-3.png') }}" alt="User Image">
+                  <img class="img-circle" src="{{ asset('res/assets/images/avatar-3.png') }}" alt="User Image">
                 </span>
                 <div class="media-body"><span class="block">Transaction xyz complete</span><span class="text-muted block-time">3 hours ago</span></div>
               </a>
