@@ -16,7 +16,7 @@ Untuk referensi styling dan yang lainnya, lihat file2 pada folder /public/res
 - [x] prioritas
 - [ ] assignment
 - [x] timeline
-- [ ] input solusi permasalahan
+- [ ] forum penyelesaian masalah
 - [x] status ticket
 
 # Front end

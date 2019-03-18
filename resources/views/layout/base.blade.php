@@ -43,10 +43,7 @@
 
   </head>
   <body class="sidebar-mini fixed" onload="actnav()">
-    <div class="loader-bg">
-      <div class="loader-bar">
-      </div>
-    </div>
+    
     <div class="wrapper">
 
       <!-- Navbar-->

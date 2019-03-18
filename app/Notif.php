@@ -11,4 +11,8 @@ class Notif extends Model
         'assign_id', 'notif_hd', 'notif_adsis', 'notif_adppe',
         'notif_verifikator', 'notif_pimpinan'
     ];
+
+    public function Ticket(){
+        return $this->belongsTo('App\Ticket');
+    }
 }
