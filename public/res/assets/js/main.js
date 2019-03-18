@@ -39,7 +39,10 @@ $(window).on('load', function() {
         });
     };
 
+<<<<<<< HEAD
     // notify('Selamat Datang di Support Ticketing System LPSE!', 'inverse');
+=======
+>>>>>>> 2eacf1e45466d28aeed3099c076e1e97e3b65113
     $('.loader-bg').fadeOut('slow');
 
 });

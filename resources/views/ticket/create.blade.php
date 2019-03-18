@@ -81,8 +81,8 @@
         <div class="form-group">
           <label for="exampleFormControlInput1">Urgensi</label>
           <select name="urgensi" class="form-control">
-            <option value="Normal">Normal</option>            
-            <option value="Penting">Penting</option>            
+            <option value="Normal">Normal</option>
+            <option value="Penting">Penting</option>
             <option value="Darurat">Darurat</option>
           </select>
         </div>
