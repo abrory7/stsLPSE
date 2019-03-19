@@ -35,6 +35,7 @@ Route::prefix('tiket')->group(function(){
     Route::post('close', 'linkController@close')->name('closeTicket');
     Route::post('assignTicket', 'linkController@assignTicket')->name('assignTicket');
     Route::get('received', 'linkController@received')->name('receivedTicket');
+    Route::get('received/diskusi/{id_ticket}', 'linkController@discuss')->name('discussTicket');
 });
 
 Route::get('/test', function(){

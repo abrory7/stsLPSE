@@ -10,6 +10,8 @@ use App\StatusTicket;
 use App\Solusi;
 use App\Assign;
 use App\Notif;
+use App\Diskusi;
+use App\Pesan;
 use Auth;
 
 class linkController extends Controller
@@ -27,7 +29,12 @@ class linkController extends Controller
         $receives = Assign::where('users_id', Auth::user()->id)->get();
         return view('ticket.received', compact('receives'));
     }
-
+    public function discuss($id_ticket)
+    {
+        $diskusiticket = Diskusi::where('ticket_id', $id_ticket)->first();
+        $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();
+        return view('ticket.discuss', compact('diskusi'));
+    }
     public function create()
     {
         $kategori = Kategori::all();
@@ -118,7 +125,7 @@ class linkController extends Controller
     public function assignTicket(Request $req){
         $assign = new Assign();
         $notif = new Notif();
-        
+
         $assign->users_id = $req->assignTo;
         $assign->ticket_id = $req->ticket_id;
 

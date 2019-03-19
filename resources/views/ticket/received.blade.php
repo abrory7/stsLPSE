@@ -33,6 +33,7 @@
                         <td>{{$received->assignedTicket->created_at}}</td>
                         <td>{{$received->assignedTicket->expire}}</td>
                         <td>
+                          <a href="{{ route('discussTicket', $received->assignedTicket->id)}}" class="btn btn-primary" target="_blank">Diskusi</a>
                         </td>
                       </tr>
                       @endif
@@ -47,7 +48,7 @@
 @section('AddScript')
 <script type="text/javascript">
     function actnav() {
-      var element = document.getElementById("ongoing");
+      var element = document.getElementById("received");
       element.classList.add("active");
     }
 </script>

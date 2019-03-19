@@ -30,7 +30,7 @@
       </li>
       @endcan
       @can('isAdmin')
-      <li id="finished" class="treeview">
+      <li id="received" class="treeview">
         <a class="waves-effect waves-dark" href="{{ route('receivedTicket') }}">
           <i class="icon-list"></i><span> Tiket Masuk</span>
         </a>
