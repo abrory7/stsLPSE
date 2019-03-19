@@ -35,10 +35,14 @@ ul.timeline > li:before {
     float: right;
     padding-right: 2%;
 }
+.discuss{
+  margin: 0 5% 0 5%;
+}
 .diskusi{
   overflow-y: scroll;
   overlow-x: hidden;
   height: 500px;
+  border-bottom: 1px solid silver;
 }
 .incoming{
   display: inline-block;
@@ -93,4 +97,11 @@ ul.timeline > li:before {
   position: absolute;
   left: -48px;
   bottom: 0;
+}
+.sendmsg{
+  display: inline-block;
+  margin: 0 25% 5% 25%;
+}
+.sendbutton{
+  height: 105px;
 }

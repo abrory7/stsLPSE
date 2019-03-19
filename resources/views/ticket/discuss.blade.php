@@ -6,65 +6,99 @@
     </div>
 </div>
 <div class="card">
-    <div class="card-block">
-          <div style="margin: 0 10% 0 10%">
-            <div class="diskusi col-md-12">
-              <div class="incoming f-left">
-                <img src="{{ asset('res/assets/images/avatar-1.png') }}" class="incomingava" alt="User Image" class="img-circle">
-                <span class="incominguser">Helpdesk</span>
-                <br>
-                <div class="incomingmsg">
-                  Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </div>
-                <div class="incomingdate">
-                  19 Maret<br>12.51
-                </div>
-              </div>
-              <div class="outgoing f-right">
-                <div class="outgoingdate">
-                  19 Maret<br>12.51
-                </div>
-                <span class="outgoinguser">Saya</span>
-                <br>
-                <div class="outgoingmsg">
-                  mengharukand dsad
-                </div>
-              </div>
-              <div class="incoming f-left">
-                <img src="{{ asset('res/assets/images/avatar-1.png') }}" class="incomingava" alt="User Image" class="img-circle">
-                  <span class="incominguser">Helpdesk</span>
-                  <br>
-                  <div class="incomingmsg">
-                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit.
-                  </div>
-                  <div class="incomingdate">
-                    19 Maret<br>12.51
-                  </div>
-              </div>
-              <div class="outgoing f-right">
-                <div class="outgoingdate">
-                  19 Maret<br>12.51
-                </div>
-                <span class="outgoinguser">Saya</span>
-                <br>
-                <div class="outgoingmsg">
-                  mengharukan ddsf sd fsd sdfsdfsdfsdfds fsd fsd
-                </div>
-              </div>
-              <div class="incoming f-left">
-                <img src="{{ asset('res/assets/images/avatar-1.png') }}" class="incomingava" alt="User Image" class="img-circle">
-                  <span class="incominguser">Helpdesk</span>
-                  <br>
-                  <div class="incomingmsg">
-                  Lorem ipsum dolor
-                </div>
-                <div class="incomingdate">
-                  19 Maret<br>12.51
-                </div>
-              </div>
+  <div class="card-block">
+    <center>
+      <span>Member:&nbsp; Pimpinan, Helpdesk, Admin 1, Admin 2, Admin 3</span>
+      <button class="btn btn-primary" data-toggle="modal" data-target="#myModal"><b>Invite</b></button>
+    </center>
+    <div class="discuss">
+      <div class="diskusi col-md-12">
+        <div class="incoming f-left">
+          <img src="{{ asset('res/assets/images/avatar-1.png') }}" class="incomingava" alt="User Image" class="img-circle">
+          <span class="incominguser">Helpdesk</span>
+          <br>
+          <div class="incomingmsg">
+            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
           </div>
-
+          <div class="incomingdate">
+            19 Maret<br>12.51
+          </div>
+        </div>
+        <div class="outgoing f-right">
+          <div class="outgoingdate">
+            19 Maret<br>12.51
+          </div>
+          <span class="outgoinguser">Saya</span>
+          <br>
+          <div class="outgoingmsg">
+            mengharukand dsad
+          </div>
+        </div>
+        <div class="incoming f-left">
+          <img src="{{ asset('res/assets/images/avatar-1.png') }}" class="incomingava" alt="User Image" class="img-circle">
+            <span class="incominguser">Helpdesk</span>
+            <br>
+            <div class="incomingmsg">
+              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit.
+            </div>
+            <div class="incomingdate">
+              19 Maret<br>12.51
             </div>
         </div>
+        <div class="outgoing f-right">
+          <div class="outgoingdate">
+            19 Maret<br>12.51
+          </div>
+          <span class="outgoinguser">Saya</span>
+          <br>
+          <div class="outgoingmsg">
+            mengharukan ddsf sd fsd sdfsdfsdfsdfds fsd fsd
+          </div>
+        </div>
+        <div class="incoming f-left">
+          <img src="{{ asset('res/assets/images/avatar-1.png') }}" class="incomingava" alt="User Image" class="img-circle">
+            <span class="incominguser">Helpdesk</span>
+            <br>
+            <div class="incomingmsg">
+            Lorem ipsum dolor
+          </div>
+          <div class="incomingdate">
+            19 Maret<br>12.51
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="sendmsg form-inline">
+    <form method="post">
+        <textarea id="pesan" name="pesan" class="form-control" rows="4" cols="39" placeholder="Tulis Pesan...." required></textarea>
+        <button type="submit" class="btn btn-success sendbutton">KIRIM</button>
+    </form>
+  </div>
+  <!-- MODAL -->
+  <div id="myModal" class="modal fade" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal">&times;</button>
+          <h4 class="modal-title">Invite Member</h4>
+        </div>
+        <div class="modal-body">
+          <form action="" method="POST">
+            <label for="invite">Pilih user yang akan diundang menjadi member diskusi</label>
+              <select name="invite" class="form-control">
+                <option value="1">Taufiq</option>
+              </select>
+            <input type="hidden" name="diskusi_id" value="1" class="form-control">
+            <button type="submit" class="btn btn-primary">Invite</button>
+          </form>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
 @stop
