@@ -48,6 +48,7 @@ ul.timeline > li:before {
 .incoming{
   clear: both;
   position: relative;
+  margin-bottom: 12px;
 }
 .incomingava{
   width: 50px;
@@ -80,6 +81,7 @@ ul.timeline > li:before {
   display: inline-block;
   clear: both;
   position: relative;
+  margin-bottom: 12px;
 }
 .outgoinguser{
   position: absolute;
