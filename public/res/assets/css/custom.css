@@ -43,9 +43,9 @@ ul.timeline > li:before {
   overlow-x: hidden;
   height: 500px;
   border-bottom: 1px solid silver;
+  padding-bottom: 5%;
 }
 .incoming{
-  display: inline-block;
   clear: right;
   position: relative;
 }
@@ -78,7 +78,7 @@ ul.timeline > li:before {
 .outgoing{
   max-width: 50%;
   display: inline-block;
-  clear: left;
+  clear: both;
   position: relative;
 }
 .outgoinguser{
@@ -100,7 +100,7 @@ ul.timeline > li:before {
 }
 .sendmsg{
   display: inline-block;
-  margin: 0 25% 5% 25%;
+  margin: 3% 25% 5% 25%;
 }
 .sendbutton{
   height: 105px;

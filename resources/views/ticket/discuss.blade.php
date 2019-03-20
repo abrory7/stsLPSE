@@ -10,15 +10,16 @@
     <center>
       <span>Member:&nbsp;
         @foreach($listmember as $members)
+        <div class="label label-default">
           @if($members == 1)
             Helpdesk
           @elseif($members == 2)
             Admin
           @endif
+        </div>
         @endforeach
-        .
       </span>
-      <button class="btn btn-primary" data-toggle="modal" data-target="#inviteModal"><b>Invite</b></button>
+      <button class="badge bg-primary" data-toggle="modal" data-target="#inviteModal"><b>+</b></button>
     </center>
     <div class="discuss">
       <div class="diskusi col-md-12">
@@ -64,7 +65,7 @@
             test test test test test test test test test test test
           </div>
         </div>
-        <div class="incoming f-left">
+        <div class="incoming">
           <img src="{{ asset('res/assets/images/avatar-1.png') }}" class="incomingava" alt="User Image" class="img-circle">
             <span class="incominguser">Helpdesk</span>
             <br>
@@ -75,14 +76,45 @@
             19 Maret<br>12.51
           </div>
         </div>
+        <div class="incoming">
+          <img src="{{ asset('res/assets/images/avatar-1.png') }}" class="incomingava" alt="User Image" class="img-circle">
+            <span class="incominguser">Helpdesk</span>
+            <br>
+            <div class="incomingmsg">
+            Lorem
+          </div>
+          <div class="incomingdate">
+            19 Maret<br>12.51
+          </div>
+        </div>
+        <div class="outgoing f-right">
+          <div class="outgoingdate">
+            19 Maret<br>12.51
+          </div>
+          <span class="outgoinguser">Saya</span>
+          <br>
+          <div class="outgoingmsg">
+            test test test test test test test test test test test
+          </div>
+        </div>
+        <div class="outgoing f-right">
+          <div class="outgoingdate">
+            19 Maret<br>12.51
+          </div>
+          <span class="outgoinguser">Saya</span>
+          <br>
+          <div class="outgoingmsg">
+            test test test test test test test test test test test
+          </div>
+        </div>
       </div>
     </div>
-  </div>
-  <div class="sendmsg form-inline">
-    <form method="post">
-        <textarea id="pesan" name="pesan" class="form-control" rows="4" cols="39" placeholder="Tulis Pesan...." required></textarea>
-        <button type="submit" class="btn btn-success sendbutton">KIRIM</button>
-    </form>
+    <div class="sendmsg form-inline">
+      <form method="post">
+          <textarea id="pesan" name="pesan" class="form-control" rows="4" cols="39" placeholder="Tulis Pesan...." required></textarea>
+          <button type="submit" class="btn btn-success sendbutton">KIRIM</button>
+      </form>
+    </div>
   </div>
   <!-- MODAL -->
   <div id="inviteModal" class="modal fade" role="dialog">
