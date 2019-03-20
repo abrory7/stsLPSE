@@ -16,6 +16,7 @@ class CreatePesanTable extends Migration
         Schema::create('pesan', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->unsignedBigInteger('diskusi_id');
+            $table->string('pesan');
             $table->string('member');
             $table->foreign('diskusi_id')->references('id')->on('diskusi')->onDelete('cascade');
             $table->timestamps();
