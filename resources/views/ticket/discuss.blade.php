@@ -8,8 +8,17 @@
 <div class="card">
   <div class="card-block">
     <center>
-      <span>Member:&nbsp; Pimpinan, Helpdesk, Admin 1, Admin 2, Admin 3</span>
-      <button class="btn btn-primary" data-toggle="modal" data-target="#myModal"><b>Invite</b></button>
+      <span>Member:&nbsp;
+        @foreach($listmember as $members)
+          @if($members == 1)
+            Helpdesk
+          @elseif($members == 2)
+            Admin
+          @endif
+        @endforeach
+        .
+      </span>
+      <button class="btn btn-primary" data-toggle="modal" data-target="#inviteModal"><b>Invite</b></button>
     </center>
     <div class="discuss">
       <div class="diskusi col-md-12">
@@ -31,7 +40,7 @@
           <span class="outgoinguser">Saya</span>
           <br>
           <div class="outgoingmsg">
-            mengharukand dsad
+            test tarus test terus test tarus test terus
           </div>
         </div>
         <div class="incoming f-left">
@@ -52,7 +61,7 @@
           <span class="outgoinguser">Saya</span>
           <br>
           <div class="outgoingmsg">
-            mengharukan ddsf sd fsd sdfsdfsdfsdfds fsd fsd
+            test test test test test test test test test test test
           </div>
         </div>
         <div class="incoming f-left">
@@ -60,7 +69,7 @@
             <span class="incominguser">Helpdesk</span>
             <br>
             <div class="incomingmsg">
-            Lorem ipsum dolor
+            Lorem
           </div>
           <div class="incomingdate">
             19 Maret<br>12.51
@@ -76,7 +85,7 @@
     </form>
   </div>
   <!-- MODAL -->
-  <div id="myModal" class="modal fade" role="dialog">
+  <div id="inviteModal" class="modal fade" role="dialog">
     <div class="modal-dialog">
         <!-- Modal content-->
       <div class="modal-content">
@@ -85,12 +94,16 @@
           <h4 class="modal-title">Invite Member</h4>
         </div>
         <div class="modal-body">
-          <form action="" method="POST">
+          <form action="{{ route('inviteMember', $diskusiticket->id) }}" method="POST">
+            @csrf
+            @method('PUT')
             <label for="invite">Pilih user yang akan diundang menjadi member diskusi</label>
-              <select name="invite" class="form-control">
-                <option value="1">Taufiq</option>
+              <select name="member" class="form-control">
+                @foreach($member as $member)
+                  <option value="{{$member->id}}">{{$member->name}}</option>
+                @endforeach
               </select>
-            <input type="hidden" name="diskusi_id" value="1" class="form-control">
+              <input type="hidden" name="diskusi_id" value="{{$diskusiticket->diskusi_id}}" class="form-control">
             <button type="submit" class="btn btn-primary">Invite</button>
           </form>
         </div>

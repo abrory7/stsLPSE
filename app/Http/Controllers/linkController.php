@@ -12,6 +12,7 @@ use App\Assign;
 use App\Notif;
 use App\Diskusi;
 use App\Pesan;
+use App\User;
 use Auth;
 
 class linkController extends Controller
@@ -32,8 +33,20 @@ class linkController extends Controller
     public function discuss($id_ticket)
     {
         $diskusiticket = Diskusi::where('ticket_id', $id_ticket)->first();
+        $listmember = explode(',', $diskusiticket->member);
         $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();
-        return view('ticket.discuss', compact('diskusi'));
+        $member = User::all();
+        return view('ticket.discuss', compact('diskusiticket', 'listmember', 'diskusi', 'member'));
+    }
+    public function inviteDiscuss(Request $req, $id_diskusi)
+    {
+        $invite = Diskusi::find($id_diskusi);
+        $oldmembers = $invite->member;
+        $invite->member = $oldmembers.','.$req->member;
+
+        $invite->save();
+
+        return redirect()->route('discussTicket', $id_diskusi);
     }
     public function create()
     {
@@ -125,6 +138,7 @@ class linkController extends Controller
     public function assignTicket(Request $req){
         $assign = new Assign();
         $notif = new Notif();
+        $diskusi = new Diskusi();
 
         $assign->users_id = $req->assignTo;
         $assign->ticket_id = $req->ticket_id;
@@ -133,8 +147,12 @@ class linkController extends Controller
         $notif->role = $req->assignTo;
         $notif->notif = 1;
 
+        $diskusi->ticket_id = $req->ticket_id;
+        $diskusi->member = $req->assignTo;
+
         $notif->save();
         $assign->save();
+        $diskusi->save();
 
         return redirect()->route('ongoingTicket');
     }
