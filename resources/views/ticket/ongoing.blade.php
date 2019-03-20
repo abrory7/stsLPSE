@@ -31,14 +31,14 @@
                         <td>{{$ticket->aduan->kategori->kategori}}</td>
                         <td>{{$ticket->created_at}}</td>
                         <td>{{$ticket->expire}}</td>
-                        <td>                                                  
+                        <td>
                             @if(null !== $ticket->isAssigned)
                                 @php
                                     $user = DB::table('users')->where('id', $ticket->isAssigned->users_id)->first();
                                 @endphp
-                            <button class="btn btn-secondary" data-toggle="modal" data-target="#myModal" disabled>Assigned To {{$user->role}}</button>
+                            <button class="btn btn-secondary" data-toggle="modal" data-target="#myModal" disabled>Assigned To {{$user->jabatan}}</button>
                             @else
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#myModal{{$ticket->id}}">Assign Ticket</button>                            
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#myModal{{$ticket->id}}">Assign Ticket</button>
                             @endif
                           <a href="{{ route('closeTicket') }}" class="btn btn-success"
                              onclick="event.preventDefault();
@@ -63,14 +63,14 @@
                                 </div>
                                 <div class="modal-body">
                                     <form action="{{route('assignTicket')}}" method="POST">
-                                    @php    
+                                    @php
                                         $users = DB::table('users')->get();
                                     @endphp
                                         @csrf
                                         <label for="assign to"> Assign To</label>
                                         <select name="assignTo" class="form-control">
                                         @foreach($users as $user)
-                                            <option value="{{$user->id}}">{{$user->name}} | {{$user->role}}</option>
+                                            <option value="{{$user->role}}">{{$user->jabatan}}</option>
                                         @endforeach
                                         </select>
                                         <input type="hidden" name="ticket_id" value="{{$ticket->id}}" class="form-control">

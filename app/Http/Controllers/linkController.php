@@ -34,20 +34,20 @@ class linkController extends Controller
     {
         $diskusiticket = Diskusi::where('ticket_id', $id_ticket)->first();
         $listmember = explode(',', $diskusiticket->member);
-        $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();
-        $member = User::all();
-        return view('ticket.discuss', compact('diskusiticket', 'listmember', 'diskusi', 'member'));
-    }
-    public function inviteDiscuss(Request $req, $id_diskusi)
-    {
-        $invite = Diskusi::find($id_diskusi);
-        $oldmembers = $invite->member;
-        $invite->member = $oldmembers.','.$req->member;
+        foreach ($listmember as $members) {
+          if($members == Auth::user()->role){
+            $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();
+            $member = User::all();
 
-        $invite->save();
+            return view('ticket.discuss', compact('diskusiticket', 'listmember', 'diskusi', 'member'));
+          }
+          else{
+            return redirect()->route('index');
+          }
+        }
 
-        return redirect()->route('discussTicket', $id_diskusi);
     }
+
     public function create()
     {
         $kategori = Kategori::all();
@@ -155,5 +155,30 @@ class linkController extends Controller
         $diskusi->save();
 
         return redirect()->route('ongoingTicket');
+    }
+
+
+    public function inviteDiscuss(Request $req, $id_diskusi)
+    {
+        $invite = Diskusi::find($id_diskusi);
+        $oldmembers = $invite->member;
+        $invite->member = $oldmembers.','.$req->member;
+
+        $invite->save();
+
+        return redirect()->route('discussTicket', $id_diskusi);
+    }
+
+    public function sendMsg(Request $req, $diskusi_id){
+        $diskusi = Pesan::where('diskusi_id', $diskusi_id)->first();
+        $pesan = new Pesan();
+
+        $pesan->diskusi_id = $diskusi->id;
+        $pesan->pesan = $req->pesan;
+        $pesan->member = Auth::user()->id;
+
+        $pesan->save();
+
+        return redirect()->route('discussTicket', $diskusi->id);
     }
 }

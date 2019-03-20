@@ -23,96 +23,48 @@
     </center>
     <div class="discuss">
       <div class="diskusi col-md-12">
-        <div class="incoming f-left">
-          <img src="{{ asset('res/assets/images/avatar-1.png') }}" class="incomingava" alt="User Image" class="img-circle">
-          <span class="incominguser">Helpdesk</span>
-          <br>
-          <div class="incomingmsg">
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-          </div>
-          <div class="incomingdate">
-            19 Maret<br>12.51
-          </div>
-        </div>
-        <div class="outgoing f-right">
-          <div class="outgoingdate">
-            19 Maret<br>12.51
-          </div>
-          <span class="outgoinguser">Saya</span>
-          <br>
-          <div class="outgoingmsg">
-            test tarus test terus test tarus test terus
-          </div>
-        </div>
-        <div class="incoming f-left">
-          <img src="{{ asset('res/assets/images/avatar-1.png') }}" class="incomingava" alt="User Image" class="img-circle">
-            <span class="incominguser">Helpdesk</span>
-            <br>
-            <div class="incomingmsg">
-              Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit.
+        @foreach($diskusi as $discuss)
+          @if(Auth::user()->id == $discuss->member)
+            <div class="outgoing f-right">
+              <div class="outgoingdate">
+                {{ date_format($discuss->created_at, "j F") }}
+                <br>
+                {{ date_format($discuss->created_at, "H.i")}}
+              </div>
+              <span class="outgoinguser">Saya</span>
+              <br>
+              <div class="outgoingmsg">
+                {{ $discuss->pesan }}
+              </div>
             </div>
-            <div class="incomingdate">
-              19 Maret<br>12.51
-            </div>
-        </div>
-        <div class="outgoing f-right">
-          <div class="outgoingdate">
-            19 Maret<br>12.51
-          </div>
-          <span class="outgoinguser">Saya</span>
-          <br>
-          <div class="outgoingmsg">
-            test test test test test test test test test test test
-          </div>
-        </div>
-        <div class="incoming">
-          <img src="{{ asset('res/assets/images/avatar-1.png') }}" class="incomingava" alt="User Image" class="img-circle">
-            <span class="incominguser">Helpdesk</span>
-            <br>
-            <div class="incomingmsg">
-            Lorem
-          </div>
-          <div class="incomingdate">
-            19 Maret<br>12.51
-          </div>
-        </div>
-        <div class="incoming">
-          <img src="{{ asset('res/assets/images/avatar-1.png') }}" class="incomingava" alt="User Image" class="img-circle">
-            <span class="incominguser">Helpdesk</span>
-            <br>
-            <div class="incomingmsg">
-            Lorem
-          </div>
-          <div class="incomingdate">
-            19 Maret<br>12.51
-          </div>
-        </div>
-        <div class="outgoing f-right">
-          <div class="outgoingdate">
-            19 Maret<br>12.51
-          </div>
-          <span class="outgoinguser">Saya</span>
-          <br>
-          <div class="outgoingmsg">
-            test test test test test test test test test test test
-          </div>
-        </div>
-        <div class="outgoing f-right">
-          <div class="outgoingdate">
-            19 Maret<br>12.51
-          </div>
-          <span class="outgoinguser">Saya</span>
-          <br>
-          <div class="outgoingmsg">
-            test test test test test test test test test test test
-          </div>
-        </div>
+            @else
+              <div class="incoming f-left">
+                <img src="{{ asset('res/assets/images/avatar-1.png') }}" class="incomingava" alt="User Image" class="img-circle">
+                @if($discuss->member == 1)
+                  <span class="incominguser">Helpdesk</span>
+                  <br>
+                @elseif($discuss->member == 2)
+                  <span class="incominguser">Admin</span>
+                  <br>
+                @endif
+                <div class="incomingmsg">
+                  {{ $discuss->pesan }}
+                </div>
+                <div class="incomingdate">
+                  {{ date_format($discuss->created_at, "j F") }}
+                  <br>
+                  {{ date_format($discuss->created_at, "H.i") }}
+                </div>
+              </div>
+            @endif
+          @endforeach
       </div>
     </div>
     <div class="sendmsg form-inline">
-      <form method="post">
-          <textarea id="pesan" name="pesan" class="form-control" rows="4" cols="39" placeholder="Tulis Pesan...." required></textarea>
-          <button type="submit" class="btn btn-success sendbutton">KIRIM</button>
+      <form action="{{ route('sendMsg', $diskusiticket->id) }}" method="post">
+        @csrf
+        <textarea id="pesan" name="pesan" class="form-control" rows="4" cols="39" placeholder="Tulis Pesan...." required></textarea>
+        <button type="submit" class="btn btn-success sendbutton">KIRIM</button>
       </form>
     </div>
   </div>
