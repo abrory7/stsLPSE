@@ -18,7 +18,7 @@ class TableNotif extends Migration
             $table->unsignedBIgInteger('ticket_id');
             $table->bigInteger('notif')->default(0);
             $table->string('role');
-            $table->foreign('ticket_id')->references('id')->on('ticket');
+            $table->foreign('ticket_id')->references('id')->on('ticket')->onDelete('cascade');
             $table->timestamps();
         });
     }

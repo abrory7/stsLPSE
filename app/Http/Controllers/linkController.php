@@ -34,17 +34,9 @@ class linkController extends Controller
     {
         $diskusiticket = Diskusi::where('ticket_id', $id_ticket)->first();
         $listmember = explode(',', $diskusiticket->member);
-        foreach ($listmember as $members) {
-          if($members == Auth::user()->role){
-            $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();
-            $member = User::all();
-
-            return view('ticket.discuss', compact('diskusiticket', 'listmember', 'diskusi', 'member'));
-          }
-          else{
-            return redirect()->route('index');
-          }
-        }
+        $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();
+        $member = User::all();
+        return view('ticket.discuss', compact('diskusiticket', 'listmember', 'diskusi', 'member'));
 
     }
 
@@ -139,20 +131,26 @@ class linkController extends Controller
         $assign = new Assign();
         $notif = new Notif();
         $diskusi = new Diskusi();
+        $pesansistem = new Pesan();
 
         $assign->users_id = $req->assignTo;
         $assign->ticket_id = $req->ticket_id;
+        $assign->save();
 
         $notif->ticket_id = $req->ticket_id;
         $notif->role = $req->assignTo;
         $notif->notif = 1;
+        $notif->save();
 
         $diskusi->ticket_id = $req->ticket_id;
-        $diskusi->member = $req->assignTo;
-
-        $notif->save();
-        $assign->save();
+        $diskusi->member = '1,'.$req->assignTo;
         $diskusi->save();
+
+        $diskusi_id = Diskusi::where('ticket_id', $req->ticket_id)->first();
+        $pesansistem->diskusi_id = $diskusi_id->id;
+        $pesansistem->member = 1;
+        $pesansistem->pesan = '(SISTEM) Tiket #'.$req->nomor_ticket.' telah diarahkan kepada Admin untuk selanjutnya dapat ditindaklanjuti.';
+        $pesansistem->save();
 
         return redirect()->route('ongoingTicket');
     }

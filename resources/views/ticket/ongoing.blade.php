@@ -74,6 +74,7 @@
                                         @endforeach
                                         </select>
                                         <input type="hidden" name="ticket_id" value="{{$ticket->id}}" class="form-control">
+                                        <input type="hidden" name="nomor_ticket" value="{{$ticket->nomor_ticket}}" class="form-control">
                                         <button type="submit" class="btn btn-primary">Submit</button>
                                     </form>
                                 </div>
