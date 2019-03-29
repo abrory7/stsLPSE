@@ -14,11 +14,15 @@
 											<a href="#" class="datefloat">{{$status->created_at}}</a>
 											<p>
 													@if($status->status == 1)
-															Diterima HelpDesk
+														
+															Diterima HelpDesk									
 
 													@elseif($status->status == 2 )
-
-															Diterima Admin Sistem
+														@php
+															$user = DB::table('users')->where('id', $status->ticket->isAssigned->users_id)->first();
+														@endphp
+														
+															Assigned to {{$user->jabatan}}	
 													@elseif($status->status == 3)
 
 															Diterima Admin PPE

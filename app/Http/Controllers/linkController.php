@@ -132,11 +132,19 @@ class linkController extends Controller
         $notif = new Notif();
         $diskusi = new Diskusi();
         $pesansistem = new Pesan();
+        $statusTicket = new StatusTicket();        
 
+        // store table "Assign"
         $assign->users_id = $req->assignTo;
         $assign->ticket_id = $req->ticket_id;
         $assign->save();
+        
+        // buat "status ticket"
+        $statusTicket->ticket_id = $req->ticket_id;
+        $statusTicket->status = "2";
+        $statusTicket->save();
 
+        // tambah notif
         $notif->ticket_id = $req->ticket_id;
         $notif->role = $req->assignTo;
         $notif->notif = 1;
