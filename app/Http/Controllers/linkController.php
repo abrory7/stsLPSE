@@ -32,8 +32,8 @@ class linkController extends Controller
     }
     public function discuss($id_ticket)
     {
-        $diskusiticket = Diskusi::where('ticket_id', $id_ticket)->first();
-        $listmember = explode(',', $diskusiticket->member);
+        $diskusiticket = Diskusi::where('ticket_id', $id_ticket)->first();        
+        $listmember = explode(',', $diskusiticket->member);    
         $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();
         $member = User::all();
         return view('ticket.discuss', compact('diskusiticket', 'listmember', 'diskusi', 'member'));
@@ -150,8 +150,10 @@ class linkController extends Controller
         $notif->notif = 1;
         $notif->save();
 
+        
+        $assignedUser = User::where('id', $req->assignTo)->first();
         $diskusi->ticket_id = $req->ticket_id;
-        $diskusi->member = '1,'.$req->assignTo;
+        $diskusi->member = ($assignedUser->role == 1 ? '1' : '1'.$assignedUser->role);   // Check jika yg di assign bukan member     
         $diskusi->save();
 
         $diskusi_id = Diskusi::where('ticket_id', $req->ticket_id)->first();
