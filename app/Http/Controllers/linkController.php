@@ -27,7 +27,11 @@ class linkController extends Controller
 
     public function received()
     {
-        $receives = Assign::where('users_id', Auth::user()->id)->get();
+        if(Auth::user()->role == 1){
+            $receives = Assign::all();
+        }else{
+            $receives = Assign::where('users_id', Auth::user()->id)->get();
+        }        
         return view('ticket.received', compact('receives'));
     }
     public function discuss($id_ticket)
