@@ -30,12 +30,15 @@
 <script src="{{ asset('res/assets/plugins/waypoints/jquery.waypoints.min.js') }}"></script>
 <script src="{{ asset('res/assets/plugins/countdown/js/jquery.counterup.js') }}"></script>
 
+<!-- Datatable js -->
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.js"></script>
+
 <!-- custom js -->
 <script type="text/javascript" src="{{ asset('res/assets/js/main.js') }} "></script>
 <script type="text/javascript" src="{{ asset('res/assets/pages/dashboard.js') }}"></script>
 <script type="text/javascript" src="{{ asset('res/assets/pages/elements.js') }}"></script>
 <script src="{{ asset('res/assets/js/menu.min.js') }}"></script>
-
+<!-- Datatable -->
 <script>
   var $window = $(window);
   var nav = $('.fixed-button');
@@ -52,5 +55,8 @@
   $(document).ready(function(){
     $('[data-toggle="tooltip"]').tooltip();
   });
+</script>
+<script>
+  $("#dataTable").DataTable();
 </script>
 @yield('AddScript')

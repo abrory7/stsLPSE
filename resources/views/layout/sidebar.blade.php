@@ -28,6 +28,11 @@
           <i class="icon-note"></i><span> Buat Tiket Laporan</span>
         </a>
       </li>
+      <li id="received" class="treeview">
+        <a class="waves-effect waves-dark" href="{{ route('receivedTicket') }}">
+          <i class="icon-list"></i><span> Tiket Masuk</span>
+        </a>
+      </li>
       @endcan
       @can('isAdmin')
       <li id="received" class="treeview">
