@@ -14,9 +14,9 @@ Untuk referensi styling dan yang lainnya, lihat file2 pada folder /public/res
 - [x] Login
 - [x] Input permasalahan
 - [x] prioritas
-- [ ] assignment
+- [x] assignment
 - [x] timeline
-- [ ] forum penyelesaian masalah
+- [x] forum penyelesaian masalah
 - [x] status ticket
 
 # Front end
