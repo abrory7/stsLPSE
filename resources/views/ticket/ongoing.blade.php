@@ -33,8 +33,8 @@
                         <td>{{$ticket->expire}}</td>
                         <td>
                             @if(null !== $ticket->isAssigned)
-                                @php
-                                    $user = DB::table('users')->where('id', $ticket->isAssigned->users_id)->first();
+                                @php                                    
+                                    $user = DB::table('users')->where('id', $ticket->isAssigned->users_id)->first();                                    
                                 @endphp
                             <button class="btn btn-secondary" data-toggle="modal" data-target="#myModal" disabled>Assigned To {{$user->jabatan}}</button>
                             @else
@@ -70,7 +70,7 @@
                                         <label for="assign to"> Assign To</label>
                                         <select name="assignTo" class="form-control">
                                         @foreach($users as $user)
-                                            <option value="{{$user->role}}">{{$user->jabatan}}</option>
+                                            <option value="{{$user->id}}">{{$user->jabatan}}</option>
                                         @endforeach
                                         </select>
                                         <input type="hidden" name="ticket_id" value="{{$ticket->id}}" class="form-control">
