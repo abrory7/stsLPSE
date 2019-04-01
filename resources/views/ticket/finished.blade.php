@@ -24,7 +24,13 @@
                     @foreach($tickets as $ticket)
                     <tr>
                         <td><a href="{{ route('trackTicket', $ticket->nomor_ticket) }}" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Lacak Tiket Ini"><u>{{$ticket->nomor_ticket}}</u></a></td>
-                        <td class="bg-danger">{{$ticket->urgensi}}</td>
+                        @if($ticket->urgensi == "Darurat")
+                          <td class="bg-danger">{{$ticket->urgensi}}</td>
+                        @elseif($ticket->urgensi == "Penting")
+                          <td class="bg-warning">{{$ticket->urgensi}}</td>
+                        @elseif($ticket->urgensi == "Normal")
+                          <td>{{$ticket->urgensi}}</td>
+                        @endif
                         <td>{{$ticket->aduan->subjek}}</td>
                         <td>{{$ticket->aduan->kategori->kategori}}</td>
                         <td>{{date_format($ticket->created_at, 'd-m-Y')}}</td>

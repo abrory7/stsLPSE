@@ -26,15 +26,21 @@
                     <tr>
                     @foreach($tickets as $ticket)
                         <td><a href="{{ route('trackTicket', $ticket->nomor_ticket) }}" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Lacak Tiket Ini"><u>{{$ticket->nomor_ticket}}</u></a></td>
-                        <td class="bg-danger">{{$ticket->urgensi}}</td>
+                        @if($ticket->urgensi == "Darurat")
+                          <td class="bg-danger">{{$ticket->urgensi}}</td>
+                        @elseif($ticket->urgensi == "Penting")
+                          <td class="bg-warning">{{$ticket->urgensi}}</td>
+                        @elseif($ticket->urgensi == "Normal")
+                          <td>{{$ticket->urgensi}}</td>
+                        @endif
                         <td>{{$ticket->aduan->subjek}}</td>
                         <td>{{$ticket->aduan->kategori->kategori}}</td>
                         <td>{{$ticket->created_at}}</td>
                         <td>{{$ticket->expire}}</td>
                         <td>
                             @if(null !== $ticket->isAssigned)
-                                @php                                    
-                                    $user = DB::table('users')->where('id', $ticket->isAssigned->users_id)->first();                                    
+                                @php
+                                    $user = DB::table('users')->where('id', $ticket->isAssigned->users_id)->first();
                                 @endphp
                             <button class="btn btn-secondary" data-toggle="modal" data-target="#myModal" disabled>Assigned To {{$user->jabatan}}</button>
                             @else
@@ -96,7 +102,7 @@
 </div>
 @stop
 @section('AddScript')
-<script type="text/javascript">    
+<script type="text/javascript">
     function actnav() {
       var element = document.getElementById("ongoing");
       element.classList.add("active");
