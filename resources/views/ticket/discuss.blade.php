@@ -1,3 +1,4 @@
+<?php $title = "Diskusi"; ?>
 @extends('layout.base')
 @section('content')
 <div class="row">

@@ -1,3 +1,4 @@
+<?php $title = "Tiket Selesai"; ?>
 @extends('layout.base')
 @section('content')
 <div class="row">

@@ -2,7 +2,7 @@
 <html lang="en">
 
   <head>
-    <title>Able Pro Responsive Bootstrap 4 Admin Template by Phoenixcoded</title>
+    <title>{{$title}} | STS LPSE Provinsi Kalimantan Selatan</title>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -45,7 +45,7 @@
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
   </head>
   <body class="sidebar-mini fixed" onload="actnav()">
-    
+
     <div class="wrapper">
 
       <!-- Navbar-->

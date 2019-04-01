@@ -1,3 +1,4 @@
+<?php $title = "Tiket yang Sedang Berjalan"; ?>
 @extends('layout.base')
 @section('content')
 <div class="row">
