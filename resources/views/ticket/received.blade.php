@@ -10,7 +10,7 @@
         <div class="row">
             <div class="col-sm-12 table-responsive">
                 <sup>Klik no. tiket untuk melacak tiket</sup>
-                <table class="table table-hover">
+                <table id="dataTable" class="display">
                     <thead>
                     <tr>
                         <th>No. Tiket</th>
