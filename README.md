@@ -18,7 +18,11 @@ Untuk referensi styling dan yang lainnya, lihat file2 pada folder /public/res
 - [x] timeline
 - [x] forum penyelesaian masalah
 - [x] status ticket
+- [ ] time limit berdasarkan urgensi
+- [ ] notif chat
 
 # Front end
 - [ ] Form aduan di paginate
 - [ ] Chart laporan
+- [ ] Datatable halaman tiket masuk dan selesai
+- [ ]
