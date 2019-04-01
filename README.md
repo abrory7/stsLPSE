@@ -24,5 +24,5 @@ Untuk referensi styling dan yang lainnya, lihat file2 pada folder /public/res
 # Front end
 - [ ] Form aduan di paginate
 - [ ] Chart laporan
-- [ ] Datatable halaman tiket masuk dan selesai
+- [x] Datatable halaman tiket masuk dan selesai
 - [ ]
