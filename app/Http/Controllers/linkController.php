@@ -38,8 +38,8 @@ class linkController extends Controller
     {
         $diskusiticket = Diskusi::where('ticket_id', $id_ticket)->first();        
         $listmember = explode(',', $diskusiticket->member);    
-        $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();
-        $member = User::all();
+        $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();        
+        $member = User::whereNotIn('id', $listmember)->get();        
         return view('ticket.discuss', compact('diskusiticket', 'listmember', 'diskusi', 'member'));
 
     }

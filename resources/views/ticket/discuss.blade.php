@@ -84,8 +84,8 @@
             @method('PUT')
             <label for="invite">Pilih user yang akan diundang menjadi member diskusi</label>
               <select name="member" class="form-control">
-                @foreach($member as $member)
-                  <option value="{{$member->id}}">{{$member->name}}</option>
+                @foreach($member as $member)                                                                        
+                    <option value="{{$member->id}}">{{$member->name}}</option>
                 @endforeach
               </select>
               <input type="hidden" name="diskusi_id" value="{{$diskusiticket->diskusi_id}}" class="form-control">
