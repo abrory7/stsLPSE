@@ -157,7 +157,7 @@ class linkController extends Controller
         
         $assignedUser = User::where('id', $req->assignTo)->first();
         $diskusi->ticket_id = $req->ticket_id;
-        $diskusi->member = ($assignedUser->role == 1 ? '1' : '1'.$assignedUser->role);   // Check jika yg di assign bukan member     
+        $diskusi->member = ($assignedUser->role == 1 ? '1' : '1,'.$assignedUser->role);   // Check jika yg di assign bukan member     
         $diskusi->save();
 
         $diskusi_id = Diskusi::where('ticket_id', $req->ticket_id)->first();
