@@ -1,3 +1,4 @@
+<?php $title = "Tiket Masuk"; ?>
 @extends('layout.base')
 @section('content')
 <div class="row">
@@ -10,7 +11,7 @@
         <div class="row">
             <div class="col-sm-12 table-responsive">
                 <sup>Klik no. tiket untuk melacak tiket</sup>
-                <table class="table table-hover">
+                <table id="dataTable" class="display">
                     <thead>
                     <tr>
                         <th>No. Tiket</th>
@@ -27,7 +28,13 @@
                       @if($received->assignedTicket->finish == 0)
                       <tr>
                         <td><a href="{{ route('trackTicket', $received->assignedTicket->nomor_ticket) }}" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Lacak Tiket Ini"><u>{{$received->assignedTicket->nomor_ticket}}</u></a></td>
-                        <td class="bg-danger">{{$received->assignedTicket->urgensi}}</td>
+                        @if($received->assignedTicket->urgensi == "Darurat")
+                          <td class="bg-danger">{{$received->assignedTicket->urgensi}}</td>
+                        @elseif($received->assignedTicket->urgensi == "Penting")
+                          <td class="bg-warning">{{$received->assignedTicket->urgensi}}</td>
+                        @elseif($received->assignedTicket->urgensi == "Normal")
+                          <td>{{$received->assignedTicket->urgensi}}</td>
+                        @endif
                         <td>{{$received->assignedTicket->aduan->subjek}}</td>
                         <td>{{$received->assignedTicket->aduan->kategori->kategori}}</td>
                         <td>{{$received->assignedTicket->created_at}}</td>

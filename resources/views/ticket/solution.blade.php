@@ -1,3 +1,4 @@
+<?php $title = "Beri Solusi"; ?>
 @extends('layout.base')
 @section('content')
 <div class="row">

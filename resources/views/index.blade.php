@@ -1,3 +1,4 @@
+<?php $title = "Home"; ?>
 @extends('layout.base')
 @section('content')
  <div class="row">
