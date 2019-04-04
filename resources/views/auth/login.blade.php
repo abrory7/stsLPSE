@@ -48,10 +48,12 @@
 					<form class="md-float-material" action="{{ route('login') }}" method="post">
             @csrf
 						<div class="text-center">
-							<img src="{{ asset('res/assets/images/logo-blue.png') }}" alt="logo">
+							<img src="{{ asset('logo.png') }}" alt="logo">
 						</div>
 						<h3 class="text-center txt-primary">
-							Sign In to your account
+							Support Ticketing System
+							<br>
+							LPSE Provinsi Kalimantan Selatan
 						</h3>
 						<div class="form-group">
 							<label for="username">Username or email</label>
