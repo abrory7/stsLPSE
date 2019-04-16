@@ -1,5 +1,5 @@
 <header class="main-header-top hidden-print">
-  <a href="{{route('index')}}" class="logo"><img class="img-fluid able-logo" src="{{ asset('res/assets/images/logo.png') }}" alt="Theme-logo"></a>
+  <a href="{{route('index')}}" class="logo"><img class="img-fluid able-logo" src="{{ asset('logo.png') }}" width="50%" alt="Theme-logo"></a>
   <nav class="navbar navbar-static-top">
 
     <!-- Sidebar toggle button-->
@@ -8,29 +8,29 @@
     <!-- Navbar Right Menu-->
     <div class="navbar-custom-menu f-right">
       <ul class="top-nav">
-          @php     
-            $notif = DB::table('notif')->where('notif', 1)->where('role', Auth::user()->id)->get();                    
+          @php
+            $notif = DB::table('notif')->where('notif', 1)->where('role', Auth::user()->id)->get();
           @endphp
-         
-          
-        <!--Notification Menu-->                
+
+
+        <!--Notification Menu-->
         <li class="dropdown notification-menu">
           <a href="#!" data-toggle="dropdown" aria-expanded="false" class="dropdown-toggle">
             <i class="icon-bell"></i>
             <span class="badge badge-danger header-badge">{{count($notif)}}</span>
           </a>
-          <ul class="dropdown-menu">           
-            <li class="not-head">You have <b class="text-primary">{{count($notif)}}</b> new notifications.</li>            
-            @foreach($notif as $ntf)  
+          <ul class="dropdown-menu">
+            <li class="not-head">You have <b class="text-primary">{{count($notif)}}</b> new notifications.</li>
+            @foreach($notif as $ntf)
             @php
               $isiNotif = DB::table('ticket')->where('id', $ntf->ticket_id)->first();
             @endphp
             <li class="bell-notification">
-              <a href="{{route('receivedTicket')}}" class="media">                
+              <a href="{{route('receivedTicket')}}" class="media">
                 <div class="media-body"><span class="block">Tiket baru #{{$isiNotif->nomor_ticket}}</span><span class="text-muted block-time">2min ago</span></div>
               </a>
-            </li>       
-            @endforeach          
+            </li>
+            @endforeach
             <li class="not-footer">
               <a href="{{route('receivedTicket')}}">Lihat Tiket Masuk</a>
             </li>
