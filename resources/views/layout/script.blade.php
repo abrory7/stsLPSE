@@ -38,6 +38,10 @@
 <script type="text/javascript" src="{{ asset('res/assets/pages/dashboard.js') }}"></script>
 <script type="text/javascript" src="{{ asset('res/assets/pages/elements.js') }}"></script>
 <script src="{{ asset('res/assets/js/menu.min.js') }}"></script>
+
+<!-- ChartJS -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0/dist/Chart.min.js"></script>
+
 <!-- Datatable -->
 <script>
   var $window = $(window);

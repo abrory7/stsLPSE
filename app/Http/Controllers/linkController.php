@@ -31,15 +31,15 @@ class linkController extends Controller
             $receives = Assign::all();
         }else{
             $receives = Assign::where('users_id', Auth::user()->id)->get();
-        }        
+        }
         return view('ticket.received', compact('receives'));
     }
     public function discuss($id_ticket)
     {
-        $diskusiticket = Diskusi::where('ticket_id', $id_ticket)->first();        
-        $listmember = explode(',', $diskusiticket->member);    
-        $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();        
-        $member = User::whereNotIn('id', $listmember)->get();        
+        $diskusiticket = Diskusi::where('ticket_id', $id_ticket)->first();
+        $listmember = explode(',', $diskusiticket->member);
+        $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();
+        $member = User::whereNotIn('id', $listmember)->get();
         return view('ticket.discuss', compact('diskusiticket', 'listmember', 'diskusi', 'member'));
 
     }
@@ -136,13 +136,13 @@ class linkController extends Controller
         $notif = new Notif();
         $diskusi = new Diskusi();
         $pesansistem = new Pesan();
-        $statusTicket = new StatusTicket();        
+        $statusTicket = new StatusTicket();
 
         // store table "Assign"
         $assign->users_id = $req->assignTo;
         $assign->ticket_id = $req->ticket_id;
         $assign->save();
-        
+
         // buat "status ticket"
         $statusTicket->ticket_id = $req->ticket_id;
         $statusTicket->status = "2";
@@ -154,10 +154,10 @@ class linkController extends Controller
         $notif->notif = 1;
         $notif->save();
 
-        
+
         $assignedUser = User::where('id', $req->assignTo)->first();
         $diskusi->ticket_id = $req->ticket_id;
-        $diskusi->member = ($assignedUser->role == 1 ? '1' : '1,'.$assignedUser->role);   // Check jika yg di assign bukan member     
+        $diskusi->member = ($assignedUser->role == 1 ? '1' : '1,'.$assignedUser->role);   // Check jika yg di assign bukan member
         $diskusi->save();
 
         $diskusi_id = Diskusi::where('ticket_id', $req->ticket_id)->first();
@@ -170,8 +170,7 @@ class linkController extends Controller
     }
 
 
-    public function inviteDiscuss(Request $req, $id_diskusi)
-    {
+    public function inviteDiscuss(Request $req, $id_diskusi){
         $invite = Diskusi::find($id_diskusi);
         $oldmembers = $invite->member;
         $invite->member = $oldmembers.','.$req->member;
@@ -192,5 +191,10 @@ class linkController extends Controller
         $pesan->save();
 
         return redirect()->route('discussTicket', $diskusi->id);
+    }
+    public function chart(){
+      $cat = Ticket::where('finish', 1)->distinct()->get(['kategori_id']);
+      $cat1 = Aduan::where('kategori_id', 1)->get();
+      return view('test', compact('cat', 'cat1'));
     }
 }
