@@ -59,4 +59,4 @@
 <script>
   $("#dataTable").DataTable();
 </script>
-@yield('AddScript')
+@yield('addScript')

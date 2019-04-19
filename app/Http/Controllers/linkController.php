@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Events\MessageSent;
 use App\Aduan;
 use App\Kategori;
 use App\Ticket;
@@ -16,7 +17,7 @@ use App\User;
 use Auth;
 
 class linkController extends Controller
-{
+{   
     // PAKAI TAB PLEASE
 
     public function ongoing()
@@ -192,5 +193,23 @@ class linkController extends Controller
         $pesan->save();
 
         return redirect()->route('discussTicket', $diskusi->id);
+    }
+
+    public function sendChat(Request $req){               
+        event(new MessageSent($req->pesan, $req->diskusi_id, $req->member, $req->date));       
+        $diskusi = Pesan::where('diskusi_id', $req->diskusi_id)->first();
+
+        $pesan = new Pesan();
+
+        $pesan->diskusi_id = $diskusi->id;
+        $pesan->pesan = $req->pesan;
+        $pesan->member = $req->member;
+
+        $pesan->save();
+        
+        $data = [
+            "message" => "success tersimpan"
+        ];
+        return $data;    
     }
 }
