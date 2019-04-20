@@ -11,27 +11,23 @@
 							@foreach($ticket_status as $status)
         				<li>
 									<div class="padleft">
-											<a target="_blank" href="https://www.totoprayogo.com/#">New Web Design</a>
+											<a target="_blank" href="#">
+											@if($status->status == 1)
+
+												Diterima HelpDesk
+
+											@elseif($status->status == 2 )
+											@php
+												$user = DB::table('users')->where('id', $status->ticket->isAssigned->users_id)->first();
+											@endphp
+												Assigned to {{$user->jabatan}}
+											@elseif($status->status == 3)
+												Sedang dikerjakan oleh {{$user->name}} ({{$user->jabatan}}) 																																
+											@endif
+											</a>
 											<a href="#" class="datefloat">{{$status->created_at}}</a>
 											<p>
-													@if($status->status == 1)
-
-															Diterima HelpDesk
-
-													@elseif($status->status == 2 )
-														@php
-															$user = DB::table('users')->where('id', $status->ticket->isAssigned->users_id)->first();
-														@endphp
-
-															Assigned to {{$user->jabatan}}
-													@elseif($status->status == 3)
-
-															Diterima Admin PPE
-													@elseif($status->status == 4)
-															Diterima Verifikator
-                          @elseif($status->status == 7)
-															Tiket Selesai
-													@endif
+													
 											</p>
 									</div>
 							</li>

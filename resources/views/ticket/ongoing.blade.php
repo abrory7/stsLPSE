@@ -77,7 +77,9 @@
                                         <label for="assign to"> Assign To</label>
                                         <select name="assignTo" class="form-control">
                                         @foreach($users as $user)
+                                            @if($user->role != 3)
                                             <option value="{{$user->id}}">{{$user->jabatan}}</option>
+                                            @endif 
                                         @endforeach
                                         </select>
                                         <input type="hidden" name="ticket_id" value="{{$ticket->id}}" class="form-control">

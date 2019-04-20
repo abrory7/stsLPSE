@@ -1,8 +1,5 @@
 <?php
 
-use Illuminate\Http\Request;
-use App\Events\MessageSent;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,7 +37,6 @@ Route::prefix('tiket')->group(function(){
     Route::get('received', 'linkController@received')->name('receivedTicket');
     Route::get('received/diskusi/{id_ticket}', 'linkController@discuss')->name('discussTicket');
     Route::put('received/diskusi/invite/{id_diskusi}', 'linkController@inviteDiscuss')->name('inviteMember');
-    Route::post('received/diskusi/send/{diskusi_id}', 'linkController@sendMsg')->name('sendMsg');
     Route::post('received/diskusi/sendMessage', 'linkController@sendChat')->name('sendChat');
 });
 
@@ -54,18 +50,4 @@ Route::get('/test', function(){
 Route::get('/a', function(){
     $password = Hash::make('password');
     return $password;
-});
-
-Route::Get('/chat', function(){
-    return view('ticket.chat');
-});
-
-Route::Get('/send', function(){
-    return view('ticket.sender');
-});
-
-Route::Post('/send', function(Request $request){
-    dd($request->all());
-    event(new MessageSent($request->message));
-
 });

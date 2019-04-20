@@ -36,11 +36,17 @@ class linkController extends Controller
         return view('ticket.received', compact('receives'));
     }
     public function discuss($id_ticket)
-    {
-        $diskusiticket = Diskusi::where('ticket_id', $id_ticket)->first();        
+    {                
+        $diskusiticket = Diskusi::where('ticket_id', $id_ticket)->first();             
+        if(StatusTicket::where('ticket_id', $id_ticket)->where('status', 3)->first() == NULL){
+            StatusTicket::create([
+                'ticket_id' => $id_ticket,
+                'status' => 3
+            ]);
+        }
         $listmember = explode(',', $diskusiticket->member);    
         $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();        
-        $member = User::whereNotIn('id', $listmember)->get();        
+        $member = User::whereNotIn('id', $listmember)->get();      
         return view('ticket.discuss', compact('diskusiticket', 'listmember', 'diskusi', 'member'));
 
     }
@@ -125,7 +131,7 @@ class linkController extends Controller
 
         $statusTicket = new StatusTicket();
         $statusTicket->ticket_id = $closeticket->id;
-        $statusTicket->status = 5;
+        $statusTicket->status = 4;
         $statusTicket->save();
 
         $closeticket->save();
@@ -164,7 +170,7 @@ class linkController extends Controller
         $diskusi_id = Diskusi::where('ticket_id', $req->ticket_id)->first();
         $pesansistem->diskusi_id = $diskusi_id->id;
         $pesansistem->member = 1;
-        $pesansistem->pesan = '(SISTEM) Tiket #'.$req->nomor_ticket.' telah diarahkan kepada Admin untuk selanjutnya dapat ditindaklanjuti.';
+        $pesansistem->pesan = '(SISTEM) Tiket #'.$req->nomor_ticket.' telah diarahkan kepada '.$assignedUser->name.' @'.$assignedUser->jabatan .' untuk selanjutnya dapat ditindaklanjuti.';
         $pesansistem->save();
 
         return redirect()->route('ongoingTicket');
@@ -180,19 +186,6 @@ class linkController extends Controller
         $invite->save();
 
         return redirect()->route('discussTicket', $id_diskusi);
-    }
-
-    public function sendMsg(Request $req, $diskusi_id){
-        $diskusi = Pesan::where('diskusi_id', $diskusi_id)->first();
-        $pesan = new Pesan();
-
-        $pesan->diskusi_id = $diskusi->id;
-        $pesan->pesan = $req->pesan;
-        $pesan->member = Auth::user()->id;
-
-        $pesan->save();
-
-        return redirect()->route('discussTicket', $diskusi->id);
     }
 
     public function sendChat(Request $req){                       
