@@ -16,7 +16,7 @@ class MessageSent implements ShouldBroadcast
     public $message;
     public $diskusi_id;
     public $member;
-    public $date;
+    public $date;    
     /**
      * Create a new event instance.
      *
@@ -37,7 +37,7 @@ class MessageSent implements ShouldBroadcast
      */
     public function broadcastOn()
     {
-        return new Channel('discuss-channel');
+        return new Channel('discuss-channel_'.$this->diskusi_id);
     }
 
     public function broadcastAs()

@@ -195,10 +195,8 @@ class linkController extends Controller
         return redirect()->route('discussTicket', $diskusi->id);
     }
 
-    public function sendChat(Request $req){               
-        event(new MessageSent($req->pesan, $req->diskusi_id, $req->member, $req->date));       
-        $diskusi = Pesan::where('diskusi_id', $req->diskusi_id)->first();
-
+    public function sendChat(Request $req){                       
+        $diskusi = Diskusi::where('id', $req->diskusi_id)->first();        
         $pesan = new Pesan();
 
         $pesan->diskusi_id = $diskusi->id;
@@ -207,6 +205,7 @@ class linkController extends Controller
 
         $pesan->save();
         
+        event(new MessageSent($pesan->pesan, $pesan->diskusi_id, $pesan->member, $pesan->created_at));
         $data = [
             "message" => "success tersimpan"
         ];

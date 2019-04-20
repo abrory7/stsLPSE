@@ -106,7 +106,7 @@
 <script src="https://js.pusher.com/4.4/pusher.min.js"></script>
 
 <script>
-
+  
 const formMsg = document.querySelector('form[name="formSendMsg"]');
 const chatWrapper = document.querySelector('.discuss-wrap');
 
@@ -189,7 +189,8 @@ var pusher = new Pusher('01313f7060ca86786294', {
   });
 
 //receive response dari pusher
-var channel = pusher.subscribe('discuss-channel');
+let diskusi_id = "{{$diskusiticket->id}}"
+var channel = pusher.subscribe('discuss-channel_'+diskusi_id);
 channel.bind('message-sent', function(data) {
   // Buat HTML disini.
   let hari = "{{date('j F')}}";
@@ -198,14 +199,11 @@ channel.bind('message-sent', function(data) {
   let AuthenticateUser = data.member;  
   console.log(hari, waktu, AuthenticateUser, senderName);
   createChat(data.message,hari, waktu, AuthenticateUser, senderName);  
-
   
-
-
 });
 
 formMsg.addEventListener('submit',(e)=>{
-  e.preventDefault();
+  e.preventDefault();  
   //Payload
   let dataChat = {
     "diskusi_id" : "{{$diskusiticket->id}}",
@@ -232,8 +230,9 @@ formMsg.addEventListener('submit',(e)=>{
       error: function(error){
           console.log( error);
       }
-    })
-
+    })   
+  
+  formMsg.reset();
 })
 
       
