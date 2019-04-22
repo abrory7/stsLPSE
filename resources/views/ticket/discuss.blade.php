@@ -64,11 +64,13 @@
       </div>
     </div>
     <div class="sendmsg form-inline">
+    @if($chatAble)
       <form name="formSendMsg">    
       @csrf   
         <textarea id="pesan" name="pesan" class="form-control" rows="4" cols="39" placeholder="Tulis Pesan...." required></textarea>
         <button type="submit" class="btn btn-success sendbutton">KIRIM</button>
       </form>
+    @endif
     </div>
   </div>
   <!-- MODAL -->

@@ -22,13 +22,12 @@
 											@endphp
 												Assigned to {{$user->jabatan}}
 											@elseif($status->status == 3)
-												Sedang dikerjakan oleh {{$user->name}} ({{$user->jabatan}}) 																																
+												Sedang dikerjakan oleh {{$user->name}} ({{$user->jabatan}}) 		
+											@elseif($status->status == 4)
+												Tiket Selesai																																																			
 											@endif
 											</a>
 											<a href="#" class="datefloat">{{$status->created_at}}</a>
-											<p>
-													
-											</p>
 									</div>
 							</li>
 							@endforeach

@@ -37,7 +37,8 @@ class linkController extends Controller
     }
     public function discuss($id_ticket)
     {                
-        $diskusiticket = Diskusi::where('ticket_id', $id_ticket)->first();             
+        $diskusiticket = Diskusi::where('ticket_id', $id_ticket)->first();      
+        $tickets = Ticket::where('id', $id_ticket)->first();
         if(StatusTicket::where('ticket_id', $id_ticket)->where('status', 3)->first() == NULL){
             StatusTicket::create([
                 'ticket_id' => $id_ticket,
@@ -46,8 +47,9 @@ class linkController extends Controller
         }
         $listmember = explode(',', $diskusiticket->member);    
         $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();        
-        $member = User::whereNotIn('id', $listmember)->get();      
-        return view('ticket.discuss', compact('diskusiticket', 'listmember', 'diskusi', 'member'));
+        $member = User::whereNotIn('id', $listmember)->get();     
+        $chatAble = True; 
+        return view('ticket.discuss', compact('diskusiticket', 'listmember', 'diskusi', 'member', 'chatAble'));
 
     }
 
@@ -186,6 +188,21 @@ class linkController extends Controller
         $invite->save();
 
         return redirect()->route('discussTicket', $id_diskusi);
+    }
+
+    public function discussFinished($id_ticket){
+        $diskusiticket = Diskusi::where('ticket_id', $id_ticket)->first();      
+        $tickets = Ticket::where('id', $id_ticket)->first();       
+        if(StatusTicket::where('ticket_id', $id_ticket)->where('status', 3)->first() == NULL){
+            StatusTicket::create([
+                'ticket_id' => $id_ticket,
+                'status' => 3
+            ]);
+        }
+        $listmember = explode(',', $diskusiticket->member);    
+        $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();        
+        $member = User::whereNotIn('id', $listmember)->get();     
+        return view('ticket.finishedDiscussion', compact('tickets', 'diskusiticket', 'listmember', 'diskusi', 'member', 'chatAble'));
     }
 
     public function sendChat(Request $req){                       
