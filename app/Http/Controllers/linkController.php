@@ -15,9 +15,12 @@ use App\Diskusi;
 use App\Pesan;
 use App\User;
 use Auth;
+use DateTime;
+use DB;
+use Carbon\Carbon;
 
 class linkController extends Controller
-{   
+{
     // PAKAI TAB PLEASE
 
     public function ongoing()
@@ -32,7 +35,7 @@ class linkController extends Controller
             $receives = Assign::all();
         }else{
             $receives = Assign::where('users_id', Auth::user()->id)->get();
-        }        
+        }
         return view('ticket.received', compact('receives'));
     }
     public function discuss($id_ticket)
@@ -145,13 +148,13 @@ class linkController extends Controller
         $notif = new Notif();
         $diskusi = new Diskusi();
         $pesansistem = new Pesan();
-        $statusTicket = new StatusTicket();        
+        $statusTicket = new StatusTicket();
 
         // store table "Assign"
         $assign->users_id = $req->assignTo;
         $assign->ticket_id = $req->ticket_id;
         $assign->save();
-        
+
         // buat "status ticket"
         $statusTicket->ticket_id = $req->ticket_id;
         $statusTicket->status = "2";
@@ -163,10 +166,10 @@ class linkController extends Controller
         $notif->notif = 1;
         $notif->save();
 
-        
+
         $assignedUser = User::where('id', $req->assignTo)->first();
         $diskusi->ticket_id = $req->ticket_id;
-        $diskusi->member = ($assignedUser->role == 1 ? '1' : '1,'.$assignedUser->role);   // Check jika yg di assign bukan member     
+        $diskusi->member = ($assignedUser->role == 1 ? '1' : '1,'.$assignedUser->role);   // Check jika yg di assign bukan member
         $diskusi->save();
 
         $diskusi_id = Diskusi::where('ticket_id', $req->ticket_id)->first();
@@ -179,8 +182,7 @@ class linkController extends Controller
     }
 
 
-    public function inviteDiscuss(Request $req, $id_diskusi)
-    {
+    public function inviteDiscuss(Request $req, $id_diskusi){
         $invite = Diskusi::find($id_diskusi);
         $oldmembers = $invite->member;
         $invite->member = $oldmembers.','.$req->member;
@@ -214,11 +216,34 @@ class linkController extends Controller
         $pesan->member = $req->member;
 
         $pesan->save();
-        
+
         event(new MessageSent($pesan->pesan, $pesan->diskusi_id, $pesan->member, $pesan->created_at));
         $data = [
             "message" => "success tersimpan"
         ];
-        return $data;    
+        return $data;
+    }
+    public function chart(){
+      //total data perkategori
+      $cat = Aduan::distinct()->get(['kategori_id']);
+      $cat1 = Aduan::pluck('kategori_id')->unique()->toArray(); //menghitung total data perkategori
+      $countcat = []; //menghitung total data perkategori
+      foreach($cat1 as $kategori_id){
+        $countcat[$kategori_id] = count(Aduan::where('kategori_id', '=', $kategori_id)->get());//menghitung total data perkategori
+      }
+
+      //total data perbulan
+      $month = Ticket::pluck('created_at')->toArray();
+      $dates = array_unique(array_map(function($date) {
+          return DateTime::createFromFormat('Y-m-d H:i:s', $date)->format('F');
+      }, $month));
+      $monthlyData =  Ticket::Select([DB::raw("DATE_FORMAT(created_at, '%Y-%m') AS `date`"),
+                      DB::raw('COUNT(id) AS count'),
+                      ])
+                      ->groupBy('date')
+                      ->orderBy('date', 'ASC')
+                      ->where('finish', 1)
+                      ->get();
+      return view('test', compact('cat', 'countcat', 'dates', 'monthlyData'));
     }
 }

@@ -18,6 +18,7 @@ Route::get('/', function () {
     return view('index');
 })->name('index')->middleware('auth');
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/tes', 'linkController@chart');
 
 // Group prefix ini berhubungan dengan tiket e.g CRUD, track, status tiket
 // contoh aksesnya localhost:8000/tiket/"create" <= sesuai dengan method

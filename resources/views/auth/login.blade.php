@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<title>Able Pro Responsive Bootstrap 4 Admin Template by Phoenixcoded</title
+	<title>Login | STS LPSE Provinsi Kalimantan Selatan</title
 	<!-- Meta -->
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1.0, user-scalable=no">
