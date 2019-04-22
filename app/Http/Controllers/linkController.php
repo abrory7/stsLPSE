@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Events\MessageSent;
 use App\Aduan;
 use App\Kategori;
 use App\Ticket;
@@ -40,6 +41,12 @@ class linkController extends Controller
     public function discuss($id_ticket)
     {
         $diskusiticket = Diskusi::where('ticket_id', $id_ticket)->first();
+        if(StatusTicket::where('ticket_id', $id_ticket)->where('status', 3)->first() == NULL){
+            StatusTicket::create([
+                'ticket_id' => $id_ticket,
+                'status' => 3
+            ]);
+        }
         $listmember = explode(',', $diskusiticket->member);
         $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();
         $member = User::whereNotIn('id', $listmember)->get();
@@ -127,7 +134,7 @@ class linkController extends Controller
 
         $statusTicket = new StatusTicket();
         $statusTicket->ticket_id = $closeticket->id;
-        $statusTicket->status = 5;
+        $statusTicket->status = 4;
         $statusTicket->save();
 
         $closeticket->save();
@@ -166,7 +173,7 @@ class linkController extends Controller
         $diskusi_id = Diskusi::where('ticket_id', $req->ticket_id)->first();
         $pesansistem->diskusi_id = $diskusi_id->id;
         $pesansistem->member = 1;
-        $pesansistem->pesan = '(SISTEM) Tiket #'.$req->nomor_ticket.' telah diarahkan kepada Admin untuk selanjutnya dapat ditindaklanjuti.';
+        $pesansistem->pesan = '(SISTEM) Tiket #'.$req->nomor_ticket.' telah diarahkan kepada '.$assignedUser->name.' @'.$assignedUser->jabatan .' untuk selanjutnya dapat ditindaklanjuti.';
         $pesansistem->save();
 
         return redirect()->route('ongoingTicket');
@@ -183,17 +190,21 @@ class linkController extends Controller
         return redirect()->route('discussTicket', $id_diskusi);
     }
 
-    public function sendMsg(Request $req, $diskusi_id){
-        $diskusi = Pesan::where('diskusi_id', $diskusi_id)->first();
+    public function sendChat(Request $req){
+        $diskusi = Diskusi::where('id', $req->diskusi_id)->first();
         $pesan = new Pesan();
 
         $pesan->diskusi_id = $diskusi->id;
         $pesan->pesan = $req->pesan;
-        $pesan->member = Auth::user()->id;
+        $pesan->member = $req->member;
 
         $pesan->save();
 
-        return redirect()->route('discussTicket', $diskusi->id);
+        event(new MessageSent($pesan->pesan, $pesan->diskusi_id, $pesan->member, $pesan->created_at));
+        $data = [
+            "message" => "success tersimpan"
+        ];
+        return $data;
     }
     public function chart(){
       //total data perkategori

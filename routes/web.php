@@ -38,7 +38,7 @@ Route::prefix('tiket')->group(function(){
     Route::get('received', 'linkController@received')->name('receivedTicket');
     Route::get('received/diskusi/{id_ticket}', 'linkController@discuss')->name('discussTicket');
     Route::put('received/diskusi/invite/{id_diskusi}', 'linkController@inviteDiscuss')->name('inviteMember');
-    Route::post('received/diskusi/send/{diskusi_id}', 'linkController@sendMsg')->name('sendMsg');
+    Route::post('received/diskusi/sendMessage', 'linkController@sendChat')->name('sendChat');
 });
 
 Route::get('/test', function(){
