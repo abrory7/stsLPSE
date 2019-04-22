@@ -14,6 +14,9 @@ use App\Diskusi;
 use App\Pesan;
 use App\User;
 use Auth;
+use DateTime;
+use DB;
+use Carbon\Carbon;
 
 class linkController extends Controller
 {
@@ -193,8 +196,26 @@ class linkController extends Controller
         return redirect()->route('discussTicket', $diskusi->id);
     }
     public function chart(){
-      $cat = Ticket::where('finish', 1)->distinct()->get(['kategori_id']);
-      $cat1 = Aduan::where('kategori_id', 1)->get();
-      return view('test', compact('cat', 'cat1'));
+      //total data perkategori
+      $cat = Aduan::distinct()->get(['kategori_id']);
+      $cat1 = Aduan::pluck('kategori_id')->unique()->toArray(); //menghitung total data perkategori
+      $countcat = []; //menghitung total data perkategori
+      foreach($cat1 as $kategori_id){
+        $countcat[$kategori_id] = count(Aduan::where('kategori_id', '=', $kategori_id)->get());//menghitung total data perkategori
+      }
+
+      //total data perbulan
+      $month = Ticket::pluck('created_at')->toArray();
+      $dates = array_unique(array_map(function($date) {
+          return DateTime::createFromFormat('Y-m-d H:i:s', $date)->format('F');
+      }, $month));
+      $monthlyData =  Ticket::Select([DB::raw("DATE_FORMAT(created_at, '%Y-%m') AS `date`"),
+                      DB::raw('COUNT(id) AS count'),
+                      ])
+                      ->groupBy('date')
+                      ->orderBy('date', 'ASC')
+                      ->where('finish', 1)
+                      ->get();
+      return view('test', compact('cat', 'countcat', 'dates', 'monthlyData'));
     }
 }
