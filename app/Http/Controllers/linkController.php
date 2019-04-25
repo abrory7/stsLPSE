@@ -17,6 +17,7 @@ use App\User;
 use Auth;
 use DateTime;
 use DB;
+use PDF;
 use Carbon\Carbon;
 
 class linkController extends Controller
@@ -52,7 +53,7 @@ class linkController extends Controller
         $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();        
         $member = User::whereNotIn('id', $listmember)->get();     
         $chatAble = True; 
-        return view('ticket.discuss', compact('diskusiticket', 'listmember', 'diskusi', 'member', 'chatAble'));
+        return view('ticket.discuss', compact('diskusiticket', 'listmember', 'diskusi', 'member', 'chatAble', 'tickets'));
 
     }
 
@@ -245,5 +246,14 @@ class linkController extends Controller
                       ->where('finish', 1)
                       ->get();
       return view('test', compact('cat', 'countcat', 'dates', 'monthlyData'));
+    }    
+    
+    public function print(Request $req){
+        $diskusiticket = Diskusi::where('ticket_id', $req->ticket)->first();      
+        $tickets = Ticket::where('id', $req->ticket)->first();               
+        $listmember = explode(',', $diskusiticket->member);    
+        $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();        
+        $member = User::whereNotIn('id', $listmember)->get();          
+        return view('ticket.report', compact('tickets', 'diskusiticket', 'listmember', 'diskusi', 'member'));
     }
 }

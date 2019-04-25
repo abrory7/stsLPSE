@@ -8,6 +8,60 @@
 </div>
 <div class="card">
   <div class="card-block">
+      <h1> Ticket #{{$tickets->nomor_ticket}}</h1>
+      <table class="table table-borderless">
+      <tbody>
+          <tr>
+            <th>Status</th>
+              <td>
+                  @if($tickets->finish == 0)
+                      Terbuka
+                  @else  
+                      Ditutup
+                  @endif
+              </td>
+
+              <th>Nama</th>
+              <td>{{$tickets->aduan->nama}}</td>
+          </tr>
+          <tr>
+            <th>Prioritas</th>
+              <td>{{$tickets->urgensi}}</td>
+
+              <th>Email</th>
+              <td>{{$tickets->aduan->email}}</td>
+          </tr>
+          <tr>
+            <th>Tanggal Dibuat</th>
+              <td>{{$tickets->created_at}}</td>
+
+              <th>Telepon</th>
+              <td>{{$tickets->aduan->no_telp}}</td>
+          </tr>
+        <tr>
+        <th>Assigned To</th>
+              @php    
+                  $user = DB::table('users')->where('id', $tickets->isAssigned->users_id)->first();                
+              @endphp
+              <td>{{$user->name}} ({{$user->jabatan}})</td>
+
+              <th>Kategori</th>
+              <td>
+                  @if($tickets->aduan->kategori_id == 1)
+                      Login Error
+                  @elseif($tickets->aduan->kategori_id == 2)
+                      Instalasi Jaringan
+                  @else
+                      Lainnya
+                  @endif
+
+              </td>
+              
+          </tr>
+      </tbody>
+      </table>
+  </div>
+  <div class="card-block">
     <center>
       <span>Member:&nbsp;
         @foreach($listmember as $members)
@@ -84,6 +138,7 @@
         </div>
         <div class="modal-body">
           <form action="{{ route('inviteMember', $diskusiticket->id) }}" method="POST">
+          @csrf
           <meta name="csrf-token" content="{{ csrf_token() }}">
             @method('PUT')
             <label for="invite">Pilih user yang akan diundang menjadi member diskusi</label>
