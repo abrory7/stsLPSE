@@ -21,7 +21,7 @@
       </div>
       <div class="card-block row">
         <div class="col-sm-12">
-          <div id="areachart"></div>
+          <canvas id="chartVersus"></canvas>
         </div>
       </div>
       <div class="card-block">
@@ -92,7 +92,7 @@
   <div class="col-lg-3 col-sm-6">
       <div class="col-sm-12 card dashboard-product">
           <span>Average First Response Time</span>
-          <h2 class="dashboard-total-products">7 Jam</h2>
+          <h2 class="dashboard-total-products">{{$avgFirstResponseTime}} Menit</h2>
           Sejak tiket dibuat
       </div>
   </div>
@@ -222,5 +222,13 @@ var month = new Chart(ctx, {
         }
     }
 });
+
+// Chart versus
+
+var ctxVersus = document.getElementById('chartVersus');
+var versusLine = new Chart(ctxVersus, {
+  type: 'line',
+  data: ['0.2', '0.4', '0.5'],
+})
 </script>
 @endsection

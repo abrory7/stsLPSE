@@ -266,7 +266,16 @@ class linkController extends Controller
         }
       }        
       
-      return view('test', compact('cat', 'countcat', 'dates', 'monthlyData', 'urg', 'arrurg', 'urgtotal', 'totalfinish' ,'solvers'));
+      //Average First Response Time
+      $assignedTicketTotal = Assign::all();
+      $TotalResponseTime = 0;
+      foreach($assignedTicketTotal as $ticket){                    
+        $selisih = Carbon::createFromFormat('Y-m-d H:s:i', $ticket->created_at)->diffInMinutes($ticket->assignedTicket->created_at); 
+        $TotalResponseTime += $selisih;
+      }
+      $avgFirstResponseTime = (int) floor($TotalResponseTime/count($assignedTicketTotal));      
+
+      return view('test', compact('cat', 'countcat', 'dates', 'monthlyData', 'urg', 'arrurg', 'urgtotal', 'totalfinish' ,'solvers', 'avgFirstResponseTime'));
     }
 
     public function print(Request $req){
