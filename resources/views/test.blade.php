@@ -61,42 +61,19 @@
         </h6>
         <table class="table">
           <thead>
-            <tr>
-              <th>#</th>
+            <tr>              
               <th>Nama</th>
+              <th>Jabatan</th>
               <th>Total</th>
             </tr>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>ayam</td>
-                <td>2131</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>itik</td>
-                <td>412</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>burung</td>
-                <td>31</td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>dodo</td>
-                <td>21</td>
-              </tr>
-              <tr>
-                <td>5</td>
-                <td>emu</td>
-                <td>11</td>
-              </tr>
-              <tr>
-                <td>6</td>
-                <td>pelikan</td>
-                <td>69</td>
-              </tr>
+            @foreach($solvers as $key => $val)
+              <tr>                
+                <td>{{$val[0]}}</td>
+                <td>{{$key}}</td>
+                <td>{{count($val)}}</td>
+              </tr>              
+            @endforeach
             </tbody>
         </table>
       </div>

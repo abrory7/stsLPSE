@@ -256,7 +256,17 @@ class linkController extends Controller
 
       //total tiket selesai
       $totalfinish = count(Ticket::where('finish', 1)->get());
-      return view('test', compact('cat', 'countcat', 'dates', 'monthlyData', 'urg', 'arrurg', 'urgtotal', 'totalfinish'));
+
+      //Penyelesai tiket
+      $assignedUser = Assign::all();
+      $solvers = [];
+      foreach($assignedUser as $user){
+        if($user->assignedTicket->finish == 1){            
+           $solvers[$user->assignedUser->jabatan][] = $user->assignedUser->name;
+        }
+      }        
+      
+      return view('test', compact('cat', 'countcat', 'dates', 'monthlyData', 'urg', 'arrurg', 'urgtotal', 'totalfinish' ,'solvers'));
     }
 
     public function print(Request $req){
