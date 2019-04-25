@@ -156,9 +156,11 @@
         <div class="card-body">
           <div id="kategori">
             <h2>Total Laporan Perkategori</h2>
-            <div style="width: 40%; height: 40%;">
+            <center>
+            <div style="width: 80%; height: 80%;">
               <canvas id="cat" width="400" height="400"></canvas>
             </div>
+          </center>
           </div>
         </div>
       </div>
@@ -184,6 +186,7 @@
 <script>
 var ctx = document.getElementById('cat').getContext('2d');
 var cat = new Chart(ctx, {
+    responsive: false,
     type: 'doughnut',
     data: {
         labels: [<?php foreach($cat as $kategori){ echo '\''.$kategori->kategori->kategori.'\','; } ?>],
@@ -207,12 +210,21 @@ var cat = new Chart(ctx, {
         }
       ]
     },
+    options:
+    {
+      legend:
+      {
+        position: 'right'
+      }
+    }
   });
 </script>
 <script>
 var ctx = document.getElementById('month').getContext('2d');
 var month = new Chart(ctx, {
-    type: 'bar',
+    maintainAspectRatio: false,
+    responsive: true,
+    type: 'line',
     data: {
         labels: [<?php foreach($dates as $bulan){ echo '\''.$bulan.'\','; } ?>],
         datasets: [
