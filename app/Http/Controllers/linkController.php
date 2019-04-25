@@ -245,7 +245,18 @@ class linkController extends Controller
                       ->orderBy('date', 'ASC')
                       ->where('finish', '=', '1')
                       ->get();
-      return view('test', compact('cat', 'countcat', 'dates', 'monthlyData'));
+
+      //total tiket belum selesai perurgensi
+      $urg = Ticket::distinct()->where('finish', 0)->get(['urgensi']);
+      $darurattotal = count(Ticket::where('finish', 0)->where('urgensi', 'Darurat')->get());
+      $pentingtotal = count(Ticket::where('finish', 0)->where('urgensi', 'Penting')->get());
+      $normaltotal = count(Ticket::where('finish', 0)->where('urgensi', 'Normal')->get());
+      $arrurg = [$darurattotal, $pentingtotal, $normaltotal];
+      $urgtotal = array_sum($arrurg);
+
+      //total tiket selesai
+      $totalfinish = count(Ticket::where('finish', 1)->get());
+      return view('test', compact('cat', 'countcat', 'dates', 'monthlyData', 'urg', 'arrurg', 'urgtotal', 'totalfinish'));
     }
 
     public function print(Request $req){
