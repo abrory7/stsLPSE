@@ -254,6 +254,8 @@ class linkController extends Controller
       $arrurg = [$darurattotal, $pentingtotal, $normaltotal];
       $urgtotal = array_sum($arrurg);
 
+      //total tiket belum selesai
+      $totalunfinish = count(Ticket::where('finish', 0)->get());
       //total tiket selesai
       $totalfinish = count(Ticket::where('finish', 1)->get());
 
@@ -261,21 +263,21 @@ class linkController extends Controller
       $assignedUser = Assign::all();
       $solvers = [];
       foreach($assignedUser as $user){
-        if($user->assignedTicket->finish == 1){            
+        if($user->assignedTicket->finish == 1){
            $solvers[$user->assignedUser->jabatan][] = $user->assignedUser->name;
         }
-      }        
-      
+      }
+
       //Average First Response Time
       $assignedTicketTotal = Assign::all();
       $TotalResponseTime = 0;
-      foreach($assignedTicketTotal as $ticket){                    
-        $selisih = Carbon::createFromFormat('Y-m-d H:s:i', $ticket->created_at)->diffInMinutes($ticket->assignedTicket->created_at); 
+      foreach($assignedTicketTotal as $ticket){
+        $selisih = Carbon::createFromFormat('Y-m-d H:s:i', $ticket->created_at)->diffInMinutes($ticket->assignedTicket->created_at);
         $TotalResponseTime += $selisih;
       }
-      $avgFirstResponseTime = (int) floor($TotalResponseTime/count($assignedTicketTotal));      
+      $avgFirstResponseTime = (int) floor($TotalResponseTime/count($assignedTicketTotal));
 
-      return view('test', compact('cat', 'countcat', 'dates', 'monthlyData', 'urg', 'arrurg', 'urgtotal', 'totalfinish' ,'solvers', 'avgFirstResponseTime'));
+      return view('test', compact('cat', 'countcat', 'dates', 'monthlyData', 'urg', 'arrurg', 'urgtotal', 'totalunfinish', 'totalfinish' ,'solvers', 'avgFirstResponseTime'));
     }
 
     public function print(Request $req){

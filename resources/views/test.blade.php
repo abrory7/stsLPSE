@@ -5,97 +5,17 @@
     <h4>Statistik</h4>
 </div>
 <div class="row">
-  <div class="col-lg-9 col-md-12">
-    <div class="card">
-      <div class="card-block">
-        <div class="row m-b-10 dashboard-total-income">
-          <div class="col-sm-6 text-left">
-            <div class="counter-txt">
-              <h6>Total Income</h6>
-            </div>
-          </div>
-          <div class="col-sm-6">
-            <i class="icofont icofont-link-alt"></i>
-          </div>
-        </div>
-      </div>
-      <div class="card-block row">
-        <div class="col-sm-12">
-          <canvas id="chartVersus"></canvas>
-        </div>
-      </div>
-      <div class="card-block">
-        <div class="row">
-          <div class="col-sm-3 col-xs-6 income-per-day">
-            <p>Today</p>
-              $
-            <h6 class="counter">6734.00</h6>
-          </div>
-          <div class="col-sm-3 col-xs-6 income-per-day">
-            <p>Last Week</p>
-              $
-            <h6 class="counter">58789.00</h6>
-          </div>
-          <div class="col-sm-3 col-xs-6 income-per-day">
-            <p>Total Orders</p>
-              $
-            <h6 class="counter">658</h6>
-          </div>
-          <div class="col-sm-3 col-xs-6 income-per-day">
-            <p>Total Income</p>
-              $
-            <h6 class="counter">$85749.00</h6>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="col-lg-3 col-md-6">
-      <div class="card" style="height: 424.1px;">
-        <h6>
-          <center>
-            <br>
-            Penyelesai Tiket Terbanyak
-            <hr style="border: 1px solid black;">
-          </center>
-        </h6>
-        <table class="table">
-          <thead>
-            <tr>              
-              <th>Nama</th>
-              <th>Jabatan</th>
-              <th>Total</th>
-            </tr>
-            <tbody>
-            @foreach($solvers as $key => $val)
-              <tr>                
-                <td>{{$val[0]}}</td>
-                <td>{{$key}}</td>
-                <td>{{count($val)}}</td>
-              </tr>              
-            @endforeach
-            </tbody>
-        </table>
-      </div>
-  </div>
-
   <div class="col-lg-3 col-sm-6">
       <div class="col-sm-12 card dashboard-product">
-          <span>Total Tiket Selesai</span>
-          <h2 class="dashboard-total-products counter">{{$totalfinish}}</h2>
+          <span>Total Tiket Belum Selesai</span>
+          <h2 class="dashboard-total-products counter">{{$totalunfinish}}</h2>
           Tiket
-          <div class="side-box bg-danger">
+          <div class="side-box bg-warning">
               <i class="icon-direction"></i>
           </div>
       </div>
   </div>
-  <div class="col-lg-3 col-sm-6">
-      <div class="col-sm-12 card dashboard-product">
-          <span>Average First Response Time</span>
-          <h2 class="dashboard-total-products">{{$avgFirstResponseTime}} Menit</h2>
-          Sejak tiket dibuat
-      </div>
-  </div>
+
   <div class="col-lg-6 col-sm-9">
       <div class="col-sm-12 card" style="height: 146.2px;">
           <h6 style="margin-top: 5px;">Tiket yang Belum Selesai Berdasarkan Tingkat Urgensi</h6>
@@ -121,41 +41,112 @@
               </div>
             </div>
           </div>
-          <div class="side-box bg-primary">
+          <div class="side-box bg-warning">
               <i class="icon-graph"></i>
           </div>
       </div>
   </div>
 
-  <div class="col-md-6">
+  <div class="col-lg-3 col-sm-6">
+      <div class="col-sm-12 card dashboard-product">
+          <span>Total Tiket Selesai</span>
+          <h2 class="dashboard-total-products counter">{{$totalfinish}}</h2>
+          Tiket
+          <div class="side-box bg-success">
+              <i class="icon-direction"></i>
+          </div>
+      </div>
+  </div>
+
+  <div class="col-lg-9 col-md-12">
     <div class="card">
       <div class="card-block">
-        <div class="card-body">
-          <div id="kategori">
-            <h2>Total Laporan Perkategori</h2>
-            <center>
-            <div style="width: 80%; height: 80%;">
-              <canvas id="cat" width="400" height="400"></canvas>
-            </div>
+        <div class="row dashboard-total-income">
+          <center>
+            <h4>Tiket Selesai</h4>
           </center>
-          </div>
         </div>
       </div>
+      <div class="card-block row">
+        <div class="col-sm-12">
+          <canvas id="month"></canvas>
+        </div>
+      </div>
+      <center>
+        <div class="card-block row">
+          <div class="col-sm-12">
+            <div class="col-sm-6">
+              <div class="btn btn-primary">
+                tiket minggu ini <span class="badge">20</span>
+              </div>
+            </div>
+            <div class="col-sm-6">
+              <div class="btn btn-primary">
+                tiket tahun ini <span class="badge">20</span>
+              </div>
+            </div>
+            &nbsp;
+          </div>
+        </div>
+      </center>
     </div>
   </div>
-  <div class="col-md-6">
-    <div class="card">
-      <div class="card-block">
-        <div class="card-body">
-          <div id="bulan">
-            <h2>Total Laporan Perbulan</h2>
-            <div style="width: 40%; height: 40%;">
-              <canvas id="month" width="400" height="400"></canvas>
+
+  <div class="col-lg-3 col-md-6">
+    <div class="card" style="height: 424.1px;">
+      <h6>
+        <center>
+          <br>
+          Penyelesai Tiket Terbanyak
+          <hr style="border: 1px solid black;">
+        </center>
+      </h6>
+      <table class="table">
+        <thead>
+          <tr>
+            <th>Nama</th>
+            <th>Jabatan</th>
+            <th>Total</th>
+          </tr>
+        </thead>
+        <tbody>
+        @foreach($solvers as $key => $val)
+          <tr>
+            <td>{{$val[0]}}</td>
+            <td>{{$key}}</td>
+            <td>{{count($val)}}</td>
+          </tr>
+        @endforeach
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="col-lg-3 col-sm-6">
+      <div class="col-sm-12 card dashboard-product">
+          <span>Average First Response Time</span>
+          <h2 class="dashboard-total-products">{{$avgFirstResponseTime}} Menit</h2>
+          Sejak tiket dibuat
+      </div>
+  </div>
+
+  <div class="col-md-6" style="display: block;">
+    <center>
+      <div class="card">
+        <div class="row card-block">
+          <div class="card-body">
+            <div id="kategori">
+              <h2>Total Laporan Perkategori</h2>
+              <center>
+              <div style="width: 80%; height: 80%;">
+                <canvas id="cat" width="400" height="400"></canvas>
+              </div>
+            </center>
             </div>
           </div>
         </div>
       </div>
-    </div>
+    </center>
   </div>
 </div>
 @endsection
@@ -203,20 +194,11 @@ var month = new Chart(ctx, {
     responsive: true,
     type: 'line',
     data: {
-        labels: [<?php foreach($dates as $bulan){ echo '\''.$bulan.'\','; } ?>],
+        labels: [ ,<?php foreach($dates as $bulan){ echo '\''.$bulan.'\','; } ?>],
         datasets: [
           {
-            data: [<?php foreach($monthlyData as $data){ echo $data->count.',';} ?>],
-            backgroundColor: [
-                <?php
-                  $bgclr = array("'rgba(255, 0, 0, 0.5)',", "'rgba(0,51,255,0.5)',", "'rgba(255,255,0,0.5)',",
-                              "'rgba(51,255,51,0.5)',", "'rgba(255,102,153,0.5)',");
-                  for($i = 0; $i < count($countcat); $i++)
-                  {
-                    echo $bgclr[$i];
-                  }
-                ?>
-            ],
+            label: 'Tiket Selesai',
+            data: [0,<?php foreach($monthlyData as $data){ echo $data->count.',';} ?>],
             borderColor: [
                 'rgba(255, 99, 132, 1)',
             ],
