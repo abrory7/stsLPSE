@@ -43,6 +43,8 @@
 
     <!-- Datatable css -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+
+    @yield('custom-css')
   </head>
   <body class="sidebar-mini fixed" onload="actnav()">
 

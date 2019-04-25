@@ -1,5 +1,6 @@
 <?php
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,6 +41,8 @@ Route::prefix('tiket')->group(function(){
     Route::put('received/diskusi/invite/{id_diskusi}', 'linkController@inviteDiscuss')->name('inviteMember');
     Route::post('received/diskusi/sendMessage', 'linkController@sendChat')->name('sendChat');
     Route::get('diskusi/selesai/{id_ticket}', 'linkController@discussFinished')->name('finishedDiscussion');
+    Route::get('report/{id_ticket}', 'linkController@reportDiscussion');
+    Route::POST('print/', 'linkController@print')->name('printTicket');
 });
 
 Route::get('/test', function(){
@@ -53,3 +56,4 @@ Route::get('/a', function(){
     $password = Hash::make('password');
     return $password;
 });
+

@@ -1,4 +1,4 @@
-<?php $title = "Diskusi"; ?>
+<?php $title = "Log Diskusi"; ?>
 @extends('layout.base')
 @section('content')
 <div class="row">
@@ -8,7 +8,20 @@
 </div>
 <div class="card">
 <div class="card-block">
-    <h1> Ticket #{{$tickets->nomor_ticket}}</h1>
+    <div class="col-md-9">
+        <h1> Ticket #{{$tickets->nomor_ticket}}</h1>
+    </div>
+    <div class="col-md-1">
+        <a target="_blank" href="{{route('printTicket', $tickets->id)}}" onclick="event.preventDefault(); document.getElementById('printTicket').submit();"
+          class="btn btn-primary">Print</a>        
+          <form action="{{route('printTicket')}}" id="printTicket" method="POST">
+          @csrf
+          <input type="hidden" name="ticket" value="{{$tickets->id}}">
+          </form>
+    </div>
+    <div class="col-md-1">
+        <a class="btn btn-danger">Hapus</a>        
+    </div>
     <table class="table table-borderless">
     <tbody>
         <tr>

@@ -17,6 +17,7 @@ use App\User;
 use Auth;
 use DateTime;
 use DB;
+use PDF;
 use Carbon\Carbon;
 
 class linkController extends Controller
@@ -52,7 +53,7 @@ class linkController extends Controller
         $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();
         $member = User::whereNotIn('id', $listmember)->get();
         $chatAble = True;
-        return view('ticket.discuss', compact('diskusiticket', 'listmember', 'diskusi', 'member', 'chatAble'));
+        return view('ticket.discuss', compact('diskusiticket', 'listmember', 'diskusi', 'member', 'chatAble', 'tickets'));
 
     }
 
@@ -244,17 +245,15 @@ class linkController extends Controller
                       ->orderBy('date', 'ASC')
                       ->where('finish', '=', '1')
                       ->get();
+      return view('test', compact('cat', 'countcat', 'dates', 'monthlyData'));
+    }
 
-      //total tiket belum selesai perurgensi
-      $urg = Ticket::distinct()->where('finish', 0)->get(['urgensi']);
-      $darurattotal = count(Ticket::where('finish', 0)->where('urgensi', 'Darurat')->get());
-      $pentingtotal = count(Ticket::where('finish', 0)->where('urgensi', 'Penting')->get());
-      $normaltotal = count(Ticket::where('finish', 0)->where('urgensi', 'Normal')->get());
-      $arrurg = [$darurattotal, $pentingtotal, $normaltotal];
-      $urgtotal = array_sum($arrurg);
-
-      //total tiket selesai
-      $totalfinish = count(Ticket::where('finish', 1)->get());
-      return view('test', compact('cat', 'countcat', 'dates', 'monthlyData', 'urg', 'arrurg', 'urgtotal', 'totalfinish'));
+    public function print(Request $req){
+        $diskusiticket = Diskusi::where('ticket_id', $req->ticket)->first();
+        $tickets = Ticket::where('id', $req->ticket)->first();
+        $listmember = explode(',', $diskusiticket->member);
+        $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();
+        $member = User::whereNotIn('id', $listmember)->get();
+        return view('ticket.report', compact('tickets', 'diskusiticket', 'listmember', 'diskusi', 'member'));
     }
 }
