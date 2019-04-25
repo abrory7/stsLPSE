@@ -258,6 +258,14 @@ class linkController extends Controller
       $totalunfinish = count(Ticket::where('finish', 0)->get());
       //total tiket selesai
       $totalfinish = count(Ticket::where('finish', 1)->get());
+      //total tiket selesai minggu ini
+      $totalweek = Ticket::whereBetween('updated_at', [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()] )
+                          ->where('finish', 1)
+                          ->count();
+      //total tiket selesai tahun ini
+      $totalyear = Ticket::whereBetween('updated_at', [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()] )
+                          ->where('finish', 1)
+                          ->count();
 
       //Penyelesai tiket
       $assignedUser = Assign::all();
@@ -277,7 +285,7 @@ class linkController extends Controller
       }
       $avgFirstResponseTime = (int) floor($TotalResponseTime/count($assignedTicketTotal));
 
-      return view('test', compact('cat', 'countcat', 'dates', 'monthlyData', 'urg', 'arrurg', 'urgtotal', 'totalunfinish', 'totalfinish' ,'solvers', 'avgFirstResponseTime'));
+      return view('test', compact('cat', 'countcat', 'dates', 'monthlyData', 'urg', 'arrurg', 'urgtotal', 'totalunfinish', 'totalfinish', 'totalweek', 'totalyear', 'solvers', 'avgFirstResponseTime'));
     }
 
     public function print(Request $req){

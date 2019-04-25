@@ -77,12 +77,12 @@
           <div class="col-sm-12">
             <div class="col-sm-6">
               <div class="btn btn-primary">
-                tiket minggu ini <span class="badge">20</span>
+                tiket minggu ini <span class="badge">{{$totalweek}}</span>
               </div>
             </div>
             <div class="col-sm-6">
               <div class="btn btn-primary">
-                tiket tahun ini <span class="badge">20</span>
+                tiket tahun ini <span class="badge">{{$totalyear}}</span>
               </div>
             </div>
             &nbsp;
