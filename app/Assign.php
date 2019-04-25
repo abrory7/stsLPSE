@@ -12,4 +12,8 @@ class Assign extends Model
     public function assignedTicket(){
         return $this->belongsTo('App\Ticket', 'id');
     }
+
+    public function assignedUser(){
+        return $this->belongsTo('App\User', 'users_id');
+    }
 }

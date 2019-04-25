@@ -21,7 +21,7 @@
       </div>
       <div class="card-block row">
         <div class="col-sm-12">
-          <div id="areachart"></div>
+          <canvas id="chartVersus"></canvas>
         </div>
       </div>
       <div class="card-block">
@@ -61,42 +61,19 @@
         </h6>
         <table class="table">
           <thead>
-            <tr>
-              <th>#</th>
+            <tr>              
               <th>Nama</th>
+              <th>Jabatan</th>
               <th>Total</th>
             </tr>
             <tbody>
-              <tr>
-                <td>1</td>
-                <td>ayam</td>
-                <td>2131</td>
-              </tr>
-              <tr>
-                <td>2</td>
-                <td>itik</td>
-                <td>412</td>
-              </tr>
-              <tr>
-                <td>3</td>
-                <td>burung</td>
-                <td>31</td>
-              </tr>
-              <tr>
-                <td>4</td>
-                <td>dodo</td>
-                <td>21</td>
-              </tr>
-              <tr>
-                <td>5</td>
-                <td>emu</td>
-                <td>11</td>
-              </tr>
-              <tr>
-                <td>6</td>
-                <td>pelikan</td>
-                <td>69</td>
-              </tr>
+            @foreach($solvers as $key => $val)
+              <tr>                
+                <td>{{$val[0]}}</td>
+                <td>{{$key}}</td>
+                <td>{{count($val)}}</td>
+              </tr>              
+            @endforeach
             </tbody>
         </table>
       </div>
@@ -115,7 +92,7 @@
   <div class="col-lg-3 col-sm-6">
       <div class="col-sm-12 card dashboard-product">
           <span>Average First Response Time</span>
-          <h2 class="dashboard-total-products">7 Jam</h2>
+          <h2 class="dashboard-total-products">{{$avgFirstResponseTime}} Menit</h2>
           Sejak tiket dibuat
       </div>
   </div>
@@ -257,5 +234,13 @@ var month = new Chart(ctx, {
         }
     }
 });
+
+// Chart versus
+
+var ctxVersus = document.getElementById('chartVersus');
+var versusLine = new Chart(ctxVersus, {
+  type: 'line',
+  data: ['0.2', '0.4', '0.5'],
+})
 </script>
 @endsection

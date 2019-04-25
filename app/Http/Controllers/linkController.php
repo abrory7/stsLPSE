@@ -256,7 +256,26 @@ class linkController extends Controller
 
       //total tiket selesai
       $totalfinish = count(Ticket::where('finish', 1)->get());
-      return view('test', compact('cat', 'countcat', 'dates', 'monthlyData', 'urg', 'arrurg', 'urgtotal', 'totalfinish'));
+
+      //Penyelesai tiket
+      $assignedUser = Assign::all();
+      $solvers = [];
+      foreach($assignedUser as $user){
+        if($user->assignedTicket->finish == 1){            
+           $solvers[$user->assignedUser->jabatan][] = $user->assignedUser->name;
+        }
+      }        
+      
+      //Average First Response Time
+      $assignedTicketTotal = Assign::all();
+      $TotalResponseTime = 0;
+      foreach($assignedTicketTotal as $ticket){                    
+        $selisih = Carbon::createFromFormat('Y-m-d H:s:i', $ticket->created_at)->diffInMinutes($ticket->assignedTicket->created_at); 
+        $TotalResponseTime += $selisih;
+      }
+      $avgFirstResponseTime = (int) floor($TotalResponseTime/count($assignedTicketTotal));      
+
+      return view('test', compact('cat', 'countcat', 'dates', 'monthlyData', 'urg', 'arrurg', 'urgtotal', 'totalfinish' ,'solvers', 'avgFirstResponseTime'));
     }
 
     public function print(Request $req){
