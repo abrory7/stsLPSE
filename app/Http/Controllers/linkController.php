@@ -39,8 +39,8 @@ class linkController extends Controller
         return view('ticket.received', compact('receives'));
     }
     public function discuss($id_ticket)
-    {                
-        $diskusiticket = Diskusi::where('ticket_id', $id_ticket)->first();      
+    {
+        $diskusiticket = Diskusi::where('ticket_id', $id_ticket)->first();
         $tickets = Ticket::where('id', $id_ticket)->first();
         if(StatusTicket::where('ticket_id', $id_ticket)->where('status', 3)->first() == NULL){
             StatusTicket::create([
@@ -48,10 +48,10 @@ class linkController extends Controller
                 'status' => 3
             ]);
         }
-        $listmember = explode(',', $diskusiticket->member);    
-        $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();        
-        $member = User::whereNotIn('id', $listmember)->get();     
-        $chatAble = True; 
+        $listmember = explode(',', $diskusiticket->member);
+        $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();
+        $member = User::whereNotIn('id', $listmember)->get();
+        $chatAble = True;
         return view('ticket.discuss', compact('diskusiticket', 'listmember', 'diskusi', 'member', 'chatAble'));
 
     }
@@ -193,22 +193,22 @@ class linkController extends Controller
     }
 
     public function discussFinished($id_ticket){
-        $diskusiticket = Diskusi::where('ticket_id', $id_ticket)->first();      
-        $tickets = Ticket::where('id', $id_ticket)->first();       
+        $diskusiticket = Diskusi::where('ticket_id', $id_ticket)->first();
+        $tickets = Ticket::where('id', $id_ticket)->first();
         if(StatusTicket::where('ticket_id', $id_ticket)->where('status', 3)->first() == NULL){
             StatusTicket::create([
                 'ticket_id' => $id_ticket,
                 'status' => 3
             ]);
         }
-        $listmember = explode(',', $diskusiticket->member);    
-        $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();        
-        $member = User::whereNotIn('id', $listmember)->get();     
+        $listmember = explode(',', $diskusiticket->member);
+        $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();
+        $member = User::whereNotIn('id', $listmember)->get();
         return view('ticket.finishedDiscussion', compact('tickets', 'diskusiticket', 'listmember', 'diskusi', 'member', 'chatAble'));
     }
 
-    public function sendChat(Request $req){                       
-        $diskusi = Diskusi::where('id', $req->diskusi_id)->first();        
+    public function sendChat(Request $req){
+        $diskusi = Diskusi::where('id', $req->diskusi_id)->first();
         $pesan = new Pesan();
 
         $pesan->diskusi_id = $diskusi->id;
@@ -237,13 +237,24 @@ class linkController extends Controller
       $dates = array_unique(array_map(function($date) {
           return DateTime::createFromFormat('Y-m-d H:i:s', $date)->format('F');
       }, $month));
-      $monthlyData =  Ticket::Select([DB::raw("DATE_FORMAT(created_at, '%Y-%m') AS `date`"),
-                      DB::raw('COUNT(id) AS count'),
+      $monthlyData =  Ticket::Select([DB::raw("DATE_FORMAT(created_at, '%Y-%m') AS 'date'"),
+                      DB::raw("COUNT(id) AS 'count'"),
                       ])
                       ->groupBy('date')
                       ->orderBy('date', 'ASC')
-                      ->where('finish', 1)
+                      ->where('finish', '=', '1')
                       ->get();
-      return view('test', compact('cat', 'countcat', 'dates', 'monthlyData'));
+
+      //total tiket belum selesai perurgensi
+      $urg = Ticket::distinct()->where('finish', 0)->get(['urgensi']);
+      $darurattotal = count(Ticket::where('finish', 0)->where('urgensi', 'Darurat')->get());
+      $pentingtotal = count(Ticket::where('finish', 0)->where('urgensi', 'Penting')->get());
+      $normaltotal = count(Ticket::where('finish', 0)->where('urgensi', 'Normal')->get());
+      $arrurg = [$darurattotal, $pentingtotal, $normaltotal];
+      $urgtotal = array_sum($arrurg);
+
+      //total tiket selesai
+      $totalfinish = count(Ticket::where('finish', 1)->get());
+      return view('test', compact('cat', 'countcat', 'dates', 'monthlyData', 'urg', 'arrurg', 'urgtotal', 'totalfinish'));
     }
 }
