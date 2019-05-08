@@ -16,6 +16,17 @@
       </div>
   </div>
 
+  <div class="col-lg-3 col-sm-6">
+      <div class="col-sm-12 card dashboard-product">
+          <span>Total Tiket Selesai</span>
+          <h2 class="dashboard-total-products counter">{{$totalfinish}}</h2>
+          Tiket
+          <div class="side-box bg-success">
+              <i class="icon-direction"></i>
+          </div>
+      </div>
+  </div>
+
   <div class="col-lg-6 col-sm-9">
       <div class="col-sm-12 card" style="height: 146.2px;">
           <h6 style="margin-top: 5px;">Tiket yang Belum Selesai Berdasarkan Tingkat Urgensi</h6>
@@ -47,23 +58,12 @@
       </div>
   </div>
 
-  <div class="col-lg-3 col-sm-6">
-      <div class="col-sm-12 card dashboard-product">
-          <span>Total Tiket Selesai</span>
-          <h2 class="dashboard-total-products counter">{{$totalfinish}}</h2>
-          Tiket
-          <div class="side-box bg-success">
-              <i class="icon-direction"></i>
-          </div>
-      </div>
-  </div>
-
   <div class="col-lg-9 col-md-12">
     <div class="card">
       <div class="card-block">
         <div class="row dashboard-total-income">
           <center>
-            <h4>Tiket Selesai</h4>
+            <h4>Laporan Tiket Selesai Per Bulan</h4>
           </center>
         </div>
       </div>

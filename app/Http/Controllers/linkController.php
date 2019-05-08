@@ -288,6 +288,11 @@ class linkController extends Controller
       return view('test', compact('cat', 'countcat', 'dates', 'monthlyData', 'urg', 'arrurg', 'urgtotal', 'totalunfinish', 'totalfinish', 'totalweek', 'totalyear', 'solvers', 'avgFirstResponseTime'));
     }
 
+    public function detailTicket($id_ticket){
+        $ticket = Ticket::where('id', $id_ticket)->first();
+        return view('ticket.detail', compact('ticket'));
+    }
+
     public function print(Request $req){
         $diskusiticket = Diskusi::where('ticket_id', $req->ticket)->first();
         $tickets = Ticket::where('id', $req->ticket)->first();

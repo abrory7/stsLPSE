@@ -20,7 +20,7 @@
 											@php
 												$user = DB::table('users')->where('id', $status->ticket->isAssigned->users_id)->first();
 											@endphp
-												Assigned to {{$user->jabatan}}
+												Ditugaskan kepada {{$user->jabatan}}
 											@elseif($status->status == 3)
 												Sedang dikerjakan oleh {{$user->name}} ({{$user->jabatan}}) 		
 											@elseif($status->status == 4)
