@@ -9,13 +9,13 @@ class Aduan extends Model
     protected $table = "aduan";
     protected $fillable = [
         'nama', 'alamat', 'perusahaan', 'npwp',
-        'no_telp', 'hp', 'fax', 'email', 'username_spse', 
+        'no_telp', 'hp', 'fax', 'email', 'username_spse',
         'password_spse', 'nama_lelang', 'kode_lelang',
         'nama_satuan_kerja', 'pesan', 'subjek', 'gambar',
         'kategori_id'
     ];
 
     public function kategori(){
-        return $this->belongsTo('App\Kategori');
+        return $this->belongsTo('App\Kategori', 'kategori_id');
     }
 }
