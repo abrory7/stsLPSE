@@ -9,10 +9,13 @@
 <div class="card">
   <div class="card-block">
       <h1> Ticket #{{$tickets->nomor_ticket}}</h1>
+      <span class="right" style="float:right;">
+        <a href="{{route('detailTicket', $tickets->aduan_id)}}" class="btn btn-default">Detail Tiket</a>
+      </span>
       <table class="table table-borderless">
       <tbody>
           <tr>
-            <th>Status</th>
+              <th>Status</th>
               <td>
                   @if($tickets->finish == 0)
                       Terbuka
@@ -25,14 +28,14 @@
               <td>{{$tickets->aduan->nama}}</td>
           </tr>
           <tr>
-            <th>Prioritas</th>
+              <th>Prioritas</th>
               <td>{{$tickets->urgensi}}</td>
 
               <th>Email</th>
               <td>{{$tickets->aduan->email}}</td>
           </tr>
           <tr>
-            <th>Tanggal Dibuat</th>
+              <th>Tanggal Dibuat</th>
               <td>{{$tickets->created_at}}</td>
 
               <th>Telepon</th>
@@ -55,8 +58,7 @@
                       Lainnya
                   @endif
 
-              </td>
-              
+              </td>              
           </tr>
       </tbody>
       </table>
@@ -159,7 +161,7 @@
   </div>
 </div>
 @endsection
-@section('addScript')
+@section('AddScript')
 <script src="https://js.pusher.com/4.4/pusher.min.js"></script>
 
 <script>
@@ -201,9 +203,9 @@ function createChat(msg, hari, waktu, AuthenticateUser, senderName){
   incomingDate.setAttribute("class", "incomingdate")
   let userName = "";
   if(AuthenticateUser == 1){    
-    userName = document.createTextNode(`${senderName} @Helpdesk`)    
+    userName = document.createTextNode(`${senderName}`)    
   }else if(AuthenticateUser == 2){
-    userName = document.createTextNode(`${senderName} @Admin Sistem`)
+    userName = document.createTextNode(`${senderName}`)
   }
 
 

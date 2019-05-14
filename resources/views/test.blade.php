@@ -73,7 +73,7 @@
       <div class="card-block">
         <div class="row dashboard-total-income">
           <center>
-            <h4>Tiket Selesai</h4>
+            <h4>Laporan Tiket Selesai Per Bulan</h4>
           </center>
         </div>
       </div>
