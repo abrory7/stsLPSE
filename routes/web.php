@@ -25,6 +25,19 @@ Route::get('/tes', 'linkController@chart');
 // contoh aksesnya localhost:8000/tiket/"create" <= sesuai dengan method
 // https://laravel.com/docs/5.8/routing#route-group-prefixes
 // Penamaan "name" pakai style camelCase.
+
+
+
+Route::prefix('guest')->group(function(){
+    Route::get('/', 'guestController@index')->name('guestNewTicket');
+    Route::get('tiket-baru', 'guestController@baru')->name('guestCreateTicket');
+    Route::post('tiket-baru', 'guestController@create')->name('guestCreateTicket');
+    Route::get('success/{nomor}', 'guestController@success')->name('guestSuccess');
+    Route::get('cek-status', 'guestController@status')->name('guestIndexStatus');
+    Route::post('status', 'guestController@cekStatus')->name('guestCheckStatus');
+    Route::post('status/chat', 'guestController@sendChat')->name('guestSendChat');   
+});
+
 Route::prefix('tiket')->group(function(){
     Route::get('create', 'linkController@create')->name('createTicket');
     Route::post('store', 'linkController@store')->name('storeTicket');
@@ -52,6 +65,7 @@ Route::get('/test', function(){
     //date('d-m-Y', strtotime($date. ' + 2 days'));
     return $result;
 });
+
 
 Route::get('/a', function(){
     $password = Hash::make('password');
