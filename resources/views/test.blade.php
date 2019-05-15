@@ -2,32 +2,20 @@
 @extends('layout.base')
 @section('content')
 <div class="main-header">
-    <h4>Statistik</h4>
+  <div class="row">
+    <div class="col-sm-12">
+      <div class="col-sm-6">
+        <h4>Statistik</h4>
+      </div>
+      <div class="col-sm-6" style="text-align: right;">
+        <a href="{{ url('/tiket/reportstats')}}" class="btn btn-primary">Print</a>
+      </div>
+    </div>
+  </div>
 </div>
+
 <div class="row">
-  <div class="col-lg-3 col-sm-6">
-      <div class="col-sm-12 card dashboard-product">
-          <span>Total Tiket Belum Selesai</span>
-          <h2 class="dashboard-total-products counter">{{$totalunfinish}}</h2>
-          Tiket
-          <div class="side-box bg-warning">
-              <i class="icon-direction"></i>
-          </div>
-      </div>
-  </div>
-
-  <div class="col-lg-3 col-sm-6">
-      <div class="col-sm-12 card dashboard-product">
-          <span>Total Tiket Selesai</span>
-          <h2 class="dashboard-total-products counter">{{$totalfinish}}</h2>
-          Tiket
-          <div class="side-box bg-success">
-              <i class="icon-direction"></i>
-          </div>
-      </div>
-  </div>
-
-  <div class="col-lg-6 col-sm-9">
+  <div class="col-sm-6">
       <div class="col-sm-12 card" style="height: 146.2px;">
           <h6 style="margin-top: 5px;">Tiket yang Belum Selesai Berdasarkan Tingkat Urgensi</h6>
           <div style="width: 80%">
@@ -54,6 +42,28 @@
           </div>
           <div class="side-box bg-warning">
               <i class="icon-graph"></i>
+          </div>
+      </div>
+  </div>
+
+  <div class="col-sm-3">
+      <div class="col-sm-12 card dashboard-product">
+          <span>Total Tiket Belum Selesai</span>
+          <h2 class="dashboard-total-products counter">{{$totalunfinish}}</h2>
+          Tiket
+          <div class="side-box bg-warning">
+              <i class="icon-direction"></i>
+          </div>
+      </div>
+  </div>
+
+  <div class="col-sm-3">
+      <div class="col-sm-12 card dashboard-product">
+          <span>Total Tiket Selesai</span>
+          <h2 class="dashboard-total-products counter">{{$totalfinish}}</h2>
+          Tiket
+          <div class="side-box bg-success">
+              <i class="icon-direction"></i>
           </div>
       </div>
   </div>
@@ -136,7 +146,7 @@
         <div class="row card-block">
           <div class="card-body">
             <div id="kategori">
-              <h2>Total Laporan Perkategori</h2>
+              <h2>Total Aduan Perkategori</h2>
               <center>
               <div style="width: 80%; height: 80%;">
                 <canvas id="cat" width="400" height="400"></canvas>
@@ -155,7 +165,7 @@
 var ctx = document.getElementById('cat').getContext('2d');
 var cat = new Chart(ctx, {
     responsive: false,
-    type: 'doughnut',
+    type: 'pie',
     data: {
         labels: [<?php foreach($cat as $kategori){ echo '\''.$kategori->kategori->kategori.'\','; } ?>],
         datasets: [
@@ -216,13 +226,5 @@ var month = new Chart(ctx, {
         }
     }
 });
-
-// Chart versus
-
-var ctxVersus = document.getElementById('chartVersus');
-var versusLine = new Chart(ctxVersus, {
-  type: 'line',
-  data: ['0.2', '0.4', '0.5'],
-})
 </script>
 @endsection

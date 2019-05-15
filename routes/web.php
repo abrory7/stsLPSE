@@ -56,6 +56,7 @@ Route::prefix('tiket')->group(function(){
     Route::post('received/diskusi/sendMessage', 'linkController@sendChat')->name('sendChat');    
     Route::get('diskusi/selesai/{id_ticket}', 'linkController@discussFinished')->name('finishedDiscussion');    
     Route::get('report/{id_ticket}', 'linkController@reportDiscussion');
+    Route::get('reportstats', 'linkController@stats');
     Route::POST('print/', 'linkController@print')->name('printTicket');
 });
 
@@ -71,4 +72,3 @@ Route::get('/a', function(){
     $password = Hash::make('password');
     return $password;
 });
-

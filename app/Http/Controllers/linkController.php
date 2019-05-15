@@ -84,6 +84,57 @@ class linkController extends Controller
         return view('ticket.finished', compact('tickets'));
     }
 
+    public function stats(){
+      $darurattotal = count(Ticket::where('finish', 0)->where('urgensi', 'Darurat')->get());
+      $pentingtotal = count(Ticket::where('finish', 0)->where('urgensi', 'Penting')->get());
+      $normaltotal = count(Ticket::where('finish', 0)->where('urgensi', 'Normal')->get());
+      $arrurg = [$darurattotal, $pentingtotal, $normaltotal];
+      $urgtotal = array_sum($arrurg);
+
+      $daruratfinish = count(Ticket::where('finish', 1)->where('urgensi', 'Darurat')->get());
+      $pentingfinish = count(Ticket::where('finish', 1)->where('urgensi', 'Penting')->get());
+      $normalfinish = count(Ticket::where('finish', 1)->where('urgensi', 'Normal')->get());
+      $arrurgfinish = [$daruratfinish, $pentingfinish, $normalfinish];
+      $urgfinish = array_sum($arrurgfinish);
+
+      $month = Ticket::pluck('created_at')->toArray();
+      $dates = array_unique(array_map(function($date) {
+          return DateTime::createFromFormat('Y-m-d H:i:s', $date)->format('F');
+      }, $month));
+      $monthlyData =  Ticket::Select([DB::raw("DATE_FORMAT(created_at, '%Y-%m') AS 'date'"),
+                      DB::raw("COUNT(id) AS 'count'"),
+                      ])
+                      ->groupBy('date')
+                      ->orderBy('date', 'ASC')
+                      ->where('finish', '=', '1')
+                      ->get();
+
+      $assignedUser = Assign::all();
+      $solvers = [];
+      foreach($assignedUser as $user){
+        if($user->assignedTicket->finish == 1){
+           $solvers[$user->assignedUser->jabatan][] = $user->assignedUser->name;
+        }
+      }
+
+      $assignedTicketTotal = Assign::all();
+      $TotalResponseTime = 0;
+      foreach($assignedTicketTotal as $ticket){
+        $selisih = Carbon::createFromFormat('Y-m-d H:s:i', $ticket->created_at)->diffInMinutes($ticket->assignedTicket->created_at);
+        $TotalResponseTime += $selisih;
+      }
+      $avgFirstResponseTime = (int) floor($TotalResponseTime/count($assignedTicketTotal));
+
+      $kategori =  Aduan::Select([DB::raw("DISTINCT kategori_id"),
+                      DB::raw("COUNT(id) AS 'count'"),
+                      ])
+                      ->groupBy('kategori_id')
+                      ->orderBy('kategori_id', 'ASC')
+                      ->get();
+      $kategorisum = count(Aduan::get());
+      return view('ticket.reportstats', compact('darurattotal', 'pentingtotal', 'normaltotal', 'arrurg', 'urgtotal', 'daruratfinish', 'pentingfinish', 'normalfinish', 'arrurgfinish', 'urgfinish', 'dates', 'monthlyData', 'solvers', 'avgFirstResponseTime', 'kategori', 'kategorisum'));
+    }
+
     public function store(Request $req){
 
         // Insert aduan
