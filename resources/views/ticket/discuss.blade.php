@@ -10,8 +10,9 @@
   <div class="card-block">
       <h1> Ticket #{{$tickets->nomor_ticket}}</h1>
       <span class="right" style="float:right;">
-        <a href="{{route('detailTicket', $tickets->aduan_id)}}" class="btn btn-default">Detail Tiket</a>
-      </span>
+        <button class="btn btn-success" data-toggle="modal" data-target="#solutionModal">Solusi</button>
+        <a href="{{route('detailTicket', $tickets->aduan_id)}}" class="btn btn-default">Detail Tiket</a>                
+      </span>     
       <table class="table table-borderless">
       <tbody>
           <tr>
@@ -46,7 +47,7 @@
               @php
                   $user = DB::table('users')->where('id', $tickets->isAssigned->users_id)->first();
               @endphp
-              <td>{{$user->name}} ({{$user->jabatan}})</td>
+              <td>{{$user->jabatan}})</td>
 
               <th>Kategori</th>
               <td>
@@ -159,6 +160,27 @@
     </div>
   </div>
 </div>
+
+  <!-- Modal untuk solusi -->
+  <div class="modal fade" id="solutionModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="exampleModalLabel">Solusi Aduan</h5>
+            <div class="modal-body">
+            <form method="POST" action="{{route('solutionTicket', $tickets->aduan_id)}}">
+            @csrf
+              <div class="form-group">                
+                <label for="solusi">Masukkan Solusi Masalah</label>
+                <textarea name="solusi" id="" cols="60" rows="4"></textarea>
+              </div>             
+              <button class="btn btn-success" type="submit">Submit</button>
+            </form>
+          </div>
+          </div>
+        </div>
+      </div>
+  <!-- End modal diskusi  -->
 @endsection
 @section('AddScript')
 <script src="https://js.pusher.com/4.4/pusher.min.js"></script>
