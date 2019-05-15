@@ -37,6 +37,8 @@ class linkController extends Controller
         }else{
             $receives = Assign::where('users_id', Auth::user()->id)->get();
         }
+
+        // dd($receives);
         return view('ticket.received', compact('receives'));
     }
     public function discuss($id_ticket)
@@ -70,9 +72,9 @@ class linkController extends Controller
         return view('ticket.track', compact('ticket_status'));
     }
 
-    public function solution($id_aduan)
+    public function solution($id_ticket)
     {
-        $ticket = Ticket::where('id', $id_aduan)->first();
+        $ticket = Ticket::where('nomor_ticket', $id_ticket)->first();    
         return view('ticket.solution', compact('ticket'));
     }
 
