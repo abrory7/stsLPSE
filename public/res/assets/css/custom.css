@@ -63,42 +63,44 @@ ul.timeline > li:before {
 .incomingmsg{
   margin-left: 54px;
   max-width: 50%;
-  background-color: silver;
-  border: 1px solid gray;
-  display: inline-block;
-  padding: 1% 3% 2% 1%
+  color: white;
+  background-color: #1b8bf9;
+  border: 1px solid #1b8bf9;
+  border-radius: 10px;
+  display: inline;
+  min-height: 50px;
 }
 .incomingdate{
+  display: inline;
+  font-size: 10px;
+  bottom: 0;
+  margin-left: 5px;
+  position: relative;
+  white-space: nowrap;
+}
+.outgoing{
+  clear: both;
+  position: relative;
+  margin-bottom: 12px;
+}
+.outgoinguser{
+  margin-left: 54px;
+}
+.outgoingmsg{
+  margin-left: 54px;
+  background-color: silver;
+  border: 1px solid gray;
+  border-radius: 10px;
+  display: inline-block;
+  padding: 1% 2% 2% 1%
+}
+.outgoingdate{
   display: inline-block;
   font-size: 10px;
   position: absolute;
   bottom: 0;
   margin-left: 5px;
   white-space: nowrap;
-}
-.outgoing{
-  max-width: 50%;
-  display: inline-block;
-  clear: both;
-  position: relative;
-  margin-bottom: 12px;
-}
-.outgoinguser{
-  position: absolute;
-  right: 0;
-}
-.outgoingmsg{
-  border: 1px solid gray;
-  background-color: silver;
-  padding: 1% 3% 2% 3%;
-}
-.outgoingdate{
-  display: inline-block;
-  font-size: 10px;
-  text-align: right;
-  position: absolute;
-  left: -48px;
-  bottom: 0;
 }
 .sendmsg{
   display: inline-block;
