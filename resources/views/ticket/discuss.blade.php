@@ -11,8 +11,8 @@
       <h1> Ticket #{{$tickets->nomor_ticket}}</h1>
       <span class="right" style="float:right;">
         <button class="btn btn-success" data-toggle="modal" data-target="#solutionModal">Solusi</button>
-        <a href="{{route('detailTicket', $tickets->aduan_id)}}" class="btn btn-default">Detail Tiket</a>                
-      </span>     
+        <a href="{{route('detailTicket', $tickets->aduan_id)}}" class="btn btn-default">Detail Tiket</a>
+      </span>
       <table class="table table-borderless">
       <tbody>
           <tr>
@@ -97,7 +97,7 @@
               </div>
             </div>
             @else
-              <div class="incoming f-left">
+              <div class="incoming">
                 @if($discuss->member == 1)
                   <span class="incominguser">Helpdesk</span>
                   <br>
@@ -170,10 +170,10 @@
             <div class="modal-body">
             <form method="POST" action="{{route('solutionTicket', $tickets->aduan_id)}}">
             @csrf
-              <div class="form-group">                
+              <div class="form-group">
                 <label for="solusi">Masukkan Solusi Masalah</label>
                 <textarea name="solusi" id="" cols="60" rows="4"></textarea>
-              </div>             
+              </div>
               <button class="btn btn-success" type="submit">Submit</button>
             </form>
           </div>

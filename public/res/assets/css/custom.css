@@ -58,24 +58,24 @@ ul.timeline > li:before {
   display: inline-block;
 }
 .incominguser{
-  margin-left: 54px;
+  margin-left: 0;
 }
 .incomingmsg{
-  margin-left: 54px;
-  max-width: 50%;
+  max-width: 80%;
+  font-size: 125%;
+  font-family: 'Roboto', sans-serif;
   color: white;
   background-color: #1b8bf9;
-  border: 1px solid #1b8bf9;
-  border-radius: 10px;
-  display: inline;
-  min-height: 50px;
+  border-radius: 0 10px 10px 10px;
+  display: inline-block;
+  padding: 1% 2% 2% 1%;
 }
 .incomingdate{
-  display: inline;
+  display: inline-block;
   font-size: 10px;
+  position: absolute;
   bottom: 0;
   margin-left: 5px;
-  position: relative;
   white-space: nowrap;
 }
 .outgoing{
@@ -84,15 +84,18 @@ ul.timeline > li:before {
   margin-bottom: 12px;
 }
 .outgoinguser{
-  margin-left: 54px;
+  margin-left: 0;
+  font-weight: bold;
 }
 .outgoingmsg{
-  margin-left: 54px;
-  background-color: silver;
-  border: 1px solid gray;
-  border-radius: 10px;
+  max-width: 80%;
+  font-size: 125%;
+  font-family: 'Roboto', sans-serif;
+  color: white;
+  background-color: #4CAF50;
+  border-radius: 0 10px 10px 10px;
   display: inline-block;
-  padding: 1% 2% 2% 1%
+  padding: 1% 2% 2% 1%;
 }
 .outgoingdate{
   display: inline-block;

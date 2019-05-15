@@ -13,7 +13,7 @@
 
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
-
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
     <!-- iconfont -->
     <link rel="stylesheet" type="text/css" href="{{ asset('res/assets/icon/icofont/css/icofont.css') }}">
 
