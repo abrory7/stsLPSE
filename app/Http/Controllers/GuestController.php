@@ -90,6 +90,15 @@ class GuestController extends Controller
         $statusTicket->save();
 
 
+        //select helpdesk
+        $helpdesk = User::where('role', 1)->first();
+    
+        //Assign Helpdesk
+        $assign = new Assign();
+        $assign->users_id == $helpdesk->id;
+        $assign->ticket_id == $ticket->id;
+        $assign->save();
+
         //Buat diskusi baru
         $diskusi = new Diskusi();
         $diskusi->ticket_id = $ticket->id;

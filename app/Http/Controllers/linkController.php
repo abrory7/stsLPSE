@@ -26,7 +26,7 @@ class linkController extends Controller
 
     public function ongoing()
     {
-        $tickets = Ticket::where('finish', 0)->where('isGuest', 0)->get();
+        $tickets = Ticket::where('finish', 0)->get();
         return view('ticket.ongoing', compact('tickets'));
     }
 

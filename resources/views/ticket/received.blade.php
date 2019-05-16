@@ -20,6 +20,7 @@
                         <th>Kategori</th>
                         <th>Dibuat Pada</th>
                         <th>Limit Penyelesaian</th>
+                        <th>Jenis Laporan</th>
                         <th>Aksi</th>
                     </tr>
                     </thead>
@@ -41,6 +42,13 @@
                         <td>{{$received->assignedTicket->aduan->kategori->kategori}}</td>
                         <td>{{$received->assignedTicket->created_at}}</td>
                         <td>{{$received->assignedTicket->expire}}</td>
+                        <td>
+                          @if($received->assignedTicket->isGuest == 1)
+                            Web                           
+                          @else 
+                            Langsung
+                          @endif                        
+                        </td>
                         <td>
                           <a href="{{ route('discussTicket', $received->assignedTicket->id)}}" class="btn btn-primary" target="_blank">Diskusi</a>
                         </td>
