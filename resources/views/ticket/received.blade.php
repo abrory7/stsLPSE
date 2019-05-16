@@ -40,7 +40,7 @@
                         @endif
                         <td>{{$received->assignedTicket->aduan->subjek}}</td>
                         <td>{{$received->assignedTicket->aduan->kategori->kategori}}</td>
-                        <td>{{$received->assignedTicket->created_at}}</td>
+                        <td>{{date_format($received->assignedTicket->created_at, 'd-m-Y H:i:s')}}</td>
                         <td>{{$received->assignedTicket->expire}}</td>
                         <td>
                           @if($received->assignedTicket->isGuest == 1)

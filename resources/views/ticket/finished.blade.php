@@ -19,6 +19,7 @@
                         <th>Judul Laporan</th>
                         <th>Kategori</th>
                         <th>Dibuat Pada</th>
+                        <th>Status</th>
                         <th>Log Diskusi</th>
                     </tr>
                     </thead>
@@ -36,6 +37,13 @@
                         <td>{{$ticket->aduan->subjek}}</td>
                         <td>{{$ticket->aduan->kategori->kategori}}</td>
                         <td>{{date_format($ticket->created_at, 'd-m-Y')}}</td>
+                        <td>
+                            @if($ticket->finish == 1)
+                                Selesai
+                            @else
+                                Expired
+                            @endif
+                        </td>
                         <td><a href="{{ route('finishedDiscussion', $ticket->id)}}" class="btn btn-default" target="_blank">Diskusi</a></td>
                     </tr>
                     @endforeach

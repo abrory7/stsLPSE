@@ -26,7 +26,18 @@ class linkController extends Controller
 
     public function ongoing()
     {
-        $tickets = Ticket::where('finish', 0)->get();
+        $allTicket = Ticket::where('finish', 0)->get();
+        $tickets = [];        
+        foreach($allTicket as $ticket){            
+            if(date('Y-m-d H:i:s', strtotime($ticket->expire)) <= Carbon::now()){
+                $ticket = Ticket::where('id', $ticket->id)->update([
+                    'finish' => 2,
+                ]);
+            }else{
+                $tickets[] = $ticket;
+            }
+        }
+                
         return view('ticket.ongoing', compact('tickets'));
     }
 
@@ -37,26 +48,24 @@ class linkController extends Controller
         }else{
             $receives = Assign::where('users_id', Auth::user()->id)->get();
         }
-
-        // dd($receives);
+        
         return view('ticket.received', compact('receives'));
     }
     public function discuss($id_ticket)
-    {
-        $diskusiticket = Diskusi::where('ticket_id', $id_ticket)->first();
+    {        
+        $diskusiticket = Diskusi::where('ticket_id', $id_ticket)->first();        
         $tickets = Ticket::where('id', $id_ticket)->first();
         if(StatusTicket::where('ticket_id', $id_ticket)->where('status', 3)->first() == NULL){
             StatusTicket::create([
                 'ticket_id' => $id_ticket,
                 'status' => 3
             ]);
-        }
+        }                
         $listmember = explode(',', $diskusiticket->member);
         $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();
         $member = User::whereNotIn('id', $listmember)->get();
         $chatAble = True;
         return view('ticket.discuss', compact('diskusiticket', 'listmember', 'diskusi', 'member', 'chatAble', 'tickets'));
-
     }
 
     public function create()
@@ -80,7 +89,7 @@ class linkController extends Controller
 
     public function finished()
     {
-        $tickets = Ticket::where('finish', 1)->get();
+        $tickets = Ticket::where('finish', 1)->orWhere('finish', 2)->get();
         return view('ticket.finished', compact('tickets'));
     }
 
@@ -180,7 +189,7 @@ class linkController extends Controller
         $ticket->aduan_id = $aduan->id;
         $ticket->urgensi = $req->urgensi;
         $ticket->nomor_ticket = time();
-        $ticket->expire = date('d-m-Y', strtotime(Date('d-m-Y'). ' + 2 days'));
+        $ticket->expire = date('d-m-Y H:i:s', strtotime(Date('d-m-Y H:i:s'). ' + 2 days'));
         $ticket->save();
 
         //update status ticket
