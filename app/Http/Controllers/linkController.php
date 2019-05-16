@@ -74,7 +74,7 @@ class linkController extends Controller
 
     public function solution($id_ticket)
     {
-        $ticket = Ticket::where('nomor_ticket', $id_ticket)->first();    
+        $ticket = Ticket::where('nomor_ticket', $id_ticket)->first();
         return view('ticket.solution', compact('ticket'));
     }
 
@@ -153,14 +153,31 @@ class linkController extends Controller
         $aduan->nama_lelang = $req->nama_lelang;
         $aduan->kode_lelang = $req->kode_lelang;
         $aduan->nama_satuan_kerja = $req->nama_satuan_kerja;
-        $aduan->gambar = $req->gambar; // Belum dibuat type file
+
+        $gambar1 = $req->gambar;
+        $ext = $gambar1->getClientOriginalExtension();
+        $newName = 'gmbr'.Carbon::parse(Carbon::now())->format('d-m-Y His').".".$ext;
+        $gambar1->move('gambar',$newName);
+        $aduan->gambar = $newName;
+
         $aduan->pesan = $req->pesan;
         $aduan->subjek = $req->subjek;
+        $validation = $req->validate([
+            'nama' => 'required',
+            'alamat' => 'required|min:10',
+            'perusahaan' => 'required|min:10',
+            'npwp' => 'required|max:15',
+            'hp' => 'required|max:15',
+            'email' => 'required|email',
+            'subjek' => 'required|min:10',
+            'pesan' => 'required|min:10',
+            'gambar' => 'image|max:5120'
+        ]);
         $aduan->save();
 
         // Buat Ticket
         $ticket = new Ticket();
-        $ticket->aduan_id = $aduan->id;        
+        $ticket->aduan_id = $aduan->id;
         $ticket->urgensi = $req->urgensi;
         $ticket->nomor_ticket = time();
         $ticket->expire = date('d-m-Y', strtotime(Date('d-m-Y'). ' + 2 days'));
