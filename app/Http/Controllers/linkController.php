@@ -26,7 +26,7 @@ class linkController extends Controller
 
     public function ongoing()
     {
-        $tickets = Ticket::where('finish', 0)->get();
+        $tickets = Ticket::where('finish', 0)->where('isGuest', 0)->get();
         return view('ticket.ongoing', compact('tickets'));
     }
 
@@ -160,7 +160,7 @@ class linkController extends Controller
 
         // Buat Ticket
         $ticket = new Ticket();
-        $ticket->aduan_id = $aduan->id;
+        $ticket->aduan_id = $aduan->id;        
         $ticket->urgensi = $req->urgensi;
         $ticket->nomor_ticket = time();
         $ticket->expire = date('d-m-Y', strtotime(Date('d-m-Y'). ' + 2 days'));

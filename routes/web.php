@@ -34,7 +34,8 @@ Route::prefix('guest')->group(function(){
     Route::post('tiket-baru', 'guestController@create')->name('guestCreateTicket');
     Route::get('success/{nomor}', 'guestController@success')->name('guestSuccess');
     Route::get('cek-status', 'guestController@status')->name('guestIndexStatus');
-    Route::post('status', 'guestController@cekStatus')->name('guestCheckStatus');
+    Route::post('status/', 'guestController@cekStatus')->name('guestCheckStatus');
+    Route::get('status/{nomor_ticket}', 'guestController@viewStatus')->name('guestViewStatus');
     Route::post('status/chat', 'guestController@sendChat')->name('guestSendChat');   
 });
 

@@ -1,8 +1,9 @@
-<!DOCTYPE html>
 <html lang="en">
-
-  <head>
-    <title>{{$title}} | STS LPSE Provinsi Kalimantan Selatan</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>@yield('title')</title>
 
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -43,29 +44,16 @@
 
     <!-- Datatable css -->
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.19/css/jquery.dataTables.min.css">
+</head>
+<body>
 
-    @yield('custom-css')
-  </head>
-  <body class="sidebar-mini fixed">
-
-    <div class="wrapper">
-
-      <!-- Navbar-->
-      @include('layout.navbar')        
-      <!-- Side-Nav-->
-      @include('layout.sidebar')
-      <div class="content-wrapper">
-        <!-- Container-fluid starts -->
-          <!-- Main content starts -->
-          <div class="container-fluid">
-            @yield('content')
-          </div>
-          <!-- Main content ends -->
-        <!-- Container-fluid ends -->
-
-      </div>
-    </div>
-    <!-- script -->
-    @include('layout.script')
-  </body>
+<div class="wrapper">
+    @include('layout.navbar-guest')
+    @yield('content')
+</div>
+<script src="{{ asset('res/assets/plugins/jquery/dist/jquery.min.js') }}"></script>
+<script src="{{ asset('res/assets/plugins/jquery-ui/jquery-ui.min.js') }}"></script>
+<script src="{{ asset('res/assets/plugins/tether/dist/js/tether.min.js') }}"></script>
+    @yield('addScript')
+</body>
 </html>

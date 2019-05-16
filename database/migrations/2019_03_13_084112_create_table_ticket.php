@@ -20,6 +20,7 @@ class CreateTableTicket extends Migration
             $table->string('urgensi');
             $table->string('expire');
             $table->integer('finish')->default(0);
+            $table->integer('isGuest')->default(0);
             $table->foreign('aduan_id')->references('id')->on('aduan')->onDelete('cascade');
             $table->timestamps();
         });
