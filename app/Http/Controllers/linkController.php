@@ -163,7 +163,7 @@ class linkController extends Controller
         $ticket->aduan_id = $aduan->id;        
         $ticket->urgensi = $req->urgensi;
         $ticket->nomor_ticket = time();
-        $ticket->expire = date('d-m-Y', strtotime(Date('d-m-Y'). ' + 2 days'));
+        $ticket->expire = date('d-m-Y H:i:s', strtotime(Date('d-m-Y H:i:s'). ' + 2 days'));
         $ticket->save();
 
         //update status ticket
