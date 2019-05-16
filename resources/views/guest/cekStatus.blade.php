@@ -5,7 +5,7 @@
 <div class="container">
     <div class="card">
         <div class="card-block">
-            <form action="{{route('guestCheckStatus')}}" method="GET">
+            <form action="{{route('guestCheckStatus')}}" method="POST">
             @csrf
                 <div class="form-group">
                 <label for="status">Masukkan Nomor Tiket</label>
