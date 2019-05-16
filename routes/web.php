@@ -13,10 +13,22 @@
 */
 
 use App\Ticket;
+use Carbon\Carbon;
 
 Auth::routes();
 Route::get('/', function () {
+
+    $allTicket = Ticket::where('finish', 0)->get();        
+        foreach($allTicket as $ticket){            
+            if(date('Y-m-d H:i:s', strtotime($ticket->expire)) <= Carbon::now()){
+                $ticket = Ticket::where('id', $ticket->id)->update([
+                    'finish' => 2,
+                ]);
+            }
+        }
+
     return view('index');
+
 })->name('index')->middleware('auth');
 Route::get('/home', 'HomeController@index')->name('home');
 Route::get('/tes', 'linkController@chart');

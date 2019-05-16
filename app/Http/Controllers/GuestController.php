@@ -95,8 +95,8 @@ class GuestController extends Controller
     
         //Assign Helpdesk
         $assign = new Assign();
-        $assign->users_id == $helpdesk->id;
-        $assign->ticket_id == $ticket->id;
+        $assign->users_id = $helpdesk->id;
+        $assign->ticket_id = $ticket->id;
         $assign->save();
 
         //Buat diskusi baru
