@@ -102,8 +102,10 @@
                   <span class="incominguser">Helpdesk</span>
                   <br>
                 @elseif($discuss->member == 2)
+                  <h1>TEST</h1>
                   <span class="incominguser">Admin</span>
                   <br>
+                
                 @endif
                 <div class="incomingmsg">
                   {{ $discuss->pesan }}
@@ -214,26 +216,22 @@ function createChat(msg, hari, waktu, AuthenticateUser, senderName){
   outgoingdate.setAttribute("class", "outgoingdate");
   outgoinguser.setAttribute("class", "outgoinguser");
   outgoingmsg.setAttribute("class", "outgoingmsg");
-  incomingLeft.setAttribute("class", "incoming f-left");
+  incomingLeft.setAttribute("class", "incoming");
   incomingUser.setAttribute("class" , "incominguser")
   incomingMsg.setAttribute("class", "incomingmsg")
   incomingDate.setAttribute("class", "incomingdate")
-  let userName = "";
-  if(AuthenticateUser == 1){
-    userName = document.createTextNode(`${senderName}`)
-  }else if(AuthenticateUser == 2){
-    userName = document.createTextNode(`${senderName}`)
-  }
+  let userName = document.createTextNode(`${senderName}`);
+  console.log(userName);
 
-
-
-  if(AuthenticateUser){
+  if(!(senderName != '{{Auth::user()->jabatan}}')){
     //Append outgoinguser dan outgoingmsgText
-    outgoinguser.appendChild(userName)
-    outgoingmsg.appendChild(chatMsg)
-    outgoingdate.appendChild(hariIni)
-    outgoingdate.appendChild(brElementDate)
-    outgoingdate.appendChild(waktuIni)
+
+    userName = document.createTextNode('Saya');
+    outgoinguser.appendChild(userName);
+    outgoingmsg.appendChild(chatMsg);
+    outgoingdate.appendChild(hariIni);
+    outgoingdate.appendChild(brElementDate);
+    outgoingdate.appendChild(waktuIni);
 
     //Append all element to chatWrapper
     //Append all element to outgoingright
@@ -243,17 +241,17 @@ function createChat(msg, hari, waktu, AuthenticateUser, senderName){
     outgoingright.appendChild(outgoingdate);
     chatWrapper.appendChild(outgoingright);
   }else{
-    outgoinguser.appendChild(userName)
-    outgoingmsg.appendChild(chatMsg)
-    outgoingdate.appendChild(hariIni)
-    outgoingdate.appendChild(brElementDate)
-    outgoingdate.appendChild(waktuIni)
+    incomingUser.appendChild(userName);
+    incomingMsg.appendChild(chatMsg);
+    incomingDate.appendChild(hariIni);
+    incomingDate.appendChild(brElementDate);
+    incomingDate.appendChild(waktuIni);
 
-    outgoingright.appendChild(incomingUser);
-    outgoingright.appendChild(incomingMsg);
-    outgoingright.appendChild(brElement);
-    outgoingright.appendChild(incomingDate);
-    chatWrapper.appendChild(outgoingright);
+    incomingLeft.appendChild(incomingUser);
+    incomingLeft.appendChild(brElement);
+    incomingLeft.appendChild(incomingMsg);
+    incomingLeft.appendChild(incomingDate);
+    chatWrapper.appendChild(incomingLeft);
   }
 }
 // Enable pusher logging - don't include this in production
@@ -270,7 +268,7 @@ channel.bind('message-sent', function(data) {
   // Buat HTML disini.
   let hari = "{{date('j F')}}";
   let waktu = "{{date('H.i')}}";
-  let senderName = "{{Auth::user()->name}}";
+  let senderName = data.sender;
   let AuthenticateUser = data.member;
   console.log(hari, waktu, AuthenticateUser, senderName);
   createChat(data.message,hari, waktu, AuthenticateUser, senderName);
@@ -284,7 +282,8 @@ formMsg.addEventListener('submit',(e)=>{
     "diskusi_id" : "{{$diskusiticket->id}}",
     "member" : "{{Auth::user()->id}}",
     "pesan" : $('textarea[name=pesan]').val(),
-    "date" : "{{date('Y-m-d H:i:s')}}"
+    "date" : "{{date('Y-m-d H:i:s')}}",
+    "sender" : "{{Auth::user()->jabatan}}"
   }
 
   console.log(dataChat)

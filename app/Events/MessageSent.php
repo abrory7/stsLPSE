@@ -17,17 +17,19 @@ class MessageSent implements ShouldBroadcast
     public $diskusi_id;
     public $member;
     public $date;    
+    public $sender;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($message, $diskusi_id, $member, $date)
+    public function __construct($message, $diskusi_id, $member, $date, $sender)
     {        
         $this->message = $message;
         $this->diskusi_id = $diskusi_id;
         $this->member = $member;
         $this->date = $date;
+        $this->sender = $sender;
     } 
 
     /**

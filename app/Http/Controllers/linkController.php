@@ -32,12 +32,8 @@ class linkController extends Controller
     }
 
     public function received()
-    {
-        if(Auth::user()->role == 1){
-            $receives = Assign::all();
-        }else{
-            $receives = Assign::where('users_id', Auth::user()->id)->get();            
-        }        
+    {        
+        $receives = Assign::where('users_id', Auth::user()->id)->get();                           
                 
         return view('ticket.received', compact('receives'));
     }
@@ -55,6 +51,7 @@ class linkController extends Controller
         $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();
         $member = User::whereNotIn('id', $listmember)->get();
         $chatAble = True;
+        // dd($diskusi);
         return view('ticket.discuss', compact('diskusiticket', 'listmember', 'diskusi', 'member', 'chatAble', 'tickets'));
     }
 
@@ -293,7 +290,7 @@ class linkController extends Controller
 
         $pesan->save();
 
-        event(new MessageSent($pesan->pesan, $pesan->diskusi_id, $pesan->member, $pesan->created_at));
+        event(new MessageSent($pesan->pesan, $pesan->diskusi_id, $pesan->member, $pesan->created_at, $req->sender));
         $data = [
             "message" => "success tersimpan"
         ];

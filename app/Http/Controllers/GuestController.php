@@ -46,7 +46,8 @@ class GuestController extends Controller
         $ticket = Ticket::where('nomor_ticket', $req->nomor_ticket)->first();
         $ticket_status = StatusTicket::where('ticket_id', $ticket->id)->get();
         $diskusiticket = Diskusi::where('ticket_id', $ticket->id)->first();
-        $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();
+        $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();        
+        // dd($diskusi);
 
         return view('guest.trackTicket', compact('ticket_status', 'diskusi', 'ticket', 'diskusiticket'));
     }
@@ -126,8 +127,7 @@ class GuestController extends Controller
         return redirect()->route('guestSuccess', compact('newTicket'));
     }
 
-    public function sendChat(Request $req){
-
+    public function sendChat(Request $req){                
         $diskusi = Diskusi::where('id', $req->diskusi_id)->first();
         $pesan = new Pesan();
 
@@ -137,7 +137,7 @@ class GuestController extends Controller
 
         $pesan->save();
 
-        event(new MessageSent($pesan->pesan, $pesan->diskusi_id, $pesan->member, $pesan->created_at));
+        event(new MessageSent($pesan->pesan, $pesan->diskusi_id, $pesan->member, $pesan->created_at, $req->sender));
 
         $data = [
             "message" => "success tersimpan"

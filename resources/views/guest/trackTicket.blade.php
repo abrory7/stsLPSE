@@ -39,7 +39,7 @@
 					<div class="diskusi col-md-12">
 						<div class="discuss-wrap">
 						@foreach($diskusi as $discuss)
-							@if($discuss->member != 1)
+							@if(!($discuss->member == 1 || $discuss->member == 2 || $discuss->member == 3))
 								<div class="outgoing">
 									<span class="outgoinguser">{{$ticket->aduan->email}}</span>
 									<br>
@@ -53,14 +53,16 @@
 									</div>
 								</div>
 								@else
-									<div class="incoming">
-										<img src="{{ asset('res/assets/images/avatar-1.png') }}" class="incomingava" alt="User Image" class="img-circle">
+									<div class="incoming">										
 										@if($discuss->member == 1)
 											<span class="incominguser">Helpdesk</span>
 											<br>
 										@elseif($discuss->member == 2)
 											<span class="incominguser">Admin</span>
 											<br>
+                    @else                                  
+                      <span class="incominguser"> <strong>{{$discuss->member}}</strong> </span>
+                      <br>
 										@endif
 										<div class="incomingmsg">
 											{{ $discuss->pesan }}
@@ -125,34 +127,34 @@ function createChat(msg, hari, waktu, AuthenticateUser, senderName){
   incomingDate.setAttribute("class", "incomingdate")
   let userName = document.createTextNode(`${senderName}`);
 
-  if(AuthenticateUser){
+  if(!(senderName == 'Helpdesk' || senderName == 'Admin Sistem' || senderName == 'Verifikator' || senderName == 'Admin PPE')){
     //Append outgoinguser dan outgoingmsgText
-    outgoinguser.appendChild(userName)
-    outgoingmsg.appendChild(chatMsg)
-    outgoingdate.appendChild(hariIni)
-    outgoingdate.appendChild(brElementDate)
-    outgoingdate.appendChild(waktuIni)
+        
+    outgoinguser.appendChild(userName);
+    outgoingmsg.appendChild(chatMsg);
+    outgoingdate.appendChild(hariIni);
+    outgoingdate.appendChild(brElementDate);
+    outgoingdate.appendChild(waktuIni);
 
     //Append all element to chatWrapper
     //Append all element to outgoingright
-    outgoingright.appendChild(outgoingdate);
     outgoingright.appendChild(outgoinguser);
     outgoingright.appendChild(brElement);
     outgoingright.appendChild(outgoingmsg);
+    outgoingright.appendChild(outgoingdate);
     chatWrapper.appendChild(outgoingright);
   }else{
-    outgoinguser.appendChild(userName)
-    outgoingmsg.appendChild(chatMsg)
-    outgoingdate.appendChild(hariIni)
-    outgoingdate.appendChild(brElementDate)
-    outgoingdate.appendChild(waktuIni)
-
-    outgoingright.appendChild(userImg);
-    outgoingright.appendChild(incomingUser);
-    outgoingright.appendChild(incomingMsg);
-    outgoingright.appendChild(brElement);
-    outgoingright.appendChild(incomingDate);
-    chatWrapper.appendChild(outgoingright);
+    incomingUser.appendChild(userName);
+    incomingMsg.appendChild(chatMsg);
+    incomingDate.appendChild(hariIni);
+    incomingDate.appendChild(brElementDate);
+    incomingDate.appendChild(waktuIni);
+    
+    incomingLeft.appendChild(incomingUser);   
+    incomingLeft.appendChild(brElement);
+    incomingLeft.appendChild(incomingMsg);  
+    incomingLeft.appendChild(incomingDate);     
+    chatWrapper.appendChild(incomingLeft);
   }
 }
 // Enable pusher logging - don't include this in production
@@ -168,7 +170,7 @@ var channel = pusher.subscribe('discuss-channel_'+ diskusi_id);
 channel.bind('message-sent', function(data) {
   let hari = "{{date('j F')}}";
   let waktu = "{{date('H.i')}}";
-  let senderName = "{{$ticket->aduan->email}}";
+  let senderName = data.sender;
   let AuthenticateUser = data.member;
   console.log(hari, waktu, AuthenticateUser, senderName);
   createChat(data.message,hari, waktu, AuthenticateUser, senderName);
@@ -182,7 +184,8 @@ formMsg.addEventListener('submit',(e)=>{
     "diskusi_id" : "{{$diskusiticket->id}}",
     "member" : "{{$ticket->aduan->email}}",
     "pesan" : $('textarea[name=pesan]').val(),
-    "date" : "{{date('Y-m-d H:i:s')}}"
+    "date" : "{{date('Y-m-d H:i:s')}}",    
+    "sender" : "{{$ticket->aduan->email}}"  
   }
 
   console.log(dataChat)
