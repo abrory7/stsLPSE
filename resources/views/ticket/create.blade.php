@@ -8,8 +8,17 @@
 </div>
 <div class="card">
   <div class="card-block">
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
     <div class="row">
-      <form action="{{route('storeTicket')}}" method="POST">
+      <form action="{{route('storeTicket')}}" method="POST" enctype="multipart/form-data">
       {{ csrf_field() }}
         <div class="form-group">
           <label for="exampleFormControlInput1">Nama</label>
@@ -70,6 +79,10 @@
         <div class="form-group">
           <label for="exampleFormControlInput1">Pesan</label>
           <textarea class="form-control" rows="5" name="pesan"> </textarea>
+        </div>
+        <div class="form-group">
+          <label for="gambar">Lampiran Gambar atau Screenshot</label>
+          <input type="file" id="gambar" name="gambar"class="form-control">
         </div>
         <div class="form-group">
           <label>Kategori Masalah</label>

@@ -29,7 +29,7 @@ class GuestController extends Controller
 
     public function baru(){
         $kategori = Kategori::all();
-        return view('guest.newTicket', compact('kategori'));       
+        return view('guest.newTicket', compact('kategori'));
     }
 
     public function success($nomor_ticket){
@@ -42,12 +42,12 @@ class GuestController extends Controller
     }
 
     public function cekStatus(Request $req){
-        
+
         $ticket = Ticket::where('nomor_ticket', $req->nomor_ticket)->first();
         $ticket_status = StatusTicket::where('ticket_id', $ticket->id)->get();
-        $diskusiticket = Diskusi::where('ticket_id', $ticket->id)->first();        
-        $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();        
-                
+        $diskusiticket = Diskusi::where('ticket_id', $ticket->id)->first();
+        $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();
+
         return view('guest.trackTicket', compact('ticket_status', 'diskusi', 'ticket', 'diskusiticket'));
     }
 
@@ -68,9 +68,25 @@ class GuestController extends Controller
         $aduan->nama_lelang = $req->nama_lelang;
         $aduan->kode_lelang = $req->kode_lelang;
         $aduan->nama_satuan_kerja = $req->nama_satuan_kerja;
-        $aduan->gambar = $req->gambar; // Belum dibuat type file
+
+        $gambar1 = $req->gambar;
+        $ext = $gambar1->getClientOriginalExtension();
+        $newName = 'gmbr'.Carbon::parse(Carbon::now())->format('d-m-Y His').".".$ext;
+        $gambar1->move('gambar',$newName);
+        $aduan->gambar = $newName;
+
         $aduan->pesan = $req->pesan;
         $aduan->subjek = $req->subjek;
+        $validation = $req->validate([
+            'nama' => 'required',
+            'alamat' => 'required|min:10',
+            'perusahaan' => 'required|min:10',
+            'npwp' => 'required|max:15',
+            'hp' => 'required|max:15',
+            'email' => 'required|email',
+            'subjek' => 'required|min:10',
+            'pesan' => 'required|min:10'
+        ]);
         $aduan->save();
 
         // Buat Ticket
@@ -92,7 +108,7 @@ class GuestController extends Controller
 
         //select helpdesk
         $helpdesk = User::where('role', 1)->first();
-    
+
         //Assign Helpdesk
         $assign = new Assign();
         $assign->users_id = $helpdesk->id;
@@ -105,25 +121,24 @@ class GuestController extends Controller
         $diskusi->member = 1; // Assign helpdesk ke diskusi
         $diskusi->save();
 
-        $newTicket = $ticket->nomor_ticket;        
-
+        $newTicket = $ticket->nomor_ticket;
 
         return redirect()->route('guestSuccess', compact('newTicket'));
     }
 
     public function sendChat(Request $req){
-        
+
         $diskusi = Diskusi::where('id', $req->diskusi_id)->first();
         $pesan = new Pesan();
-    
+
         $pesan->diskusi_id = $diskusi->id;
         $pesan->pesan = $req->pesan;
-        $pesan->member = $req->member;        
-        
+        $pesan->member = $req->member;
+
         $pesan->save();
-            
+
         event(new MessageSent($pesan->pesan, $pesan->diskusi_id, $pesan->member, $pesan->created_at));
-        
+
         $data = [
             "message" => "success tersimpan"
         ];

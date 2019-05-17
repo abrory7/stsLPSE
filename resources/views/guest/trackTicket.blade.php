@@ -19,10 +19,10 @@
 												Diterima Helpdesk
 											@elseif($status->status == 2 )											
 												Ditugaskan kepada {{$user->jabatan}}
-											@elseif($status->status == 3)												
-												Sedang dikerjakan oleh ({{$user->jabatan}}) 		
+											@elseif($status->status == 3)
+												Sedang dikerjakan oleh ({{$user->jabatan}})
 											@elseif($status->status == 4)
-												Tiket Selesai																																																			
+												Tiket Selesai
 											@endif
 											</a>
 											<a href="#" class="datefloat">{{$status->created_at}}</a>
@@ -37,23 +37,23 @@
 				<div class="card-block">
 				<div class="discuss">
 					<div class="diskusi col-md-12">
-						<div class="discuss-wrap">        
+						<div class="discuss-wrap">
 						@foreach($diskusi as $discuss)
 							@if($discuss->member != 1)
-								<div class="outgoing f-right">
-									<div class="outgoingdate">
-										{{ date_format($discuss->created_at, "j F") }}
-										<br>
-										{{ date_format($discuss->created_at, "H.i")}}
-									</div>
+								<div class="outgoing">
 									<span class="outgoinguser">{{$ticket->aduan->email}}</span>
 									<br>
 									<div class="outgoingmsg">
 										{{ $discuss->pesan }}
 									</div>
+                  <div class="outgoingdate">
+										{{ date_format($discuss->created_at, "j F") }}
+										<br>
+										{{ date_format($discuss->created_at, "H.i")}}
+									</div>
 								</div>
 								@else
-									<div class="incoming f-left">
+									<div class="incoming">
 										<img src="{{ asset('res/assets/images/avatar-1.png') }}" class="incomingava" alt="User Image" class="img-circle">
 										@if($discuss->member == 1)
 											<span class="incominguser">Helpdesk</span>
@@ -76,15 +76,15 @@
 							</div>
 					</div>
 				</div>
-				<div class="sendmsg form-inline">				
-					<form name="formSendMsg">    
-					@csrf   
+				<div class="sendmsg form-inline">
+					<form name="formSendMsg">
+					@csrf
           <meta name="csrf-token" content="{{ csrf_token() }}">
 						<textarea id="pesan" name="pesan" class="form-control" rows="4" cols="39" placeholder="Tulis Pesan...." required></textarea>
 						<button type="submit" class="btn btn-success sendbutton">KIRIM</button>
-					</form>				
+					</form>
 				</div>
-				
+
 				</div>
       </div>
     </div>
@@ -107,8 +107,7 @@ function createChat(msg, hari, waktu, AuthenticateUser, senderName){
   const outgoinguser = document.createElement("span");
   const chatMsg = document.createTextNode(msg);
   const outgoingmsg = document.createElement("div");
-  const incomingLeft = document.createElement("div")  
-  const userImg = document.createElement("img");
+  const incomingLeft = document.createElement("div")
   const incomingUser = document.createElement("span");
   const incomingMsg = document.createElement("div")
   const incomingDate = document.createElement("div");
@@ -116,26 +115,23 @@ function createChat(msg, hari, waktu, AuthenticateUser, senderName){
   const brElementDate = document.createElement("BR");
   const hariIni = document.createTextNode(hari);
   const waktuIni = document.createTextNode(waktu);
-  outgoingright.setAttribute("class", "outgoing f-right");
-  outgoingdate.setAttribute("class", "outgoingdate");  
+  outgoingright.setAttribute("class", "outgoing");
+  outgoingdate.setAttribute("class", "outgoingdate");
   outgoinguser.setAttribute("class", "outgoinguser");
   outgoingmsg.setAttribute("class", "outgoingmsg");
-  incomingLeft.setAttribute("class", "incoming f-left");
-  userImg.setAttribute("src", "{{ asset('res/assets/images/avatar-1.png') }}");
-  userImg.setAttribute("class", "incomingava img-circle")
-  userImg.setAttribute("alt", "User Image")  
+  incomingLeft.setAttribute("class", "incoming");
   incomingUser.setAttribute("class" , "incominguser")
   incomingMsg.setAttribute("class", "incomingmsg")
   incomingDate.setAttribute("class", "incomingdate")
   let userName = document.createTextNode(`${senderName}`);
 
-  if(AuthenticateUser){  
+  if(AuthenticateUser){
     //Append outgoinguser dan outgoingmsgText
     outgoinguser.appendChild(userName)
     outgoingmsg.appendChild(chatMsg)
     outgoingdate.appendChild(hariIni)
     outgoingdate.appendChild(brElementDate)
-    outgoingdate.appendChild(waktuIni)    
+    outgoingdate.appendChild(waktuIni)
 
     //Append all element to chatWrapper
     //Append all element to outgoingright
@@ -143,13 +139,13 @@ function createChat(msg, hari, waktu, AuthenticateUser, senderName){
     outgoingright.appendChild(outgoinguser);
     outgoingright.appendChild(brElement);
     outgoingright.appendChild(outgoingmsg);
-    chatWrapper.appendChild(outgoingright);  
+    chatWrapper.appendChild(outgoingright);
   }else{
     outgoinguser.appendChild(userName)
     outgoingmsg.appendChild(chatMsg)
     outgoingdate.appendChild(hariIni)
     outgoingdate.appendChild(brElementDate)
-    outgoingdate.appendChild(waktuIni)   
+    outgoingdate.appendChild(waktuIni)
 
     outgoingright.appendChild(userImg);
     outgoingright.appendChild(incomingUser);
@@ -160,7 +156,7 @@ function createChat(msg, hari, waktu, AuthenticateUser, senderName){
   }
 }
 // Enable pusher logging - don't include this in production
-Pusher.logToConsole = true; 
+Pusher.logToConsole = true;
 var pusher = new Pusher('01313f7060ca86786294', {
     cluster: 'ap1',
     forceTLS: true
@@ -169,25 +165,25 @@ var pusher = new Pusher('01313f7060ca86786294', {
 //receive response dari pusher
 let diskusi_id = "{{$diskusiticket->id}}"
 var channel = pusher.subscribe('discuss-channel_'+ diskusi_id);
-channel.bind('message-sent', function(data) {  
+channel.bind('message-sent', function(data) {
   let hari = "{{date('j F')}}";
-  let waktu = "{{date('H.i')}}";  
+  let waktu = "{{date('H.i')}}";
   let senderName = "{{$ticket->aduan->email}}";
-  let AuthenticateUser = data.member;  
+  let AuthenticateUser = data.member;
   console.log(hari, waktu, AuthenticateUser, senderName);
-  createChat(data.message,hari, waktu, AuthenticateUser, senderName);  
-  
+  createChat(data.message,hari, waktu, AuthenticateUser, senderName);
+
 });
 
 formMsg.addEventListener('submit',(e)=>{
-  e.preventDefault();  
+  e.preventDefault();
   //Payload
   let dataChat = {
     "diskusi_id" : "{{$diskusiticket->id}}",
     "member" : "{{$ticket->aduan->email}}",
     "pesan" : $('textarea[name=pesan]').val(),
     "date" : "{{date('Y-m-d H:i:s')}}"
-  }           
+  }
 
   console.log(dataChat)
   // Save message to DB;
@@ -195,7 +191,7 @@ formMsg.addEventListener('submit',(e)=>{
       url: '{{route("guestSendChat")}}',
       headers : {
           'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        },          
+        },
       type: 'POST',
       contentType: 'application/json',
       data: JSON.stringify(dataChat),
@@ -207,8 +203,8 @@ formMsg.addEventListener('submit',(e)=>{
       error: function(error){
           console.log( error);
       }
-    })   
-  
+    })
+
   formMsg.reset();
 })
 </script>
