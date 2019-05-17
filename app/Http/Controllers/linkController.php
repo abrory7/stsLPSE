@@ -26,17 +26,7 @@ class linkController extends Controller
 
     public function ongoing()
     {
-        $allTicket = Ticket::where('finish', 0)->get();
-        $tickets = [];        
-        foreach($allTicket as $ticket){            
-            if(date('Y-m-d H:i:s', strtotime($ticket->expire)) <= Carbon::now()){
-                $ticket = Ticket::where('id', $ticket->id)->update([
-                    'finish' => 2,
-                ]);
-            }else{
-                $tickets[] = $ticket;
-            }
-        }
+        $tickets = Ticket::where('finish', 0)->get();        
                 
         return view('ticket.ongoing', compact('tickets'));
     }
@@ -46,9 +36,9 @@ class linkController extends Controller
         if(Auth::user()->role == 1){
             $receives = Assign::all();
         }else{
-            $receives = Assign::where('users_id', Auth::user()->id)->get();
-        }
-        
+            $receives = Assign::where('users_id', Auth::user()->id)->get();            
+        }        
+                
         return view('ticket.received', compact('receives'));
     }
     public function discuss($id_ticket)
@@ -238,7 +228,7 @@ class linkController extends Controller
         $diskusi_id = Diskusi::where('ticket_id', $req->ticket_id)->first();
         $pesansistem->diskusi_id = $diskusi_id->id;
         $pesansistem->member = 1;
-        $pesansistem->pesan = '(SISTEM) Tiket #'.$req->nomor_ticket.' telah diarahkan kepada '.$assignedUser->name.' @'.$assignedUser->jabatan .' untuk selanjutnya dapat ditindaklanjuti.';
+        $pesansistem->pesan = '(SISTEM) Tiket #'.$req->nomor_ticket.' telah diarahkan kepada @'.$assignedUser->jabatan .' untuk selanjutnya dapat ditindaklanjuti.';
         $pesansistem->save();
 
         return redirect()->route('ongoingTicket');
@@ -246,11 +236,17 @@ class linkController extends Controller
 
 
     public function inviteDiscuss(Request $req, $id_diskusi){
+        
         $invite = Diskusi::find($id_diskusi);
         $oldmembers = $invite->member;
         $invite->member = $oldmembers.','.$req->member;
 
+        $assign = new Assign();
+        $assign->users_id = $req->member;
+        $assign->ticket_id = $invite->ticket_id;
+            
         $invite->save();
+        $assign->save();
 
         return redirect()->route('discussTicket', $id_diskusi);
     }
@@ -338,14 +334,14 @@ class linkController extends Controller
         }
       }
 
-      //Average First Response Time
+      //Average First Response Time      
       $assignedTicketTotal = Assign::all();
       $TotalResponseTime = 0;
       foreach($assignedTicketTotal as $ticket){
         $selisih = Carbon::createFromFormat('Y-m-d H:s:i', $ticket->created_at)->diffInMinutes($ticket->assignedTicket->created_at);
         $TotalResponseTime += $selisih;
       }
-      $avgFirstResponseTime = (int) floor($TotalResponseTime/count($assignedTicketTotal));
+      $avgFirstResponseTime = (int) floor($TotalResponseTime/count($assignedTicketTotal)) > 0 ? (int) floor($TotalResponseTime/count($assignedTicketTotal)) : 0;
 
       return view('test', compact('cat', 'countcat', 'dates', 'monthlyData', 'urg', 'arrurg', 'urgtotal', 'totalunfinish', 'totalfinish', 'totalweek', 'totalyear', 'solvers', 'avgFirstResponseTime'));
     }

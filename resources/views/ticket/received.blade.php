@@ -25,11 +25,11 @@
                     </tr>
                     </thead>
                     <tbody>
-                      @foreach($receives as $received)                
+                      @foreach($receives as $received)   
+                         
                           
                       @if($received->assignedTicket->finish == 0)
-                      <tr>
-                      
+                      <tr>                      
                         <td><a href="{{ route('trackTicket', $received->assignedTicket->nomor_ticket) }}" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Lacak Tiket Ini"><u>{{$received->assignedTicket->nomor_ticket}}</u></a></td>
                         @if($received->assignedTicket->urgensi == "Darurat")
                           <td class="bg-danger">{{$received->assignedTicket->urgensi}}</td>

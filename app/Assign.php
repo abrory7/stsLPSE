@@ -10,7 +10,7 @@ class Assign extends Model
     protected $fillable = ['users_id', 'ticket_id'];
 
     public function assignedTicket(){
-        return $this->belongsTo('App\Ticket', 'id');
+        return $this->belongsTo('App\Ticket', 'ticket_id');
     }
 
     public function assignedUser(){

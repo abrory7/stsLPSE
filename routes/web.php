@@ -17,7 +17,6 @@ use Carbon\Carbon;
 
 Auth::routes();
 Route::get('/', function () {
-
     $allTicket = Ticket::where('finish', 0)->get();        
         foreach($allTicket as $ticket){            
             if(date('Y-m-d H:i:s', strtotime($ticket->expire)) <= Carbon::now()){

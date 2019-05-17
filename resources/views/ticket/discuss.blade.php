@@ -138,7 +138,7 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Invite Member</h4>
         </div>
-        <div class="modal-body">
+        <div class="modal-body">        
           <form action="{{ route('inviteMember', $diskusiticket->id) }}" method="POST">
           @csrf
           <meta name="csrf-token" content="{{ csrf_token() }}">
