@@ -13,7 +13,7 @@
 
     <!-- Google font-->
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet"> 
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
     <!-- iconfont -->
     <link rel="stylesheet" type="text/css" href="{{ asset('res/assets/icon/icofont/css/icofont.css') }}">
 
@@ -46,12 +46,12 @@
 
     @yield('custom-css')
   </head>
-  <body class="sidebar-mini fixed">
+  <body class="sidebar-mini fixed" onload="actnav()">
 
     <div class="wrapper">
 
       <!-- Navbar-->
-      @include('layout.navbar')        
+      @include('layout.navbar')
       <!-- Side-Nav-->
       @include('layout.sidebar')
       <div class="content-wrapper">

@@ -3,7 +3,15 @@
 @section('content')
 <div class="row">
     <div class="main-header">
-        <h4>On Going Ticket</h4>
+      @if(session()->has('sukses'))
+        <div class="alert alert-success alert-dismissible" style="width: 50%; margin: 0 20% 0 20%;">
+          <strong><i class="icon-check"></i>&nbsp;{{ session()->get('sukses') }}</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      @endif
+      <h4>On Going Ticket</h4>
     </div>
 </div>
 <div class="card">
@@ -79,7 +87,7 @@
                                         @foreach($users as $user)
                                             @if($user->role != 3)
                                             <option value="{{$user->id}}">{{$user->jabatan}}</option>
-                                            @endif 
+                                            @endif
                                         @endforeach
                                         </select>
                                         <input type="hidden" name="ticket_id" value="{{$ticket->id}}" class="form-control">
