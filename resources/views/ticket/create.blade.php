@@ -21,68 +21,68 @@
       <form action="{{route('storeTicket')}}" method="POST" enctype="multipart/form-data">
       {{ csrf_field() }}
         <div class="form-group">
-          <label for="exampleFormControlInput1">Nama</label>
-          <input name="nama" type="text" class="form-control">
+          <label for="nama">Nama</label>
+          <input id="nama" name="nama" type="text" class="form-control">
         </div>
         <div class="form-group">
-          <label for="exampleFormControlInput1">Alamat</label>
-          <input name="alamat" type="text" class="form-control">
+          <label for="alamat">Alamat</label>
+          <input id="alamat" name="alamat" type="text" class="form-control">
         </div>
         <div class="form-group">
-          <label for="exampleFormControlInput1">Perusahaan</label>
-          <input name="perusahaan" type="text" class="form-control">
+          <label for="perusahaan">Perusahaan</label>
+          <input id="perusahaan" name="perusahaan" type="text" class="form-control">
         </div>
         <div class="form-group">
-          <label for="exampleFormControlInput1">NPWP</label>
-          <input name="npwp" type="text" class="form-control">
+          <label for="npwp">NPWP</label>
+          <input id="npwp" name="npwp" type="text" class="form-control" placeholder="Contoh: 99.999.999.9-999.999">
         </div>
         <div class="form-group">
-          <label for="exampleFormControlInput1">no_telp</label>
-          <input name="no_telp" type="text" class="form-control">
+          <label for="no_telp">No. Telpon</label>
+          <input id="no_telp" name="no_telp" type="text" class="form-control">
         </div>
         <div class="form-group">
-          <label for="exampleFormControlInput1">HP</label>
-          <input name="hp" type="text" class="form-control">
+          <label for="hp">No. HP</label>
+          <input id="hp" name="hp" type="text" class="form-control">
         </div>
         <div class="form-group">
-          <label for="exampleFormControlInput1">Fax</label>
-          <input name="fax" type="text" class="form-control">
+          <label for="fax">No. Fax</label>
+          <input id="fax" name="fax" type="text" class="form-control">
         </div>
         <div class="form-group">
-          <label for="exampleFormControlInput1">Email</label>
-          <input name="email" type="email" class="form-control" id="exampleFormControlInput1" placeholder="name@example.com">
+          <label for="email">Email</label>
+          <input id="email" name="email" type="email" class="form-control" placeholder="Contoh: nama@contoh.com">
         </div>
         <div class="form-group">
-          <label for="exampleFormControlInput1">Username SPSE</label>
-          <input name="username_spse" type="text" class="form-control">
+          <label for="username_spse">Username SPSE</label>
+          <input id="username_spse" name="username_spse" type="text" class="form-control">
         </div>
         <div class="form-group">
-          <label for="exampleFormControlInput1">Password SPSE</label>
-          <input name="password_spse" type="text" class="form-control">
+          <label for="password_spse">Password SPSE</label>
+          <input id="password_spse" name="password_spse" type="text" class="form-control">
         </div>
         <div class="form-group">
-          <label for="exampleFormControlInput1">Nama Lelang</label>
-          <input name="nama_lelang" type="text" class="form-control">
+          <label for="nama_lelang">Nama Lelang</label>
+          <input id="nama_lelang" name="nama_lelang" type="text" class="form-control">
         </div>
         <div class="form-group">
-          <label for="exampleFormControlInput1">Kode Lelang</label>
-          <input name="kode_lelang" type="text" class="form-control">
+          <label for="kode_lelang">Kode Lelang</label>
+          <input id="kode_lelang" name="kode_lelang" type="text" class="form-control">
         </div>
         <div class="form-group">
-          <label for="exampleFormControlInput1">Nama Satuan Kerja</label>
-          <input name="nama_satuan_kerja" type="text" class="form-control">
+          <label for="nama_satuan_kerja">Nama Satuan Kerja</label>
+          <input id="nama_satuan_kerja" name="nama_satuan_kerja" type="text" class="form-control">
         </div>
         <div class="form-group">
-          <label for="exampleFormControlInput1">Subjek</label>
-          <input name="subjek" type="text" class="form-control">
+          <label for="subjek">Subjek</label>
+          <input id="subjek" name="subjek" type="text" class="form-control">
         </div>
         <div class="form-group">
-          <label for="exampleFormControlInput1">Pesan</label>
-          <textarea class="form-control" rows="5" name="pesan"> </textarea>
+          <label for="pesan">Pesan</label>
+          <textarea id="pesan" class="form-control" rows="5" name="pesan"> </textarea>
         </div>
         <div class="form-group">
           <label for="gambar">Lampiran Gambar atau Screenshot</label>
-          <input type="file" id="gambar" name="gambar"class="form-control">
+          <input type="file" id="gambar" name="gambar" class="form-control" accept="image/*">
         </div>
         <div class="form-group">
           <label>Kategori Masalah</label>

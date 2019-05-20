@@ -46,8 +46,13 @@ class GuestController extends Controller
         $ticket = Ticket::where('nomor_ticket', $req->nomor_ticket)->first();
         $ticket_status = StatusTicket::where('ticket_id', $ticket->id)->get();
         $diskusiticket = Diskusi::where('ticket_id', $ticket->id)->first();
+<<<<<<< HEAD
         $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();  
         $solusi = Solusi::where('ticket_id', $ticket->id)->first();             
+=======
+        $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();
+        // dd($diskusi);
+>>>>>>> fed57682dad3feb35459bb823fb56909527289ab
 
         return view('guest.trackTicket', compact('ticket_status', 'diskusi', 'ticket', 'diskusiticket', 'solusi'));
     }
@@ -70,6 +75,7 @@ class GuestController extends Controller
         $aduan->kode_lelang = $req->kode_lelang;
         $aduan->nama_satuan_kerja = $req->nama_satuan_kerja;
 
+<<<<<<< HEAD
 
         if($req->hasFile('gambar')){
             $gambar1 = $req->gambar;
@@ -78,6 +84,18 @@ class GuestController extends Controller
             $gambar1->move('gambar',$newName);
             $aduan->gambar = $newName;
         }        
+=======
+        if(!empty($req->gambar)){
+          $gambar1 = $req->gambar;
+          $ext = $gambar1->getClientOriginalExtension();
+          $newName = 'gmbr'.Carbon::parse(Carbon::now())->format('d-m-Y His').".".$ext;
+          $gambar1->move('gambar',$newName);
+          $aduan->gambar = $newName;
+        }
+        else{
+
+        }
+>>>>>>> fed57682dad3feb35459bb823fb56909527289ab
 
         $aduan->pesan = $req->pesan;
         $aduan->subjek = $req->subjek;
@@ -85,11 +103,12 @@ class GuestController extends Controller
             'nama' => 'required',
             'alamat' => 'required|min:10',
             'perusahaan' => 'required|min:10',
-            'npwp' => 'required|max:15',
+            'npwp' => 'required|max:20',
             'hp' => 'required|max:15',
             'email' => 'required|email',
             'subjek' => 'required|min:10',
-            'pesan' => 'required|min:10'
+            'pesan' => 'required|min:10',
+            'gambar' => 'image|max:5120',
         ]);
         $aduan->save();
 
@@ -130,7 +149,7 @@ class GuestController extends Controller
         return redirect()->route('guestSuccess', compact('newTicket'));
     }
 
-    public function sendChat(Request $req){                
+    public function sendChat(Request $req){
         $diskusi = Diskusi::where('id', $req->diskusi_id)->first();
         $pesan = new Pesan();
 

@@ -26,27 +26,27 @@ class linkController extends Controller
 
     public function ongoing()
     {
-        $tickets = Ticket::where('finish', 0)->get();        
-                
+        $tickets = Ticket::where('finish', 0)->get();
+
         return view('ticket.ongoing', compact('tickets'));
     }
 
     public function received()
-    {        
-        $receives = Assign::where('users_id', Auth::user()->id)->get();                           
-                
+    {
+        $receives = Assign::where('users_id', Auth::user()->id)->get();
+
         return view('ticket.received', compact('receives'));
     }
     public function discuss($id_ticket)
-    {        
-        $diskusiticket = Diskusi::where('ticket_id', $id_ticket)->first();        
+    {
+        $diskusiticket = Diskusi::where('ticket_id', $id_ticket)->first();
         $tickets = Ticket::where('id', $id_ticket)->first();
         if(StatusTicket::where('ticket_id', $id_ticket)->where('status', 3)->first() == NULL){
             StatusTicket::create([
                 'ticket_id' => $id_ticket,
                 'status' => 3
             ]);
-        }                
+        }
         $listmember = explode(',', $diskusiticket->member);
         $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();
         $member = User::whereNotIn('id', $listmember)->get();
@@ -134,6 +134,17 @@ class linkController extends Controller
     public function store(Request $req){
 
         // Insert aduan
+        $validation = $req->validate([
+            'nama' => 'required',
+            'alamat' => 'required|min:10',
+            'perusahaan' => 'required|min:10',
+            'npwp' => 'required|max:20',
+            'hp' => 'required|max:15',
+            'email' => 'required|email',
+            'subjek' => 'required|min:10',
+            'pesan' => 'required|min:10',
+            'gambar' => 'image|max:5120',
+        ]);
         $aduan = new Aduan();
         $aduan->kategori_id = $req->kategori_id;
         $aduan->nama = $req->nama;
@@ -150,25 +161,20 @@ class linkController extends Controller
         $aduan->kode_lelang = $req->kode_lelang;
         $aduan->nama_satuan_kerja = $req->nama_satuan_kerja;
 
-        $gambar1 = $req->gambar;
-        $ext = $gambar1->getClientOriginalExtension();
-        $newName = 'gmbr'.Carbon::parse(Carbon::now())->format('d-m-Y His').".".$ext;
-        $gambar1->move('gambar',$newName);
-        $aduan->gambar = $newName;
+        if(!empty($req->gambar)){
+          $gambar1 = $req->gambar;
+          $ext = $gambar1->getClientOriginalExtension();
+          $newName = 'gmbr'.Carbon::parse(Carbon::now())->format('d-m-Y His').".".$ext;
+          $gambar1->move('gambar',$newName);
+          $aduan->gambar = $newName;
+        }
+        else{
+
+        }
 
         $aduan->pesan = $req->pesan;
         $aduan->subjek = $req->subjek;
-        $validation = $req->validate([
-            'nama' => 'required',
-            'alamat' => 'required|min:10',
-            'perusahaan' => 'required|min:10',
-            'npwp' => 'required|max:15',
-            'hp' => 'required|max:15',
-            'email' => 'required|email',
-            'subjek' => 'required|min:10',
-            'pesan' => 'required|min:10',
-            'gambar' => 'image|max:5120'
-        ]);
+
         $aduan->save();
 
         // Buat Ticket
@@ -185,7 +191,7 @@ class linkController extends Controller
         $statusTicket->ticket_id = $ticket->id;
         $statusTicket->status = "1";
         $statusTicket->save();
-        return redirect()->route('ongoingTicket');
+        return redirect()->route('ongoingTicket')->with('sukses', 'Tiket #'.$ticket->nomor_ticket.' Berhasil Dibuat');
     }
 
     public function solusi(Request $req, $tiket_id){        
@@ -269,7 +275,7 @@ class linkController extends Controller
 
 
     public function inviteDiscuss(Request $req, $id_diskusi){
-        
+
         $invite = Diskusi::find($id_diskusi);
         $oldmembers = $invite->member;
         $invite->member = $oldmembers.','.$req->member;
@@ -278,12 +284,15 @@ class linkController extends Controller
         $assign->users_id = $req->member;
         $assign->ticket_id = $invite->ticket_id;
 
+<<<<<<< HEAD
         $notifikasi = new Notif();
         $notifikasi->ticket_id = $invite->ticket_id;
         $notifikasi->notif = 1;
         $notifikasi->role = $req->member;
             
         $notifikasi->save();
+=======
+>>>>>>> fed57682dad3feb35459bb823fb56909527289ab
         $invite->save();
         $assign->save();
 
@@ -371,7 +380,7 @@ class linkController extends Controller
         }
       }
 
-      //Average First Response Time      
+      //Average First Response Time
       $assignedTicketTotal = Assign::all();
       $TotalResponseTime = 0;
       foreach($assignedTicketTotal as $ticket){
