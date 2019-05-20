@@ -284,15 +284,12 @@ class linkController extends Controller
         $assign->users_id = $req->member;
         $assign->ticket_id = $invite->ticket_id;
 
-<<<<<<< HEAD
         $notifikasi = new Notif();
         $notifikasi->ticket_id = $invite->ticket_id;
         $notifikasi->notif = 1;
         $notifikasi->role = $req->member;
             
         $notifikasi->save();
-=======
->>>>>>> fed57682dad3feb35459bb823fb56909527289ab
         $invite->save();
         $assign->save();
 
