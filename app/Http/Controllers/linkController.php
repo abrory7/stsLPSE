@@ -188,12 +188,31 @@ class linkController extends Controller
         return redirect()->route('ongoingTicket');
     }
 
-    public function solusi(Request $req){
+    public function solusi(Request $req, $tiket_id){        
         $solusi = new Solusi();
-        $solusi->ticket_id =  $req->ticket_id;
+        $solusi->ticket_id =  $tiket_id;
         $solusi->users_id = Auth::user()->id;
         $solusi->solusi = $req->solusi;
         $solusi->save();
+
+        $closeticket = Ticket::find($tiket_id);
+        $closeticket->finish = 1;
+
+        $statusTicket = new StatusTicket();
+        $statusTicket->ticket_id = $closeticket->id;
+        $statusTicket->status = 4;
+
+        $diskusi = Diskusi::where('ticket_id', $tiket_id)->first();
+        $tiket = Ticket::where('id', $tiket_id)->first();
+        $pesan = new Pesan();
+        $pesan->diskusi_id = $diskusi->id;
+        $pesan->member = Auth::user()->id;
+        $pesan->pesan = "(SISTEM) Tiket #".$tiket->nomor_tiket." telah diakhiri oleh ".Auth::user()->name .".";
+
+        $pesan->save();
+        $statusTicket->save();
+        $closeticket->save();
+
         return redirect()->route('ongoingTicket');
     }
 
@@ -258,7 +277,13 @@ class linkController extends Controller
         $assign = new Assign();
         $assign->users_id = $req->member;
         $assign->ticket_id = $invite->ticket_id;
+
+        $notifikasi = new Notif();
+        $notifikasi->ticket_id = $invite->ticket_id;
+        $notifikasi->notif = 1;
+        $notifikasi->role = $req->member;
             
+        $notifikasi->save();
         $invite->save();
         $assign->save();
 
@@ -273,10 +298,8 @@ class linkController extends Controller
                 'ticket_id' => $id_ticket,
                 'status' => 3
             ]);
-        }
-        $listmember = explode(',', $diskusiticket->member);
-        $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();
-        $member = User::whereNotIn('id', $listmember)->get();
+        }        
+        $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();                
         return view('ticket.finishedDiscussion', compact('tickets', 'diskusiticket', 'listmember', 'diskusi', 'member', 'chatAble'));
     }
 

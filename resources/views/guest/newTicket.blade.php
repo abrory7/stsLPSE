@@ -18,7 +18,7 @@
                 <h1>Buat Tiket Baru</h1>
                 <p>Tolong isi form berikut untuk membuat tiket baru.</p>
                 <br>
-                <form action="{{route('guestCreateTicket')}}" method="POST">
+                <form action="{{route('guestCreateTicket')}}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="form-group">
                   <label for="exampleFormControlInput1">Nama</label>

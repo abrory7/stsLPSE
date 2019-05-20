@@ -8,21 +8,33 @@
         	<div class="row">
         			<h4>Track Ticket</h4>
         			<ul class="timeline">
+              <?php $finish = 0; ?>
 							@foreach($ticket_status as $status)
                 @php
                   $user = DB::table('users')->where('id', $status->ticket->isAssigned->users_id)->first();                  
                 @endphp
         				<li>
-									<div class="padleft">
-											<a target="_blank" href="#">
+                <?php $finish = 1;?>
+									<div class="padleft">										
 											@if($status->status == 1)
+                      <a target="_blank" href="#">
 												Diterima Helpdesk
-											@elseif($status->status == 2 )											
+                      </a>
+											@elseif($status->status == 2 )	
+                      <a target="_blank" href="#">                      										
 												Ditugaskan kepada {{$user->jabatan}}
+                      </a>
 											@elseif($status->status == 3)
+                      <a target="_blank" href="#">
 												Sedang dikerjakan oleh ({{$user->jabatan}})
+                      </a>
 											@elseif($status->status == 4)
+                      <a target="_blank" href="#">
 												Tiket Selesai
+                      </a>                        
+                        @if($solusi != NULL)
+                          <p>Keterangan: {{$solusi->solusi}}</p>
+                        @endif
 											@endif
 											</a>
 											<a href="#" class="datefloat">{{$status->created_at}}</a>
@@ -79,13 +91,16 @@
 					</div>
 				</div>
 				<div class="sendmsg form-inline">
+        @if($finish == 0)
 					<form name="formSendMsg">
 					@csrf
           <meta name="csrf-token" content="{{ csrf_token() }}">
 						<textarea id="pesan" name="pesan" class="form-control" rows="4" cols="39" placeholder="Tulis Pesan...." required></textarea>
 						<button type="submit" class="btn btn-success sendbutton">KIRIM</button>
 					</form>
+        @endif
 				</div>
+
 
 				</div>
       </div>
