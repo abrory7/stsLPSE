@@ -12,7 +12,7 @@
             $notif = DB::table('notif')->where('notif', 1)->where('role', Auth::user()->id)->get();
           @endphp
 
-
+        @if(Auth::user()->role != 3)
         <!--Notification Menu-->
         <li class="dropdown notification-menu">
           <a href="#!" data-toggle="dropdown" aria-expanded="false" class="dropdown-toggle">
@@ -36,6 +36,8 @@
             </li>
           </ul>
         </li>
+        @endif
+        <!-- End Notification menu -->
         <!-- window screen -->
         <li class="pc-rheader-submenu">
           <a href="#!" class="drop icon-circle" onclick="javascript:toggleFullScreen()"  data-toggle="tooltip" data-trigger="hover" data-placement="bottom" title="Fullscreen">
