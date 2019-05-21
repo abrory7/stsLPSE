@@ -16,16 +16,14 @@
         </a>
       </li>
       @can('isHelpdesk')
-      <li id="ongoing" class="treeview">
-        <a class="waves-effect waves-dark" href="{{ route('ongoingTicket') }}">
-          <i class="icon-direction"></i><span> On Going Ticket</span>
-        </a>
-      </li>
-      @endcan
-      @can('isHelpdesk')
       <li id="create" class="treeview">
         <a class="waves-effect waves-dark" href="{{ route('createTicket') }}">
           <i class="icon-note"></i><span> Buat Tiket Laporan</span>
+        </a>
+      </li>
+      <li id="ongoing" class="treeview">
+        <a class="waves-effect waves-dark" href="{{ route('ongoingTicket') }}">
+          <i class="icon-direction"></i><span> On Going Ticket</span>
         </a>
       </li>
       <li id="received" class="treeview">
