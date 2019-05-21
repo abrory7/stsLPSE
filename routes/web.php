@@ -76,6 +76,17 @@ Route::get('/', function () {
         if($user->assignedTicket->finish == 1){
            $solvers[$user->assignedUser->jabatan][] = $user->assignedUser->name;
         }
+    $recent = Assign::where('users_id', Auth::user()->id)->take(5)->latest()->get();
+    $received = Assign::where('users_id', Auth::user()->id)->get();
+    $darurat = Ticket::where('finish', 0)->where('urgensi', 'Darurat')->get();
+    $weekly = Ticket::where('finish', 1)->whereBetween('updated_at',
+              [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
+    $monthly = Ticket::where('finish', 1)->whereBetween('updated_at',
+              [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->get();
+    $yearly = Ticket::where('finish', 1)->whereBetween('updated_at',
+              [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])->get();
+
+    return view('index', compact('allTicket', 'recent', 'received', 'darurat', 'weekly', 'monthly', 'yearly'));
       }
 
       //Average First Response Time
@@ -109,7 +120,7 @@ Route::get('/', function () {
                 
 
         return view('index', compact('allTicket', 'recent', 'darurat', 'weekly', 'monthly', 'yearly'));
-    }    
+    }
 })->name('index')->middleware('auth');
 Route::get('/tes', 'linkController@chart');
 

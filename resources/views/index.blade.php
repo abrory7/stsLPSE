@@ -242,9 +242,15 @@ var month = new Chart(ctx, {
  <div class="row m-b-30 dashboard-header">
      <div class="col-lg-3 col-sm-6">
          <div class="col-sm-12 card dashboard-product">
+             @if(Auth::user()->role == 1 or Auth::user()->role == 3)
              <span>On Going Ticket</span>
              <h2 class="dashboard-total-products counter">{{ count($allTicket) }}</h2>
              Tiket
+             @else
+             <span>Tiket Masuk</span>
+             <h2 class="dashboard-total-products counter">{{ count($received) }}</h2>
+             Tiket
+             @endif
              <div class="side-box bg-danger">
                  <i class="icon-direction"></i>
              </div>
