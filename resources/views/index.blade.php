@@ -57,7 +57,62 @@
       <div class="card">
         <div class="card-block">
         	<div class="row">
-        			<h4>Butuh Tanggapan Segera</h4>
+        			<h4>Tiket Terbaru</h4>
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th>
+                      No. Tiket
+                    </th>
+                    <th>
+                      Urgensi
+                    </th>
+                    <th>
+                      Judul Laporan
+                    </th>
+                    <th>
+                      Limit Penyelesaian
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @foreach($recent as $tiketbaru)
+                  <tr>
+                  @if($tiketbaru->assignedTicket->finish == 0)
+                    <td>
+                      <a href="{{ url('/tiket/received/diskusi/'.$tiketbaru->assignedTicket->id) }}">
+                        <b><u>{{ $tiketbaru->assignedTicket->nomor_ticket }}</u></b>
+                      </a>
+                    </td>
+                    @if($tiketbaru->assignedTicket->urgensi == "Darurat")
+                      <td class="bg-danger">{{$tiketbaru->assignedTicket->urgensi}}</td>
+                    @elseif($tiketbaru->assignedTicket->urgensi == "Penting")
+                      <td class="bg-warning">{{$tiketbaru->assignedTicket->urgensi}}</td>
+                    @elseif($tiketbaru->assignedTicket->urgensi == "Normal")
+                      <td>{{$tiketbaru->assignedTicket->urgensi}}</td>
+                    @endif
+                    <td>
+                      {{ $tiketbaru->assignedTicket->aduan->subjek }}
+                    </td>
+                    <td>
+                      {{ $tiketbaru->assignedTicket->expire}}
+                    </td>
+                  @endif
+                  </tr>
+                  @endforeach
+                </tbody>
+              </table>
+        	</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="card">
+        <div class="card-block">
+        	<div class="row">
+        			<h4>Tiket Darurat Yang Tersedia</h4>
               <table class="table">
                 <thead>
                   <tr>
@@ -79,7 +134,9 @@
                   @foreach($darurat as $tiket)
                   <tr>
                     <td class="bg-danger">
-                      {{ $tiket->nomor_ticket }}
+                      <a href="{{ url('/tiket/received/diskusi/'.$tiket->id) }}">
+                        <b><u>{{ $tiket->nomor_ticket }}</u></b>
+                      </a>
                     </td>
                     <td>
                       {{ $tiket->aduan->subjek}}
