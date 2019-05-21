@@ -143,7 +143,7 @@ class linkController extends Controller
             'email' => 'required|email',
             'subjek' => 'required|min:10',
             'pesan' => 'required|min:10',
-            'gambar' => 'image|max:5120',
+            'gambar.*' => 'image|max:5120',
         ]);
         $aduan = new Aduan();
         $aduan->kategori_id = $req->kategori_id;
@@ -162,11 +162,14 @@ class linkController extends Controller
         $aduan->nama_satuan_kerja = $req->nama_satuan_kerja;
 
         if(!empty($req->gambar)){
-          $gambar1 = $req->gambar;
-          $ext = $gambar1->getClientOriginalExtension();
-          $newName = 'gmbr'.Carbon::parse(Carbon::now())->format('d-m-Y His').".".$ext;
-          $gambar1->move('gambar',$newName);
-          $aduan->gambar = $newName;
+          for($i = 0; $i < count($req->gambar); $i++){
+            $gambar[$i] = $req->gambar[$i];
+            $ext[$i] = $gambar[$i]->getClientOriginalExtension();
+            $newName[$i] = 'gmbr'.Carbon::parse(Carbon::now())->format('d-m-Y His').' '.(1+$i).'.'.$ext[$i];
+            $gambar[$i]->move('gambar',$newName[$i]);
+            $arrgambar[] = $newName[$i];
+          }
+          $aduan->gambar = implode(',', $arrgambar);
         }
         else{
 

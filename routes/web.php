@@ -17,16 +17,23 @@ use Carbon\Carbon;
 
 Auth::routes();
 Route::get('/', function () {
-    $allTicket = Ticket::where('finish', 0)->get();        
-        foreach($allTicket as $ticket){            
+    $allTicket = Ticket::where('finish', 0)->get();
+        foreach($allTicket as $ticket){
             if(date('Y-m-d H:i:s', strtotime($ticket->expire)) <= Carbon::now()){
                 $ticket = Ticket::where('id', $ticket->id)->update([
                     'finish' => 2,
                 ]);
             }
         }
+    $darurat = Ticket::where('finish', 0)->where('urgensi', 'Darurat')->get();
+    $weekly = Ticket::where('finish', 1)->whereBetween('updated_at',
+              [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
+    $monthly = Ticket::where('finish', 1)->whereBetween('updated_at',
+              [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->get();
+    $yearly = Ticket::where('finish', 1)->whereBetween('updated_at',
+              [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])->get();
 
-    return view('index');
+    return view('index', compact('allTicket', 'darurat', 'weekly', 'monthly', 'yearly'));
 
 })->name('index')->middleware('auth');
 Route::get('/home', 'HomeController@index')->name('home');
@@ -47,7 +54,7 @@ Route::prefix('guest')->group(function(){
     Route::get('cek-status', 'guestController@status')->name('guestIndexStatus');
     Route::post('status/', 'guestController@cekStatus')->name('guestCheckStatus');
     Route::get('status/{nomor_ticket}', 'guestController@viewStatus')->name('guestViewStatus');
-    Route::post('status/chat', 'guestController@sendChat')->name('guestSendChat');   
+    Route::post('status/chat', 'guestController@sendChat')->name('guestSendChat');
 });
 
 Route::prefix('tiket')->group(function(){
@@ -65,8 +72,8 @@ Route::prefix('tiket')->group(function(){
     Route::get('received/diskusi/{id_ticket}', 'linkController@discuss')->name('discussTicket');
     Route::get('received/diskusi/detail/{id_ticket}', 'linkController@detailTicket')->name('detailTicket');
     Route::put('received/diskusi/invite/{id_diskusi}', 'linkController@inviteDiscuss')->name('inviteMember');
-    Route::post('received/diskusi/sendMessage', 'linkController@sendChat')->name('sendChat');    
-    Route::get('diskusi/selesai/{id_ticket}', 'linkController@discussFinished')->name('finishedDiscussion');    
+    Route::post('received/diskusi/sendMessage', 'linkController@sendChat')->name('sendChat');
+    Route::get('diskusi/selesai/{id_ticket}', 'linkController@discussFinished')->name('finishedDiscussion');
     Route::get('report/{id_ticket}', 'linkController@reportDiscussion');
     Route::get('reportstats', 'linkController@stats');
     Route::POST('print/', 'linkController@print')->name('printTicket');
