@@ -24,6 +24,10 @@ class linkController extends Controller
 {
     // PAKAI TAB PLEASE
 
+    public function __construct(){
+        $this->middleware('auth');
+    }
+    
     public function ongoing()
     {
         $tickets = Ticket::where('finish', 0)->get();
@@ -137,7 +141,7 @@ class linkController extends Controller
         $validation = $req->validate([
             'nama' => 'required',
             'alamat' => 'required|min:10',
-            'perusahaan' => 'required|min:10',
+            'perusahaan' => 'required|min:3',
             'npwp' => 'required|max:20',
             'hp' => 'required|max:15',
             'email' => 'required|email',
@@ -171,14 +175,12 @@ class linkController extends Controller
           }
           $aduan->gambar = implode(',', $arrgambar);
         }
-        else{
 
-        }
 
         $aduan->pesan = $req->pesan;
         $aduan->subjek = $req->subjek;
 
-        $aduan->save();
+        $aduan->save();       
 
         // Buat Ticket
         $ticket = new Ticket();
@@ -187,6 +189,13 @@ class linkController extends Controller
         $ticket->nomor_ticket = time();
         $ticket->expire = date('d-m-Y H:i:s', strtotime(Date('d-m-Y H:i:s'). ' + 2 days'));
         $ticket->save();
+
+         // Notifikasi buat admin auto
+         $notif = new Notif();
+         $notif->ticket_id = $ticket->id;
+         $notif->role = 1;
+         $notif->notif = 1;
+         $notif->save();
 
         //update status ticket
         // kode status : 1. Diterima Helpdesk; 2. apalah; 3. apalah;
@@ -232,6 +241,11 @@ class linkController extends Controller
         $statusTicket = new StatusTicket();
         $statusTicket->ticket_id = $closeticket->id;
         $statusTicket->status = 4;
+
+        $notif = Notif::where('ticket_id', $req->nomor_ticket)->where('role', Auth::user()->id)->first();                
+        $notif->notif = 0;
+        $notif->save();
+
         $statusTicket->save();
 
         $closeticket->save();
@@ -404,5 +418,14 @@ class linkController extends Controller
         $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();
         $member = User::whereNotIn('id', $listmember)->get();
         return view('ticket.report', compact('tickets', 'diskusiticket', 'listmember', 'diskusi', 'member'));
+    }
+
+    public function destroy(Request $req){        
+        $ticket = Ticket::findOrFail($req->id);        
+
+        $aduan = Aduan::findOrFail($ticket->aduan->id);        
+        $aduan->delete();
+        $ticket->delete();        
+        return redirect()->route('ongoingTicket')->with('danger', 'Tiket Berhasil di Hapus');
     }
 }

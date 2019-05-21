@@ -98,7 +98,7 @@ Route::get('/', function () {
                     ]);
                 }
             }
-        $recent = Assign::where('users_id', Auth::user()->id)->take(5)->latest()->get();
+        $recent = Assign::where('users_id', Auth::user()->id)->take(5)->latest()->get();        
         $darurat = Ticket::where('finish', 0)->where('urgensi', 'Darurat')->get();
         $weekly = Ticket::where('finish', 1)->whereBetween('updated_at',
                 [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
@@ -106,6 +106,7 @@ Route::get('/', function () {
                 [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->get();
         $yearly = Ticket::where('finish', 1)->whereBetween('updated_at',
                 [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])->get();
+                
 
         return view('index', compact('allTicket', 'recent', 'darurat', 'weekly', 'monthly', 'yearly'));
     }    
@@ -151,6 +152,7 @@ Route::prefix('tiket')->group(function(){
     Route::get('report/{id_ticket}', 'linkController@reportDiscussion');
     Route::get('reportstats', 'linkController@stats');
     Route::POST('print/', 'linkController@print')->name('printTicket');
+    Route::post('destroy', 'linkController@destroy')->name('destroyTicket');
 });
 
 Route::get('/test', function(){

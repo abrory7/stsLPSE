@@ -22,6 +22,10 @@ use Carbon\Carbon;
 
 class pimpinanController extends Controller
 {
+    public function __construct(){
+      $this->middleware('auth');
+    }
+
     public function daftarTiket(){
       $tickets = Ticket::orderBy('created_at', 'desc')->get();      
       return view('pimpinan.daftarTiket', compact('tickets'));

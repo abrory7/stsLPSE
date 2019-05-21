@@ -20,7 +20,13 @@
           </form>
     </div>
     <div class="col-md-1">
-        <a class="btn btn-danger">Hapus</a>        
+        <a href="" class="btn btn-danger" onclick="event.preventDefault();
+          document.getElementById('hapus-ticket').submit();">Hapus</a>        
+
+          <form id="hapus-ticket" action="{{ route('destroyTicket') }}" method="POST" style="display: none;">
+              @csrf
+              <input type="hidden" name="id" value="{{ $tickets->id }}">
+          </form>
     </div>
     <table class="table table-borderless">
     <tbody>

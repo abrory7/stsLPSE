@@ -308,7 +308,7 @@ var month = new Chart(ctx, {
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach($recent as $tiketbaru)
+                  @foreach($recent as $tiketbaru)                  
                   <tr>
                   @if($tiketbaru->assignedTicket->finish == 0)
                     <td>

@@ -8,13 +8,12 @@
         	<div class="row">
         			<h4>Track Ticket</h4>
         			<ul class="timeline">
-              <?php $finish = 0; ?>
+              <?php $finish = false; ?>
 							@foreach($ticket_status as $status)
                 @php
                   $user = DB::table('users')->where('id', $status->ticket->isAssigned->users_id)->first();                  
                 @endphp
-        				<li>
-                <?php $finish = 1;?>
+        				<li>                
 									<div class="padleft">										
 											@if($status->status == 1)
                       <a target="_blank" href="#">
@@ -31,6 +30,7 @@
 											@elseif($status->status == 4)
                       <a target="_blank" href="#">
 												Tiket Selesai
+                        <?php $finish = false; ?>
                       </a>                        
                         @if($solusi != NULL)
                           <p>Keterangan: {{$solusi->solusi}}</p>
@@ -91,7 +91,7 @@
 					</div>
 				</div>
 				<div class="sendmsg form-inline">
-        @if($finish == 0)
+        @if($finish)
 					<form name="formSendMsg">
 					@csrf
           <meta name="csrf-token" content="{{ csrf_token() }}">

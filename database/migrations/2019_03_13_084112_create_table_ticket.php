@@ -14,7 +14,7 @@ class CreateTableTicket extends Migration
     public function up()
     {
         Schema::create('ticket', function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->bigIncrements('id')->onDelete('cascade');
             $table->unsignedBigInteger('aduan_id');
             $table->string('nomor_ticket');
             $table->string('urgensi');
