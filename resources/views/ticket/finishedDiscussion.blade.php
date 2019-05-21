@@ -80,26 +80,28 @@
         <div class="discuss-wrap">        
         @foreach($diskusi as $discuss)
           @if(Auth::user()->id == $discuss->member)
-            <div class="outgoing f-right">
-              <div class="outgoingdate">
-                {{ date_format($discuss->created_at, "j F") }}
-                <br>
-                {{ date_format($discuss->created_at, "H.i")}}
-              </div>
+            <div class="outgoing">             
               <span class="outgoinguser">Saya</span>
               <br>
               <div class="outgoingmsg">
                 {{ $discuss->pesan }}
               </div>
+              <div class="outgoingdate">
+                {{ date_format($discuss->created_at, "j F") }}
+                <br>
+                {{ date_format($discuss->created_at, "H.i")}}
+              </div>
             </div>
             @else
-              <div class="incoming f-left">
-                <img src="{{ asset('res/assets/images/avatar-1.png') }}" class="incomingava" alt="User Image" class="img-circle">
+              <div class="incoming">                
                 @if($discuss->member == 1)
-                  <span class="incominguser">Helpdesk</span>
+                  <span class="incominguser"><strong>Helpdesk</strong></span>
                   <br>
                 @elseif($discuss->member == 2)
-                  <span class="incominguser">Admin</span>
+                  <span class="incominguser"><strong>Admin</strong></span>
+                  <br>
+                @else
+                  <span class="incominguser"><strong>{{$discuss->member}}</strong></span>
                   <br>
                 @endif
                 <div class="incomingmsg">

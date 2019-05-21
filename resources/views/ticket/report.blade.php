@@ -90,11 +90,15 @@
         <div class="card-block">  
             @foreach($diskusi as $diskusi)
                 @php
-                    $user = DB::table('users')->where('id', $diskusi->member)->first();
+                    if($diskusi->member == 1 || $diskusi->member == 2){
+                        $user = DB::table('users')->where('id', $diskusi->member)->first()->jabatan;
+                    }else{
+                        $user = $diskusi->member;
+                    }                    
                 @endphp
                 <table class="table">
                     <thead class="thead-dark">
-                        <th>{{$user->name}} ({{$user->jabatan}})</th>
+                        <th>{{$user}}</th>
                     </thead>
                     <tbody>                        
                         <tr>

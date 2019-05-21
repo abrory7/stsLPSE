@@ -101,11 +101,12 @@
                 @if($discuss->member == 1)
                   <span class="incominguser">Helpdesk</span>
                   <br>
-                @elseif($discuss->member == 2)
-                  <h1>TEST</h1>
+                @elseif($discuss->member == 2)                  
                   <span class="incominguser">Admin</span>
                   <br>
-                
+                @else
+                  <span class="incominguser"><strong>{{$discuss->member}}</strong></span>
+                  <br>
                 @endif
                 <div class="incomingmsg">
                   {{ $discuss->pesan }}
@@ -170,7 +171,7 @@
           <div class="modal-header">
             <h5 class="modal-title" id="exampleModalLabel">Solusi Aduan</h5>
             <div class="modal-body">
-            <form method="POST" action="{{route('solutionTicket', $tickets->aduan_id)}}">
+            <form method="POST" action="{{route('addSolution', $diskusiticket->ticket_id)}}">
             @csrf
               <div class="form-group">
                 <label for="solusi">Masukkan Solusi Masalah</label>

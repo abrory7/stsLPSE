@@ -47,9 +47,9 @@ class GuestController extends Controller
         $ticket_status = StatusTicket::where('ticket_id', $ticket->id)->get();
         $diskusiticket = Diskusi::where('ticket_id', $ticket->id)->first();
         $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();
-        // dd($diskusi);
+        $solusi = Solusi::where('ticket_id', $ticket->id)->first();
 
-        return view('guest.trackTicket', compact('ticket_status', 'diskusi', 'ticket', 'diskusiticket'));
+        return view('guest.trackTicket', compact('ticket_status', 'diskusi', 'ticket', 'diskusiticket', 'solusi'));
     }
 
     public function create(Request $req){
