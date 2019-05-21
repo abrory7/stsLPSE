@@ -39,11 +39,20 @@
         </a>
       </li>
       @endcan
+      @if(Auth::user()->role == 1 || Auth::user()->role == 2)
       <li id="finished" class="treeview">
         <a class="waves-effect waves-dark" href="{{ route('finishedTicket') }}">
           <i class="icon-check"></i><span> Tiket Selesai</span>
         </a>
       </li>
+      @else
+      <li id="daftar-tiket" class="treeview">
+        <a class="waves-effect waves-dark" href="{{ route('daftarTiketPimpinan') }}">
+          <i class="icon-check"></i><span> Daftar Tiket</span>
+        </a>
+      </li>
+      @endif
+
     </ul>
   </section>
 </aside>
