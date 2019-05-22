@@ -27,6 +27,7 @@ use Carbon\Carbon;
 Auth::routes();
 Route::get('/', function () {
     if(Auth::user()->role == 3){
+        // DASHBOARD UNTUK PIMPINAN
              //total data perkategori
       $cat = Aduan::distinct()->get(['kategori_id']);
       $cat1 = Aduan::pluck('kategori_id')->unique()->toArray(); //menghitung total data perkategori
@@ -75,18 +76,8 @@ Route::get('/', function () {
       foreach($assignedUser as $user){
         if($user->assignedTicket->finish == 1){
            $solvers[$user->assignedUser->jabatan][] = $user->assignedUser->name;
-        }
-    $recent = Assign::where('users_id', Auth::user()->id)->take(5)->latest()->get();
-    $received = Assign::where('users_id', Auth::user()->id)->get();
-    $darurat = Ticket::where('finish', 0)->where('urgensi', 'Darurat')->get();
-    $weekly = Ticket::where('finish', 1)->whereBetween('updated_at',
-              [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
-    $monthly = Ticket::where('finish', 1)->whereBetween('updated_at',
-              [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->get();
-    $yearly = Ticket::where('finish', 1)->whereBetween('updated_at',
-              [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])->get();
-
-    return view('index', compact('allTicket', 'recent', 'received', 'darurat', 'weekly', 'monthly', 'yearly'));
+        }       
+        return view('index', compact('allTicket', 'recent', 'received', 'darurat', 'weekly', 'monthly', 'yearly'));
       }
 
       //Average First Response Time
@@ -96,11 +87,12 @@ Route::get('/', function () {
         $selisih = Carbon::createFromFormat('Y-m-d H:s:i', $ticket->created_at)->diffInMinutes($ticket->assignedTicket->created_at);
         $TotalResponseTime += $selisih;
       }
-      $avgFirstResponseTime = (int) floor($TotalResponseTime/count($assignedTicketTotal)) > 0 ? (int) floor($TotalResponseTime/count($assignedTicketTotal)) : 0;
+      $avgFirstResponseTime = count($assignedTicketTotal) > 0 ? (int) floor($TotalResponseTime/count($assignedTicketTotal)) : 0;
 
       return view('index', compact('cat', 'countcat', 'dates', 'monthlyData', 'urg', 'arrurg', 'urgtotal', 'totalunfinish', 'totalfinish', 'totalweek', 'totalyear', 'solvers', 'avgFirstResponseTime'));
 
     }else{
+        //DASHBOARD UNTUK VERIFIKATOR, ADMIN SISTEM, HELPDESK, ADMIN PPE.
         $allTicket = Ticket::where('finish', 0)->get();
             foreach($allTicket as $ticket){
                 if(date('Y-m-d H:i:s', strtotime($ticket->expire)) <= Carbon::now()){
@@ -111,6 +103,7 @@ Route::get('/', function () {
             }
         $recent = Assign::where('users_id', Auth::user()->id)->take(5)->latest()->get();        
         $darurat = Ticket::where('finish', 0)->where('urgensi', 'Darurat')->get();
+        $received = Assign::where('users_id', Auth::user()->id)->get();
         $weekly = Ticket::where('finish', 1)->whereBetween('updated_at',
                 [Carbon::now()->startOfWeek(), Carbon::now()->endOfWeek()])->get();
         $monthly = Ticket::where('finish', 1)->whereBetween('updated_at',
@@ -119,7 +112,7 @@ Route::get('/', function () {
                 [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])->get();
                 
 
-        return view('index', compact('allTicket', 'recent', 'darurat', 'weekly', 'monthly', 'yearly'));
+        return view('index', compact('allTicket', 'recent', 'darurat', 'weekly', 'monthly', 'yearly', 'received'));
     }
 })->name('index')->middleware('auth');
 Route::get('/tes', 'linkController@chart');
