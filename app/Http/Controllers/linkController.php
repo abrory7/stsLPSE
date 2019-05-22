@@ -240,16 +240,18 @@ class linkController extends Controller
         return redirect()->route('ongoingTicket');
     }
 
-    public function assignTicket(Request $req){
-        $assign = new Assign();        
+    public function assignTicket(Request $req){                
         $diskusi = new Diskusi();
-        $pesansistem = new Pesan();
+        $pesansistem = new Pesan();        
         $statusTicket = new StatusTicket();
 
-        // store table "Assign"
-        $assign->users_id = $req->assignTo;
-        $assign->ticket_id = $req->ticket_id;
-        $assign->save();
+        // store table "Assign"        
+        $bulkAssign = array(
+            array('users_id' => 1, 'ticket_id' => $req->ticket_id, 'created_at' => Carbon::now()->toDateTimeString(), 'updated_at' => Carbon::now()->toDateTimeString()),
+            array('users_id' => $req->assignTo, 'ticket_id' => $req->ticket_id, 'created_at' => Carbon::now()->toDateTimeString(), 'updated_at' => Carbon::now()->toDateTimeString())
+        );
+        // dd($bulkAssign);
+        $assign = Assign::insert($bulkAssign);
 
         // buat "status ticket"
         $statusTicket->ticket_id = $req->ticket_id;
