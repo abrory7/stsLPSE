@@ -53,10 +53,11 @@
                             <button class="btn btn-primary" data-toggle="modal" data-target="#myModal{{$ticket->id}}">Assign Ticket</button>
                             @endif
                           <a href="{{route('detailTicketOngoing', $ticket->id)}}" class="btn btn-info" target="_blank">Detail</a>
+                          <a href="" class="btn btn-success">Edit</a>
                           <a href="{{ route('destroyTicket') }}" class="btn btn-danger"
                              onclick="event.preventDefault();
                                     document.getElementById('close-ticket').submit(); confirm('apakah anda yakin untuk menghapus tiket?')">
-                              Akhiri Tiket
+                              Hapus
                           </a>
 
                           <form id="close-ticket" action="{{ route('destroyTicket') }}" method="POST" style="display: none;">

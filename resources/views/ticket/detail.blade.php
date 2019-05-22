@@ -10,6 +10,10 @@
 </div>
 <div class="card">
     <div class="card-block">
+    @php        
+        $assginedUser = $ticket->isAssigned == NULL ? 'Belum Ada' : $ticket->isAssigned->assignedUser->jabatan;
+    @endphp
+    <p>Ditugaskan Kepada : <b>{{$assginedUser}}</b></p>
     <table class="table table-borderless">
     <tbody>
         <tr>
