@@ -10,7 +10,6 @@ use App\Ticket;
 use App\StatusTicket;
 use App\Solusi;
 use App\Assign;
-use App\Notif;
 use App\Diskusi;
 use App\Pesan;
 use App\User;
@@ -188,14 +187,7 @@ class linkController extends Controller
         $ticket->urgensi = $req->urgensi;
         $ticket->nomor_ticket = time();
         $ticket->expire = date('d-m-Y H:i:s', strtotime(Date('d-m-Y H:i:s'). ' + 2 days'));
-        $ticket->save();
-
-         // Notifikasi buat admin auto
-         $notif = new Notif();
-         $notif->ticket_id = $ticket->id;
-         $notif->role = 1;
-         $notif->notif = 1;
-         $notif->save();
+        $ticket->save();        
 
         //update status ticket
         // kode status : 1. Diterima Helpdesk; 2. apalah; 3. apalah;
@@ -242,10 +234,6 @@ class linkController extends Controller
         $statusTicket->ticket_id = $closeticket->id;
         $statusTicket->status = 4;
 
-        $notif = Notif::where('ticket_id', $req->nomor_ticket)->where('role', Auth::user()->id)->first();                
-        $notif->notif = 0;
-        $notif->save();
-
         $statusTicket->save();
 
         $closeticket->save();
@@ -253,8 +241,7 @@ class linkController extends Controller
     }
 
     public function assignTicket(Request $req){
-        $assign = new Assign();
-        $notif = new Notif();
+        $assign = new Assign();        
         $diskusi = new Diskusi();
         $pesansistem = new Pesan();
         $statusTicket = new StatusTicket();
@@ -268,13 +255,6 @@ class linkController extends Controller
         $statusTicket->ticket_id = $req->ticket_id;
         $statusTicket->status = "2";
         $statusTicket->save();
-
-        // tambah notif
-        $notif->ticket_id = $req->ticket_id;
-        $notif->role = $req->assignTo;
-        $notif->notif = 1;
-        $notif->save();
-
 
         $assignedUser = User::where('id', $req->assignTo)->first();
         $diskusi->ticket_id = $req->ticket_id;
@@ -301,12 +281,6 @@ class linkController extends Controller
         $assign->users_id = $req->member;
         $assign->ticket_id = $invite->ticket_id;
 
-        $notifikasi = new Notif();
-        $notifikasi->ticket_id = $invite->ticket_id;
-        $notifikasi->notif = 1;
-        $notifikasi->role = $req->member;
-            
-        $notifikasi->save();
         $invite->save();
         $assign->save();
 

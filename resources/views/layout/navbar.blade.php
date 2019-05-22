@@ -8,36 +8,6 @@
     <!-- Navbar Right Menu-->
     <div class="navbar-custom-menu f-right">
       <ul class="top-nav">
-          @php
-            $notif = DB::table('notif')->where('notif', 1)->where('role', Auth::user()->id)->get();
-          @endphp
-
-        @if(Auth::user()->role != 3)
-        <!--Notification Menu-->
-        <li class="dropdown notification-menu">
-          <a href="#!" data-toggle="dropdown" aria-expanded="false" class="dropdown-toggle">
-            <i class="icon-bell"></i>
-            <span class="badge badge-danger header-badge">{{count($notif)}}</span>
-          </a>
-          <ul class="dropdown-menu">
-            <li class="not-head">You have <b class="text-primary">{{count($notif)}}</b> new notifications.</li>
-            @foreach($notif as $ntf)
-            @php
-              $isiNotif = DB::table('ticket')->where('id', $ntf->ticket_id)->first();
-            @endphp
-            <li class="bell-notification">
-              <a href="{{route('receivedTicket')}}" class="media">
-                <div class="media-body"><span class="block">Tiket baru #{{$isiNotif->nomor_ticket}}</span><span class="text-muted block-time">2min ago</span></div>
-              </a>
-            </li>
-            @endforeach
-            <li class="not-footer">
-              <a href="{{route('receivedTicket')}}">Lihat Tiket Masuk</a>
-            </li>
-          </ul>
-        </li>
-        @endif
-        <!-- End Notification menu -->
         <!-- window screen -->
         <li class="pc-rheader-submenu">
           <a href="#!" class="drop icon-circle" onclick="javascript:toggleFullScreen()"  data-toggle="tooltip" data-trigger="hover" data-placement="bottom" title="Fullscreen">

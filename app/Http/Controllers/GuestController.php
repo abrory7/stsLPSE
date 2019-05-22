@@ -10,7 +10,6 @@ use App\Ticket;
 use App\StatusTicket;
 use App\Solusi;
 use App\Assign;
-use App\Notif;
 use App\Diskusi;
 use App\Pesan;
 use App\User;
