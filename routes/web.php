@@ -136,7 +136,7 @@ Route::prefix('guest')->group(function(){
     Route::post('status/chat', 'guestController@sendChat')->name('guestSendChat');
 });
 
-Route::prefix('tiket')->group(function(){
+Route::prefix('tiket')->group(function(){    
     Route::get('create', 'linkController@create')->name('createTicket');
     Route::post('store', 'linkController@store')->name('storeTicket');
     Route::get('track/{nomor_ticket}', 'linkController@track')->name('trackTicket');
@@ -157,6 +157,7 @@ Route::prefix('tiket')->group(function(){
     Route::get('reportstats', 'linkController@stats');
     Route::POST('print/', 'linkController@print')->name('printTicket');
     Route::post('destroy', 'linkController@destroy')->name('destroyTicket');
+    Route::get('detail/{id}', 'linkController@detailTicketOngoing')->name('detailTicketOngoing');
 });
 
 Route::get('/test', function(){

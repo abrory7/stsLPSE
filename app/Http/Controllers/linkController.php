@@ -402,4 +402,10 @@ class linkController extends Controller
         $ticket->delete();        
         return redirect()->route('ongoingTicket')->with('danger', 'Tiket Berhasil di Hapus');
     }
+
+    public function detailTicketOngoing($id_tiket){
+        $ticket = Ticket::find($id_tiket);
+
+        return view('ticket.detail', compact('ticket'));
+    }
 }

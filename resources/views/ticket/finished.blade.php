@@ -20,7 +20,7 @@
                         <th>Kategori</th>
                         <th>Dibuat Pada</th>
                         <th>Status</th>
-                        <th>Log Diskusi</th>
+                        <th>Aksi</th>
                     </tr>
                     </thead>
                     <tbody>
@@ -44,7 +44,16 @@
                                 Expired
                             @endif
                         </td>
-                        <td><a href="{{ route('finishedDiscussion', $ticket->id)}}" class="btn btn-default" target="_blank">Diskusi</a></td>
+                        <td>
+                        <a href="{{ route('finishedDiscussion', $ticket->id)}}" class="btn btn-default" target="_blank">Log Diskusi</a>
+                        <a href="{{ route('destroyTicket')}}" class="btn btn-danger" onclick="event.preventDefault();
+                            document.getElementById('hapus-ticket').submit(); confirm('Apakah anda yakin akan menghapus tiket ini?')">Hapus</a>
+
+                            <form id="hapus-ticket" action="{{ route('destroyTicket') }}" method="POST" style="display: none;">
+                                @csrf
+                                <input type="hidden" name="id" value="{{ $ticket->id }}">
+                            </form>
+                        </td>
                     </tr>
                     @endforeach
                     </tbody>

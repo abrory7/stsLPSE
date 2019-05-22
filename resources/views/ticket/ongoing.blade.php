@@ -47,21 +47,19 @@
                         <td>{{$ticket->created_at}}</td>
                         <td>{{$ticket->expire}}</td>
                         <td>
-                            @if(null !== $ticket->isAssigned)
-                                @php
-                                    $user = DB::table('users')->where('id', $ticket->isAssigned->users_id)->first();
-                                @endphp
-                            <button class="btn btn-secondary" data-toggle="modal" data-target="#myModal" disabled>Assigned To {{$user->jabatan}}</button>
+                            @if(null !== $ticket->isAssigned)                               
+                            <button class="btn btn-secondary" data-toggle="modal" data-target="#myModal" disabled>Assigned</button>
                             @else
                             <button class="btn btn-primary" data-toggle="modal" data-target="#myModal{{$ticket->id}}">Assign Ticket</button>
                             @endif
-                          <a href="{{ route('closeTicket') }}" class="btn btn-success"
+                          <a href="{{route('detailTicketOngoing', $ticket->id)}}" class="btn btn-info" target="_blank">Detail</a>
+                          <a href="{{ route('destroyTicket') }}" class="btn btn-danger"
                              onclick="event.preventDefault();
-                                           document.getElementById('close-ticket').submit();">
+                                    document.getElementById('close-ticket').submit(); confirm('apakah anda yakin untuk menghapus tiket?')">
                               Akhiri Tiket
                           </a>
 
-                          <form id="close-ticket" action="{{ route('closeTicket') }}" method="POST" style="display: none;">
+                          <form id="close-ticket" action="{{ route('destroyTicket') }}" method="POST" style="display: none;">
                               @csrf
                               <input type="hidden" name="nomor_ticket" value="{{ $ticket->id }}">
                           </form>

@@ -12,6 +12,16 @@
       <span class="right" style="float:right;">
         <button class="btn btn-success" data-toggle="modal" data-target="#solutionModal">Solusi</button>
         <a href="{{route('detailTicket', $tickets->aduan_id)}}" class="btn btn-default">Detail Tiket</a>
+        <a href="{{ route('closeTicket') }}" class="btn btn-primary"
+            onclick="event.preventDefault();
+                document.getElementById('close-ticket').submit();">
+            Akhiri Tiket
+        </a>
+
+        <form id="close-ticket" action="{{ route('closeTicket') }}" method="POST" style="display: none;">
+            @csrf
+            <input type="hidden" name="nomor_ticket" value="{{ $tickets->id }}">
+        </form>
       </span>
       <table class="table table-borderless">
       <tbody>
