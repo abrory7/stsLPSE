@@ -47,13 +47,13 @@
                         <td>{{$ticket->created_at}}</td>
                         <td>{{$ticket->expire}}</td>
                         <td>
-                            @if(null !== $ticket->isAssigned)                               
+                            @if(null !== $ticket->isAssigned)
                             <button class="btn btn-secondary" data-toggle="modal" data-target="#myModal" disabled>Assigned</button>
                             @else
                             <button class="btn btn-primary" data-toggle="modal" data-target="#myModal{{$ticket->id}}">Assign Ticket</button>
                             @endif
                           <a href="{{route('detailTicketOngoing', $ticket->id)}}" class="btn btn-info" target="_blank">Detail</a>
-                          <a href="" class="btn btn-success">Edit</a>
+                          <a href="{{route('editTicket', $ticket->aduan->id)}}" class="btn btn-success">Edit</a>
                           <a href="{{ route('destroyTicket') }}" class="btn btn-danger"
                              onclick="event.preventDefault();
                                     document.getElementById('close-ticket').submit(); confirm('apakah anda yakin untuk menghapus tiket?')">
