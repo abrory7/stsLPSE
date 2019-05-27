@@ -47,7 +47,7 @@
           </tr>
           <tr>
               <th>Tanggal Dibuat</th>
-              <td>{{$tickets->created_at}}</td>
+              <td>{{date_format($tickets->created_at, "d-m-Y H:i:s")}}</td>
 
               <th>Telepon</th>
               <td>{{$tickets->aduan->no_telp}}</td>
@@ -57,7 +57,7 @@
               @php
                   $user = DB::table('users')->where('id', $tickets->isAssigned->users_id)->first();
               @endphp
-              <td>{{$user->jabatan}})</td>
+              <td>{{$user->jabatan}}</td>
 
               <th>Kategori</th>
               <td>
@@ -185,7 +185,7 @@
             @csrf
               <div class="form-group">
                 <label for="solusi">Masukkan Solusi Masalah</label>
-                <textarea name="solusi" id="" cols="60" rows="4"></textarea>
+                <textarea name="solusi" id="" cols="56.5" rows="4"></textarea>
               </div>
               <button class="btn btn-success" type="submit">Submit</button>
             </form>
