@@ -295,13 +295,22 @@ class linkController extends Controller
         $pesansistem = new Pesan();
         $statusTicket = new StatusTicket();
 
-        // store table "Assign"
-        $bulkAssign = array(
-            array('users_id' => 1, 'ticket_id' => $req->ticket_id, 'created_at' => Carbon::now()->toDateTimeString(), 'updated_at' => Carbon::now()->toDateTimeString()),
-            array('users_id' => $req->assignTo, 'ticket_id' => $req->ticket_id, 'created_at' => Carbon::now()->toDateTimeString(), 'updated_at' => Carbon::now()->toDateTimeString())
-        );
-        // dd($bulkAssign);
-        $assign = Assign::insert($bulkAssign);
+        // store table "Assign"  
+        // Jika yg di assign bukan helpdesk      
+        if($req->assignTo != 1){
+            $bulkAssign = array(
+                array('users_id' => 1, 'ticket_id' => $req->ticket_id, 'created_at' => Carbon::now()->toDateTimeString(), 'updated_at' => Carbon::now()->toDateTimeString()),
+                array('users_id' => $req->assignTo, 'ticket_id' => $req->ticket_id, 'created_at' => Carbon::now()->toDateTimeString(), 'updated_at' => Carbon::now()->toDateTimeString())
+            ); 
+            $assign = Assign::insert($bulkAssign);
+        }else{            
+            $assign = new Assign();
+            $helpdesk = User::where('role', 1)->first();
+            $assign->users_id = $helpdesk->id;
+            $assign->ticket_id = $req->ticket_id;
+            $assign->save();
+        }
+
 
         // buat "status ticket"
         $statusTicket->ticket_id = $req->ticket_id;
