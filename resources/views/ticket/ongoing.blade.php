@@ -50,14 +50,14 @@
                             @if(null !== $ticket->isAssigned)
                             <button class="btn btn-secondary" data-toggle="modal" data-target="#myModal" disabled>Assigned</button>
                             @else
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#myModal{{$ticket->id}}">Assign Ticket</button>
+                            <button class="btn btn-primary" data-toggle="modal" data-target="#myModal{{$ticket->id}}" title="Assign Ticket"><i class="icon-flag"></i></button>
                             @endif
-                          <a href="{{route('detailTicketOngoing', $ticket->id)}}" class="btn btn-info" target="_blank">Detail</a>
-                          <a href="{{route('editTicket', $ticket->aduan->id)}}" class="btn btn-success">Edit</a>
+                          <a href="{{route('detailTicketOngoing', $ticket->id)}}" class="btn btn-info" target="_blank" title="Detail"><i class="icon-info"></i></a>
+                          <a href="{{route('editTicket', $ticket->aduan->id)}}" class="btn btn-success" title="Edit"><i class="icon-pencil"></i></a>
                           <a href="{{ route('destroyTicket') }}" class="btn btn-danger"
                              onclick="event.preventDefault();
-                                    document.getElementById('close-ticket').submit(); confirm('apakah anda yakin untuk menghapus tiket?')">
-                              Hapus
+                                    document.getElementById('close-ticket').submit(); confirm('apakah anda yakin untuk menghapus tiket?')" title="Hapus">
+                              <i class="icon-trash"></i>
                           </a>
 
                           <form id="close-ticket" action="{{ route('destroyTicket') }}" method="POST" style="display: none;">
@@ -85,7 +85,7 @@
                                         <select name="assignTo" class="form-control">
                                         @foreach($users as $user)
                                             @if($user->role != 3)
-                                            <option value="{{$user->id}}">{{$user->jabatan}}</option>
+                                            <option value="{{$user->role}}">{{$user->jabatan}}</option>
                                             @endif
                                         @endforeach
                                         </select>
