@@ -76,7 +76,7 @@ Route::get('/', function () {
       foreach($assignedUser as $user){
         if($user->assignedTicket->finish == 1){
            $solvers[$user->assignedUser->jabatan][] = $user->assignedUser->name;
-        }       
+        }
         return view('index', compact('allTicket', 'recent', 'received', 'darurat', 'weekly', 'monthly', 'yearly'));
       }
 
@@ -101,7 +101,7 @@ Route::get('/', function () {
                     ]);
                 }
             }
-        $recent = Assign::where('users_id', Auth::user()->id)->take(5)->latest()->get();        
+        $recent = Assign::where('users_id', Auth::user()->id)->take(5)->latest()->get();
         $darurat = Ticket::where('finish', 0)->where('urgensi', 'Darurat')->get();
         $received = Assign::where('users_id', Auth::user()->id)->get();
         $weekly = Ticket::where('finish', 1)->whereBetween('updated_at',
@@ -110,7 +110,7 @@ Route::get('/', function () {
                 [Carbon::now()->startOfMonth(), Carbon::now()->endOfMonth()])->get();
         $yearly = Ticket::where('finish', 1)->whereBetween('updated_at',
                 [Carbon::now()->startOfYear(), Carbon::now()->endOfYear()])->get();
-                
+
 
         return view('index', compact('allTicket', 'recent', 'darurat', 'weekly', 'monthly', 'yearly', 'received'));
     }
@@ -136,9 +136,11 @@ Route::prefix('guest')->group(function(){
     Route::post('status/chat', 'guestController@sendChat')->name('guestSendChat');
 });
 
-Route::prefix('tiket')->group(function(){    
+Route::prefix('tiket')->group(function(){
     Route::get('create', 'linkController@create')->name('createTicket');
+    Route::get('edit/{id}', 'linkController@edit')->name('editTicket');
     Route::post('store', 'linkController@store')->name('storeTicket');
+    Route::put('edit/update/{idaduan}', 'linkController@editAduan')->name('updateTicket');
     Route::get('track/{nomor_ticket}', 'linkController@track')->name('trackTicket');
     Route::get('ongoing', 'linkController@ongoing')->name('ongoingTicket');
     Route::get('finish', 'linkController@finished')->name('finishedTicket');

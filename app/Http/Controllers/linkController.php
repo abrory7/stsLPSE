@@ -26,7 +26,7 @@ class linkController extends Controller
     public function __construct(){
         $this->middleware('auth');
     }
-    
+
     public function ongoing()
     {
         $tickets = Ticket::where('finish', 0)->get();
@@ -62,6 +62,13 @@ class linkController extends Controller
     {
         $kategori = Kategori::all();
         return view('ticket.create', compact('kategori'));
+    }
+
+    public function edit($id)
+    {
+        $edit = Aduan::findOrFail($id);
+        $kategori = Kategori::all();
+        return view('ticket.edit', compact('edit', 'kategori'));
     }
 
     public function track($nomor_ticket)
@@ -179,7 +186,7 @@ class linkController extends Controller
         $aduan->pesan = $req->pesan;
         $aduan->subjek = $req->subjek;
 
-        $aduan->save();       
+        $aduan->save();
 
         // Buat Ticket
         $ticket = new Ticket();
@@ -187,7 +194,7 @@ class linkController extends Controller
         $ticket->urgensi = $req->urgensi;
         $ticket->nomor_ticket = time();
         $ticket->expire = date('d-m-Y H:i:s', strtotime(Date('d-m-Y H:i:s'). ' + 2 days'));
-        $ticket->save();        
+        $ticket->save();
 
         //update status ticket
         // kode status : 1. Diterima Helpdesk; 2. apalah; 3. apalah;
@@ -198,7 +205,50 @@ class linkController extends Controller
         return redirect()->route('ongoingTicket')->with('sukses', 'Tiket #'.$ticket->nomor_ticket.' Berhasil Dibuat');
     }
 
-    public function solusi(Request $req, $tiket_id){        
+    public function editAduan(Request $req, $idaduan){
+        $editAduan = Aduan::findOrFail($idaduan);
+        $editAduan->nama = $req->nama;
+        $editAduan->alamat = $req->alamat;
+        $editAduan->perusahaan = $req->perusahaan;
+        $editAduan->npwp = $req->npwp;
+        $editAduan->no_telp = $req->no_telp;
+        $editAduan->hp = $req->hp;
+        $editAduan->fax = $req->fax;
+        $editAduan->email = $req->email;
+        $editAduan->username_spse = $req->username_spse;
+        $editAduan->password_spse = $req->password_spse;
+        $editAduan->nama_lelang = $req->nama_lelang;
+        $editAduan->kode_lelang = $req->kode_lelang;
+        $editAduan->nama_satuan_kerja = $req->nama_satuan_kerja;
+        $editAduan->subjek = $req->subjek;
+        $editAduan->pesan = $req->pesan;
+
+        if(!empty($req->gambar)){
+          $gmbr = explode(",", $editAduan->gambar);
+          for($i = 0; $i < count($gmbr); $i++){
+            unlink('gambar/'.$gmbr[$i]);
+          }
+          for($i = 0; $i < count($req->gambar); $i++){
+            $gambar[$i] = $req->gambar[$i];
+            $ext[$i] = $gambar[$i]->getClientOriginalExtension();
+            $newName[$i] = 'gmbr'.Carbon::parse(Carbon::now())->format('d-m-Y His').' '.(1+$i).'.'.$ext[$i];
+            $gambar[$i]->move('gambar',$newName[$i]);
+            $arrgambar[] = $newName[$i];
+          }
+          $editAduan->gambar = implode(',', $arrgambar);
+        }
+        else{
+          $editAduan->gambar = $editAduan->gambar;
+        }
+
+        $editAduan->kategori_id = $req->kategori_id;
+
+        $editAduan->save();
+
+        return redirect()->route('ongoingTicket')->with('sukses', 'Tiket berhasil diedit');
+    }
+
+    public function solusi(Request $req, $tiket_id){
         $solusi = new Solusi();
         $solusi->ticket_id =  $tiket_id;
         $solusi->users_id = Auth::user()->id;
@@ -240,12 +290,12 @@ class linkController extends Controller
         return redirect()->route('ongoingTicket');
     }
 
-    public function assignTicket(Request $req){                
+    public function assignTicket(Request $req){
         $diskusi = new Diskusi();
-        $pesansistem = new Pesan();        
+        $pesansistem = new Pesan();
         $statusTicket = new StatusTicket();
 
-        // store table "Assign"        
+        // store table "Assign"
         $bulkAssign = array(
             array('users_id' => 1, 'ticket_id' => $req->ticket_id, 'created_at' => Carbon::now()->toDateTimeString(), 'updated_at' => Carbon::now()->toDateTimeString()),
             array('users_id' => $req->assignTo, 'ticket_id' => $req->ticket_id, 'created_at' => Carbon::now()->toDateTimeString(), 'updated_at' => Carbon::now()->toDateTimeString())
@@ -297,8 +347,8 @@ class linkController extends Controller
                 'ticket_id' => $id_ticket,
                 'status' => 3
             ]);
-        }        
-        $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();                
+        }
+        $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();
         return view('ticket.finishedDiscussion', compact('tickets', 'diskusiticket', 'listmember', 'diskusi', 'member', 'chatAble'));
     }
 
@@ -396,12 +446,12 @@ class linkController extends Controller
         return view('ticket.report', compact('tickets', 'diskusiticket', 'listmember', 'diskusi', 'member'));
     }
 
-    public function destroy(Request $req){        
-        $ticket = Ticket::findOrFail($req->id);        
+    public function destroy(Request $req){
+        $ticket = Ticket::findOrFail($req->id);
 
-        $aduan = Aduan::findOrFail($ticket->aduan->id);        
+        $aduan = Aduan::findOrFail($ticket->aduan->id);
         $aduan->delete();
-        $ticket->delete();        
+        $ticket->delete();
         return redirect()->route('ongoingTicket')->with('danger', 'Tiket Berhasil di Hapus');
     }
 
