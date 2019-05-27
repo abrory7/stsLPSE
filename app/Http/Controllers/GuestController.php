@@ -53,6 +53,17 @@ class GuestController extends Controller
 
     public function create(Request $req){
         // Insert aduan
+        $validation = $req->validate([
+            'nama' => 'required',
+            'alamat' => 'required|min:10',
+            'perusahaan' => 'required|min:3',
+            'npwp' => 'required|max:20',
+            'hp' => 'required|max:15',
+            'email' => 'required|email',
+            'subjek' => 'required|min:10',
+            'pesan' => 'required|min:10',
+            'gambar.*' => 'image|max:5120',
+        ]);
         $aduan = new Aduan();
         $aduan->kategori_id = $req->kategori_id;
         $aduan->nama = $req->nama;
@@ -85,17 +96,7 @@ class GuestController extends Controller
 
         $aduan->pesan = $req->pesan;
         $aduan->subjek = $req->subjek;
-        $validation = $req->validate([
-            'nama' => 'required',
-            'alamat' => 'required|min:10',
-            'perusahaan' => 'required|min:3',
-            'npwp' => 'required|max:20',
-            'hp' => 'required|max:15',
-            'email' => 'required|email',
-            'subjek' => 'required|min:10',
-            'pesan' => 'required|min:10',
-            'gambar.*' => 'image|max:5120',
-        ]);
+
         $aduan->save();
 
         // Buat Ticket
