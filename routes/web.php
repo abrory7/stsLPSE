@@ -77,7 +77,6 @@ Route::get('/', function () {
         if($user->assignedTicket->finish == 1){
            $solvers[$user->assignedUser->jabatan][] = $user->assignedUser->name;
         }
-        return view('index', compact('allTicket', 'recent', 'received', 'darurat', 'weekly', 'monthly', 'yearly'));
       }
 
       //Average First Response Time

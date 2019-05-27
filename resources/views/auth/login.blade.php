@@ -12,8 +12,8 @@
 	<meta name="author" content="Phoenixcoded">
 
 	<!-- Favicon icon -->
-	<link rel="shortcut icon" href="{{ asset('res/assets/images/favicon.png') }}" type="image/x-icon">
-	<link rel="icon" href="{{ asset('res/assets/images/favicon.ico') }}" type="image/x-icon">
+	<link rel="shortcut icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
+	<link rel="icon" href="{{ asset('favicon.ico') }}" type="image/x-icon">
 
 	<!-- Google font-->
 	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600,700,800" rel="stylesheet">
@@ -72,10 +72,12 @@
                       <strong>{{ $errors->first('password') }}</strong>
                   </span>
               @endif
-						</div
+						</div>
 						<div class="row">
 							<div class="col-xs-10 offset-xs-1">
 								<button type="submit" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">LOGIN</button>
+								<hr>
+								<a href="{{route('guestNewTicket')}}" class="btn btn-primary btn-md btn-block waves-effect text-center m-b-20">Masuk Sebagai Guest</a>
 							</div>
 						</div>
 					</form>

@@ -242,6 +242,17 @@ class linkController extends Controller
         }
 
         $editAduan->kategori_id = $req->kategori_id;
+        $validation = $req->validate([
+            'nama' => 'required',
+            'alamat' => 'required|min:10',
+            'perusahaan' => 'required|min:3',
+            'npwp' => 'required|max:20',
+            'hp' => 'required|max:15',
+            'email' => 'required|email',
+            'subjek' => 'required|min:10',
+            'pesan' => 'required|min:10',
+            'gambar.*' => 'image|max:5120',
+        ]);
 
         $editAduan->save();
 
@@ -295,15 +306,15 @@ class linkController extends Controller
         $pesansistem = new Pesan();
         $statusTicket = new StatusTicket();
 
-        // store table "Assign"  
-        // Jika yg di assign bukan helpdesk      
+        // store table "Assign"
+        // Jika yg di assign bukan helpdesk
         if($req->assignTo != 1){
             $bulkAssign = array(
                 array('users_id' => 1, 'ticket_id' => $req->ticket_id, 'created_at' => Carbon::now()->toDateTimeString(), 'updated_at' => Carbon::now()->toDateTimeString()),
                 array('users_id' => $req->assignTo, 'ticket_id' => $req->ticket_id, 'created_at' => Carbon::now()->toDateTimeString(), 'updated_at' => Carbon::now()->toDateTimeString())
-            ); 
+            );
             $assign = Assign::insert($bulkAssign);
-        }else{            
+        }else{
             $assign = new Assign();
             $helpdesk = User::where('role', 1)->first();
             $assign->users_id = $helpdesk->id;
