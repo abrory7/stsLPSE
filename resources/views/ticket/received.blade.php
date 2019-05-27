@@ -24,12 +24,12 @@
                         <th>Aksi</th>
                     </tr>
                     </thead>
-                    <tbody>                    
-                      @foreach($receives as $received)   
-                         
-                      
+                    <tbody>
+                      @foreach($receives as $received)
+
+
                       @if($received->assignedTicket->finish == 0)
-                      <tr>                      
+                      <tr>
                         <td><a href="{{ route('trackTicket', $received->assignedTicket->nomor_ticket) }}" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Lacak Tiket Ini"><u>{{$received->assignedTicket->nomor_ticket}}</u></a></td>
                         @if($received->assignedTicket->urgensi == "Darurat")
                           <td class="bg-danger">{{$received->assignedTicket->urgensi}}</td>
@@ -44,13 +44,13 @@
                         <td>{{$received->assignedTicket->expire}}</td>
                         <td>
                           @if($received->assignedTicket->isGuest == 1)
-                            Web                           
-                          @else 
+                            Web
+                          @else
                             Langsung
-                          @endif                        
+                          @endif
                         </td>
                         <td>
-                          <a href="{{ route('discussTicket', $received->assignedTicket->id)}}" class="btn btn-primary" target="_blank">Diskusi</a>
+                          <a href="{{ route('discussTicket', $received->assignedTicket->id)}}" class="btn btn-primary" target="_blank" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Diskusi"><i class="icon-bubbles"></i></a>
                         </td>
                       </tr>
                       @endif

@@ -88,7 +88,7 @@ class GuestController extends Controller
         $validation = $req->validate([
             'nama' => 'required',
             'alamat' => 'required|min:10',
-            'perusahaan' => 'required|min:10',
+            'perusahaan' => 'required|min:3',
             'npwp' => 'required|max:20',
             'hp' => 'required|max:15',
             'email' => 'required|email',

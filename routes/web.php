@@ -76,7 +76,11 @@ Route::get('/', function () {
       foreach($assignedUser as $user){
         if($user->assignedTicket->finish == 1){
            $solvers[$user->assignedUser->jabatan][] = $user->assignedUser->name;
+<<<<<<< HEAD
         }        
+=======
+        }
+>>>>>>> 24db13bb80a7bd58ac1d1810af916fba5ab8e30c
       }
 
       //Average First Response Time

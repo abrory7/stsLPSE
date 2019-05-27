@@ -111,7 +111,7 @@
                 @if($discuss->member == 1)
                   <span class="incominguser">Helpdesk</span>
                   <br>
-                @elseif($discuss->member == 2)                  
+                @elseif($discuss->member == 2)
                   <span class="incominguser">Admin</span>
                   <br>
                 @else
@@ -137,7 +137,7 @@
       <form name="formSendMsg">
       @csrf
         <textarea id="pesan" name="pesan" class="form-control" rows="4" cols="39" placeholder="Tulis Pesan...." required></textarea>
-        <button type="submit" class="btn btn-success sendbutton">KIRIM</button>
+        <button type="submit" class="btn btn-success col-md-5" style="display: block; margin-top: 2%;">KIRIM</button>
       </form>
     @endif
     </div>
@@ -151,7 +151,7 @@
           <button type="button" class="close" data-dismiss="modal">&times;</button>
           <h4 class="modal-title">Invite Member</h4>
         </div>
-        <div class="modal-body">        
+        <div class="modal-body">
           <form action="{{ route('inviteMember', $diskusiticket->id) }}" method="POST">
           @csrf
           <meta name="csrf-token" content="{{ csrf_token() }}">
