@@ -32,7 +32,7 @@
         </tr>
         <tr>
             <th>Perusahaan</th>
-            <td>{{$ticket->aduan->perusahan}}</td>
+            <td>{{$ticket->aduan->perusahaan}}</td>
 
             <th>Nama Lelang</th>
             <td>{{$ticket->aduan->nama_lelang}}</td>
