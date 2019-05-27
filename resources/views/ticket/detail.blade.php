@@ -10,7 +10,7 @@
 </div>
 <div class="card">
     <div class="card-block">
-    @php        
+    @php
         $assginedUser = $ticket->isAssigned == NULL ? 'Belum Ada' : $ticket->isAssigned->assignedUser->jabatan;
     @endphp
     <p>Ditugaskan Kepada : <b>{{$assginedUser}}</b></p>
@@ -19,7 +19,7 @@
         <tr>
             <th>Nama</td>
             <td>{{$ticket->aduan->nama}}</td>
-            
+
             <th>Username SPSE</th>
             <td>{{$ticket->aduan->username_spse}}</td>
         </tr>
@@ -38,7 +38,7 @@
             <td>{{$ticket->aduan->nama_lelang}}</td>
         </tr>
         <tr>
-            <th>NPWP</th> 
+            <th>NPWP</th>
             <td>{{$ticket->aduan->npwp}}</td>
 
             <th>Kode Lelang</th>
@@ -52,7 +52,7 @@
             <td>{{$ticket->aduan->nama_satuan_kerja}}</td>
         </tr>
         <tr>
-            <th>HP</th> 
+            <th>HP</th>
             <td>{{$ticket->aduan->hp}}</td>
 
             <th>Pesan</th>
@@ -70,7 +70,12 @@
             <td>{{$ticket->aduan->email}}</td>
 
             <th>Lampiran</th>
-            <td>{{$ticket->aduan->gambar}}</td>
+            <?php $gambar = explode(',', $ticket->aduan->gambar); ?>
+            <td>
+              @foreach($gambar as $key => $gmbr)
+              <a href="{{ url('/gambar/'.$gmbr) }}" class="btn btn-default"><i class="icon-picture"></i> Gambar {{$key+1}}</a>
+              @endforeach
+            </td>
         </tr>
         <tr>
             <th></th>
@@ -78,7 +83,7 @@
 
             <th>Kategori Permasalahan</th>
             <td>{{$ticket->aduan->kategori->kategori}}</td>
-        </tr>                                                          
+        </tr>
     </tbody>
 
 </table>

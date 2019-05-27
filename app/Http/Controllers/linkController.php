@@ -349,7 +349,7 @@ class linkController extends Controller
             ]);
         }
         $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();
-        return view('ticket.finishedDiscussion', compact('tickets', 'diskusiticket', 'listmember', 'diskusi', 'member', 'chatAble'));
+        return view('ticket.finishedDiscussion', compact('tickets', 'diskusiticket', 'diskusi'));
     }
 
     public function sendChat(Request $req){
