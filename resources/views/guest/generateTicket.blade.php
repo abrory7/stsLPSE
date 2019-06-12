@@ -14,7 +14,7 @@
               </strong>
             </h3>
             <br>
-            Simpan atau salin nomor tiket anda dengan melakukan klik pada nomor tiket diatas
+            Simpan atau salin nomor tiket anda dengan melakukan klik pada nomor tiket diatas.
             <br>
             Staf kami akan segera menangani aduan anda dalam 3 hari kerja. Anda dapat melakukan cek status tiket pada halaman<a href="{{route('guestIndexStatus')}}"> cek status tiket</a>
         </div>

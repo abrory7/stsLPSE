@@ -55,23 +55,23 @@
 							<br>
 							LPSE Provinsi Kalimantan Selatan
 						</h3>
+						@if ($errors->has('password'))
+		                  <span class="alert alert-danger" role="alert" style="display: block;">
+		                      <strong>{{ $errors->first('password') }}</strong>
+		                  </span>
+			            @endif
+			            @if ($errors->has('username'))
+                  			<span class="alert alert-danger" role="alert" style="display: block;">
+                      			<strong>{{ $errors->first('username') }}</strong>
+                  			</span>
+              			@endif
 						<div class="form-group">
 							<label for="username">Username or email</label>
 							<input type="text" id="username" name="username" class="form-control" required autofocus>
-              @if ($errors->has('username'))
-                  <span class="invalid-feedback" role="alert">
-                      <strong>{{ $errors->first('username') }}</strong>
-                  </span>
-              @endif
 						</div>
 						<div class="form-group">
 							<label for="password">Password</label>
 							<input type="password" id="password" name="password" class="form-control" required>
-              @if ($errors->has('password'))
-                  <span class="invalid-feedback" role="alert">
-                      <strong>{{ $errors->first('password') }}</strong>
-                  </span>
-              @endif
 						</div>
 						<div class="row">
 							<div class="col-xs-10 offset-xs-1">
