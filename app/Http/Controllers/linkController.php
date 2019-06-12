@@ -29,19 +29,30 @@ class linkController extends Controller
 
     public function ongoing()
     {
+      if(Auth::user()->role == 1){
         $tickets = Ticket::where('finish', 0)->get();
 
         return view('ticket.ongoing', compact('tickets'));
+      }
+      else{
+        return redirect()->route('index');
+      }
     }
 
     public function received()
     {
+      if(Auth::user()->role != 3){
         $receives = Assign::where('users_id', Auth::user()->id)->get();
 
         return view('ticket.received', compact('receives'));
+      }
+      else{
+        return redirect()->route('index');
+      }
     }
     public function discuss($id_ticket)
     {
+      if(Auth::user()->role != 3){
         $diskusiticket = Diskusi::where('ticket_id', $id_ticket)->first();
         $tickets = Ticket::where('id', $id_ticket)->first();
         if(StatusTicket::where('ticket_id', $id_ticket)->where('status', 3)->first() == NULL){
@@ -54,21 +65,37 @@ class linkController extends Controller
         $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();
         $member = User::whereNotIn('id', $listmember)->get();
         $chatAble = True;
-        // dd($diskusi);
+
         return view('ticket.discuss', compact('diskusiticket', 'listmember', 'diskusi', 'member', 'chatAble', 'tickets'));
+      }
+      else{
+        return redirect()->route('index');
+      }
     }
 
     public function create()
     {
+      if(Auth::user()->role == 1){
         $kategori = Kategori::all();
+
         return view('ticket.create', compact('kategori'));
+      }
+      else{
+        return redirect()->route('index');
+      }
     }
 
     public function edit($id)
     {
+      if(Auth::user()->role == 1){
         $edit = Aduan::findOrFail($id);
         $kategori = Kategori::all();
+
         return view('ticket.edit', compact('edit', 'kategori'));
+      }
+      else{
+        return redirect()->route('index');
+      }
     }
 
     public function track($nomor_ticket)
@@ -86,8 +113,14 @@ class linkController extends Controller
 
     public function finished()
     {
+      if(Auth::user()->role != 3){
         $tickets = Ticket::where('finish', 1)->orWhere('finish', 2)->get();
+
         return view('ticket.finished', compact('tickets'));
+      }
+      else{
+        return redirect()->route('index');
+      }
     }
 
     public function stats(){
@@ -453,8 +486,14 @@ class linkController extends Controller
     }
 
     public function detailTicket($id_ticket){
+      if(Auth::user()->role != 3){
         $ticket = Ticket::where('id', $id_ticket)->first();
+
         return view('ticket.detail', compact('ticket'));
+      }
+      else{
+        return redirect()->route('index');
+      }
     }
 
     public function print(Request $req){
@@ -476,8 +515,13 @@ class linkController extends Controller
     }
 
     public function detailTicketOngoing($id_tiket){
+      if(Auth::user()->role == 1){
         $ticket = Ticket::find($id_tiket);
 
         return view('ticket.detail', compact('ticket'));
+      }
+      else{
+        return redirect()->route('index');
+      }
     }
 }
