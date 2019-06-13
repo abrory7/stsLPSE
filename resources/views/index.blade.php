@@ -189,13 +189,6 @@ var cat = new Chart(ctx, {
         }
       ]
     },
-    options:
-    {
-      legend:
-      {
-        position: 'right'
-      }
-    }
   });
 </script>
 <script>
