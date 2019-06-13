@@ -30,7 +30,7 @@ class linkController extends Controller
     public function ongoing()
     {
       if(Auth::user()->role == 1){
-        $tickets = Ticket::where('finish', 0)->latest()->get();
+        $tickets = Ticket::where('finish', 0)->orderBy('created_at', 'desc')->get();
 
         return view('ticket.ongoing', compact('tickets'));
       }
@@ -42,7 +42,7 @@ class linkController extends Controller
     public function received()
     {
       if(Auth::user()->role != 3){
-        $receives = Assign::where('users_id', Auth::user()->id)->latest()->get();
+        $receives = Assign::where('users_id', Auth::user()->id)->orderBy('created_at', 'desc')->get();
 
         return view('ticket.received', compact('receives'));
       }

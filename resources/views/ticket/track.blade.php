@@ -9,20 +9,19 @@
         			<h4>Track Ticket</h4>
         			<ul class="timeline">
 							@foreach($ticket_status as $status)
+								@php
+									$user = DB::table('users')->where('id', $status->ticket->isAssigned->users_id)->first();													
+								@endphp
         				<li>
 									<div class="padleft">
 											<b>
   											@if($status->status == 1)
 
   												Diterima Helpdesk
-
-  											@elseif($status->status == 2 )
-  											@php
-  												$user = DB::table('users')->where('id', $status->ticket->isAssigned->users_id)->first();
-  											@endphp
+  											@elseif($status->status == 2 )  											
   												Ditugaskan kepada {{$user->jabatan}}
   											@elseif($status->status == 3)
-  												Sedang dikerjakan oleh {{$user->name}} ({{$user->jabatan}})
+  												Sedang dikerjakan oleh {{$user->jabatan}}
   											@elseif($status->status == 4)
   												Tiket Selesai
   											@endif

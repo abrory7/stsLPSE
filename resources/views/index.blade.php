@@ -114,16 +114,14 @@
       </h6>
       <table class="table">
         <thead>
-          <tr>
-            <th>Nama</th>
+          <tr>            
             <th>Jabatan</th>
             <th>Total</th>
           </tr>
         </thead>
         <tbody>
         @foreach($solvers as $key => $val)
-          <tr>
-            <td>{{$val[0]}}</td>
+          <tr>            
             <td>{{$key}}</td>
             <td>{{count($val)}}</td>
           </tr>
