@@ -34,7 +34,7 @@
                     <tbody>
                     @foreach($tickets as $ticket)
                     <tr>
-                        <td><a href="#" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Lacak Tiket Ini"><u>{{$ticket->nomor_ticket}}</u></a></td>
+                        <td><a href="{{route('trackTicket', $ticket->nomor_ticket)}}" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Lacak Tiket Ini"><u>{{$ticket->nomor_ticket}}</u></a></td>
                         @if($ticket->urgensi == "Darurat")
                           <td class="bg-danger">{{$ticket->urgensi}}</td>
                         @elseif($ticket->urgensi == "Penting")
