@@ -40,7 +40,7 @@ Route::get('/', function () {
       $month = Ticket::pluck('created_at')->toArray();
       $dates = array_unique(array_map(function($date) {
           return DateTime::createFromFormat('Y-m-d H:i:s', $date)->format('F');
-      }, $month));
+      }, $month));      
       $monthlyData =  Ticket::Select([DB::raw("DATE_FORMAT(created_at, '%Y-%m') AS 'date'"),
                       DB::raw("COUNT(id) AS 'count'"),
                       ])
@@ -76,21 +76,17 @@ Route::get('/', function () {
       foreach($assignedUser as $user){
         if($user->assignedTicket->finish == 1){
            $solvers[$user->assignedUser->jabatan][] = $user->assignedUser->name;
-<<<<<<< HEAD
         }        
-=======
-        }
->>>>>>> 24db13bb80a7bd58ac1d1810af916fba5ab8e30c
       }
-
+      
       //Average First Response Time
       $assignedTicketTotal = Assign::all();
       $TotalResponseTime = 0;
-      foreach($assignedTicketTotal as $ticket){
-        $selisih = Carbon::createFromFormat('Y-m-d H:s:i', $ticket->created_at)->diffInMinutes($ticket->assignedTicket->created_at);
+      foreach($assignedTicketTotal as $ticket){          
+        $selisih = $ticket->created_at->diffInMinutes($ticket->assignedTicket->created_at);                
         $TotalResponseTime += $selisih;
       }
-      $avgFirstResponseTime = count($assignedTicketTotal) > 0 ? (int) floor($TotalResponseTime/count($assignedTicketTotal)) : 0;
+      $avgFirstResponseTime = count($assignedTicketTotal) > 0 ? (int) floor($TotalResponseTime/count($assignedTicketTotal)) : 0;      
 
       return view('index', compact('cat', 'countcat', 'dates', 'monthlyData', 'urg', 'arrurg', 'urgtotal', 'totalunfinish', 'totalfinish', 'totalweek', 'totalyear', 'solvers', 'avgFirstResponseTime'));
 

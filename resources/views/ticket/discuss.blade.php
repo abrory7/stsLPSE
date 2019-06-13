@@ -13,7 +13,7 @@
         <button class="btn btn-success" data-toggle="modal" data-target="#solutionModal">Solusi</button>
         <a href="{{route('detailTicket', $tickets->aduan_id)}}" class="btn btn-default">Detail Tiket</a>
         <a href="{{ route('closeTicket') }}" class="btn btn-primary"
-            onclick="event.preventDefault();
+            onclick="event.preventDefault(); return confirm('Apakah anda yakin akan mengakhiri tiket ini?');
                 document.getElementById('close-ticket').submit();">
             Akhiri Tiket
         </a>
@@ -79,11 +79,10 @@
       <span>Member:&nbsp;
         @foreach($listmember as $members)
         <div class="label label-default">
-          @if($members == 1)
-            Helpdesk
-          @elseif($members == 2)
-            Admin
-          @endif
+        @php
+         $members = DB::table('users')->where('id', $members)->first()->jabatan;
+        @endphp
+         {{$members}}
         </div>
         @endforeach
       </span>

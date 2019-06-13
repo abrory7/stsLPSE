@@ -12,8 +12,7 @@
             yang dapat anda gunakan untuk melacak kemajuan dari aduan anda secara online. 
             Untuk referensi Anda, kami menyediakan arsip lengkap dan riwayat semua permintaan dukungan Anda. 
             Diperlukan alamat email yang valid untuk mengirimkan tiket.
-            </p>
-        
+            </p>        
         </div>
         <center>
         <div class="container">
@@ -25,7 +24,7 @@
                 </div>
                 <div class="col-sm-6">
                 <h2>Cek Status Tiket</h2>
-                <a href="#" class="btn btn-primary">Cek Status Tiket</a>
+                <a href="{{route('guestIndexStatus')}}" class="btn btn-primary">Cek Status Tiket</a>
                 <p>Untuk dapat melihat perkembangan aduan anda, masukan nomor tiket yang telah dibuat di halaman cek status tiket </p>
                 </div>
             </div>

@@ -46,8 +46,8 @@
                         </td>
                         <td>
                         <a href="{{ route('finishedDiscussion', $ticket->id)}}" class="btn btn-default" target="_blank" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Log Diskusi"><i class="icon-bubbles"></i></a>
-                        <a href="{{ route('destroyTicket')}}" class="btn btn-danger" onclick="event.preventDefault();
-                            document.getElementById('hapus-ticket').submit(); confirm('Apakah anda yakin akan menghapus tiket ini?')" data-toggle="tooltip" data-trigger="hover" data-placement="bottom" title="Hapus Tiket"><i class="icon-trash"></i></a>
+                        <a href="{{ route('destroyTicket')}}" class="btn btn-danger" onclick="event.preventDefault(); return confirm('Apakah anda yakin akan menghapus tiket ini?');
+                            document.getElementById('hapus-ticket').submit();" data-toggle="tooltip" data-trigger="hover" data-placement="bottom" title="Hapus Tiket"><i class="icon-trash"></i></a>
 
                             <form id="hapus-ticket" action="{{ route('destroyTicket') }}" method="POST" style="display: none;">
                                 @csrf

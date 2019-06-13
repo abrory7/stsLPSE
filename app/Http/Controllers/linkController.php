@@ -50,7 +50,7 @@ class linkController extends Controller
                 'status' => 3
             ]);
         }
-        $listmember = explode(',', $diskusiticket->member);
+        $listmember = explode(',', $diskusiticket->member);        
         $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();
         $member = User::whereNotIn('id', $listmember)->get();
         $chatAble = True;
@@ -278,7 +278,7 @@ class linkController extends Controller
         $pesan = new Pesan();
         $pesan->diskusi_id = $diskusi->id;
         $pesan->member = Auth::user()->id;
-        $pesan->pesan = "(SISTEM) Tiket #".$tiket->nomor_tiket." telah diakhiri oleh ".Auth::user()->name .".";
+        $pesan->pesan = "(SISTEM) Tiket ".$tiket->nomor_tiket." telah diakhiri oleh ".Auth::user()->name .".";
 
         $pesan->save();
         $statusTicket->save();
@@ -348,7 +348,7 @@ class linkController extends Controller
         $invite = Diskusi::find($id_diskusi);
         $oldmembers = $invite->member;
         $invite->member = $oldmembers.','.$req->member;
-
+                        
         $assign = new Assign();
         $assign->users_id = $req->member;
         $assign->ticket_id = $invite->ticket_id;
@@ -466,9 +466,8 @@ class linkController extends Controller
         return view('ticket.report', compact('tickets', 'diskusiticket', 'listmember', 'diskusi', 'member'));
     }
 
-    public function destroy(Request $req){
-        $ticket = Ticket::findOrFail($req->id);
-
+    public function destroy(Request $req){        
+        $ticket = Ticket::findOrFail($req->nomor_ticket);
         $aduan = Aduan::findOrFail($ticket->aduan->id);
         $aduan->delete();
         $ticket->delete();
