@@ -71,13 +71,15 @@ Route::get('/', function () {
                           ->count();
 
       //Penyelesai tiket
-      $assignedUser = Assign::all();
-      $solvers = [];
-      foreach($assignedUser as $user){
-        if($user->assignedTicket->finish == 1){
-           $solvers[$user->assignedUser->jabatan][] = $user->assignedUser->name;
-        }        
-      }
+      $finishedTicket = Ticket::where('finish', 1)->get();                           
+      $solvers = [];      
+      foreach($finishedTicket as $ticket){          
+            $AssignedUser = Assign::where('ticket_id', $ticket->id)->get();
+            foreach($AssignedUser as $user){
+                $solvers[$user->assignedUser->jabatan][] = $user->assignedUser->name;
+            }                  
+        }            
+    //   dd($solvers);
       
       //Average First Response Time
       $assignedTicketTotal = Assign::all();
