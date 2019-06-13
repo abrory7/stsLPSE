@@ -49,21 +49,37 @@
             <td>{{$tickets->aduan->no_telp}}</td>
         </tr>
       <tr>
-      <th>Assigned To</th>
+      <th>Ditugaskan Kepada</th>
             @php    
-                $user = DB::table('users')->where('id', $tickets->isAssigned->users_id)->first();                
+            $allAssignedUser = DB::table('assign')->where('ticket_id', $tickets->id)->get();        
+            $listAssignedUser = [];
+            foreach($allAssignedUser as $allUser){
+                $user = DB::table('users')->where('id', $allUser->users_id)->first();
+                $listAssignedUser[] = $user->jabatan;
+            }                
+            $data = implode(", ", $listAssignedUser);                         
             @endphp
-          	<td>{{$user->name}} ({{$user->jabatan}})</td>
+          	<td>{{$data}}</td>
 
             <th>Kategori</th>
             <td>
-                @if($tickets->aduan->kategori_id == 1)
-                    Login Error
-                @elseif($tickets->aduan->kategori_id == 2)
-                    Instalasi Jaringan
-                @else
-                    Lainnya
-                @endif
+            @if($tickets->aduan->kategori_id == 1)
+                Perbaikan Data
+            @elseif($tickets->aduan->kategori_id == 2)
+                Error Aplikasi
+            @elseif($tickets->aduan->kategori_id == 3)
+                Permasalahan Login
+            @elseif($tickets->aduan->kategori_id == 4)
+                Sinkronisasi Data
+            @elseif($tickets->aduan->kategori_id == 5)
+                Permohonan Agregasi
+            @elseif($tickets->aduan->kategori_id == 6)
+                Uji Forensik
+            @elseif($tickets->aduan->kategori_id == 7)
+                Apendo Panitia                  
+            @else
+                Lain-lain
+            @endif
 
             </td>
             

@@ -11,9 +11,16 @@
 <div class="card">
     <div class="card-block">
     @php
-        $assginedUser = $ticket->isAssigned == NULL ? 'Belum Ada' : $ticket->isAssigned->assignedUser->jabatan;
+        $allAssignedUser = DB::table('assign')->where('ticket_id', $ticket->id)->get();        
+        $listAssignedUser = [];
+        foreach($allAssignedUser as $allUser){
+            $user = DB::table('users')->where('id', $allUser->users_id)->first();
+            $listAssignedUser[] = $user->jabatan;
+        }                
+        $data = implode(", ", $listAssignedUser);        
+        $assignedUser = $ticket->isAssigned == NULL ? 'Belum Ada' : $data;
     @endphp
-    <p>Ditugaskan Kepada : <b>{{$assginedUser}}</b></p>
+    <p>Ditugaskan Kepada : <b>{{$assignedUser}}</b></p>
     <table class="table table-borderless">
     <tbody>
         <tr>

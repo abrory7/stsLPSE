@@ -69,9 +69,15 @@
             <tr>
             <th>Assigned To</th>
                     @php    
-                        $user = DB::table('users')->where('id', $tickets->isAssigned->users_id)->first();                
+                    $allAssignedUser = DB::table('assign')->where('ticket_id', $tickets->id)->get();        
+                    $listAssignedUser = [];
+                    foreach($allAssignedUser as $allUser){
+                        $user = DB::table('users')->where('id', $allUser->users_id)->first();
+                        $listAssignedUser[] = $user->jabatan;
+                    }                
+                    $data = implode(", ", $listAssignedUser);                  
                     @endphp
-                    <td>{{$user->name}} ({{$user->jabatan}})</td>
+                    <td>{{$data}}</td>
 
                     <th>Kategori</th>
                     <td>

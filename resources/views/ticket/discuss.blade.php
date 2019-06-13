@@ -13,8 +13,7 @@
         <button class="btn btn-success" data-toggle="modal" data-target="#solutionModal">Solusi</button>
         <a href="{{route('detailTicket', $tickets->aduan_id)}}" class="btn btn-default">Detail Tiket</a>
         <a href="{{ route('closeTicket') }}" class="btn btn-primary"
-            onclick="event.preventDefault(); confirm('Apakah anda yakin akan mengakhiri tiket ini?');
-                document.getElementById('close-ticket').submit();">
+            onclick="event.preventDefault(); if(!confirm('apakah anda yakin untuk menghapus tiket?')) return false; document.getElementById('close-ticket').submit();";">
             Akhiri Tiket
         </a>
 
@@ -53,20 +52,36 @@
               <td>{{$tickets->aduan->no_telp}}</td>
           </tr>
         <tr>
-        <th>Assigned To</th>
-              @php
-                  $user = DB::table('users')->where('id', $tickets->isAssigned->users_id)->first();
+        <th>Ditugaskan Kepada</th>
+              @php                  
+                  $allAssignedUser = DB::table('assign')->where('ticket_id', $tickets->id)->get();        
+                  $listAssignedUser = [];
+                  foreach($allAssignedUser as $allUser){
+                      $user = DB::table('users')->where('id', $allUser->users_id)->first();
+                      $listAssignedUser[] = $user->jabatan;
+                  }                
+                  $data = implode(", ", $listAssignedUser);
               @endphp
-              <td>{{$user->jabatan}}</td>
+              <td>{{$data}}</td>
 
               <th>Kategori</th>
               <td>
                   @if($tickets->aduan->kategori_id == 1)
-                      Login Error
+                      Perbaikan Data
                   @elseif($tickets->aduan->kategori_id == 2)
-                      Instalasi Jaringan
+                      Error Aplikasi
+                  @elseif($tickets->aduan->kategori_id == 3)
+                      Permasalahan Login
+                  @elseif($tickets->aduan->kategori_id == 4)
+                      Sinkronisasi Data
+                  @elseif($tickets->aduan->kategori_id == 5)
+                      Permohonan Agregasi
+                  @elseif($tickets->aduan->kategori_id == 6)
+                      Uji Forensik
+                  @elseif($tickets->aduan->kategori_id == 7)
+                      Apendo Panitia                  
                   @else
-                      Lainnya
+                      Lain-lain
                   @endif
 
               </td>
@@ -151,7 +166,7 @@
           <h4 class="modal-title">Invite Member</h4>
         </div>
         <div class="modal-body">
-          <form action="{{ route('inviteMember', $diskusiticket->id) }}" method="POST">
+          <form action="{{ route('inviteMember', $diskusiticket->ticket_id) }}" method="POST">
           @csrf
           <meta name="csrf-token" content="{{ csrf_token() }}">
             @method('PUT')
@@ -161,7 +176,7 @@
                     <option value="{{$member->id}}">{{$member->name}}</option>
                 @endforeach
               </select>
-              <input type="hidden" name="diskusi_id" value="{{$diskusiticket->diskusi_id}}" class="form-control">
+              <input type="hidden" name="ticket_id" value="{{$diskusiticket->ticket_id}}" class="form-control">
             <button type="submit" class="btn btn-primary">Invite</button>
           </form>
         </div>

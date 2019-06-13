@@ -50,20 +50,20 @@ class linkController extends Controller
         return redirect()->route('index');
       }
     }
-    public function discuss($id_ticket)
+    public function discuss($id_diskusi)
     {
-      if(Auth::user()->role != 3){
-        $diskusiticket = Diskusi::where('ticket_id', $id_ticket)->first();
-        $tickets = Ticket::where('id', $id_ticket)->first();
-        if(StatusTicket::where('ticket_id', $id_ticket)->where('status', 3)->first() == NULL){
+      if(Auth::user()->role != 3){                   
+        $diskusiticket = Diskusi::where('ticket_id', $id_diskusi)->first();              
+        $tickets = Ticket::where('id', $diskusiticket->ticket_id)->first();
+        if(StatusTicket::where('ticket_id', $tickets->id)->where('status', 3)->first() == NULL){
             StatusTicket::create([
-                'ticket_id' => $id_ticket,
+                'ticket_id' => $tickets->id,
                 'status' => 3
             ]);
         }
         $listmember = explode(',', $diskusiticket->member);        
         $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();
-        $member = User::whereNotIn('id', $listmember)->get();
+        $member = User::whereNotIn('id', $listmember)->get();        
         $chatAble = True;
 
         return view('ticket.discuss', compact('diskusiticket', 'listmember', 'diskusi', 'member', 'chatAble', 'tickets'));
@@ -376,9 +376,9 @@ class linkController extends Controller
     }
 
 
-    public function inviteDiscuss(Request $req, $id_diskusi){
+    public function inviteDiscuss(Request $req, $id_ticket){        
 
-        $invite = Diskusi::find($id_diskusi);
+        $invite = Diskusi::where('ticket_id', $id_ticket)->first();        
         $oldmembers = $invite->member;
         $invite->member = $oldmembers.','.$req->member;
                         
@@ -389,7 +389,7 @@ class linkController extends Controller
         $invite->save();
         $assign->save();
 
-        return redirect()->route('discussTicket', $id_diskusi);
+        return redirect()->route('discussTicket', $id_ticket);
     }
 
     public function discussFinished($id_ticket){
@@ -523,8 +523,7 @@ class linkController extends Controller
 
     public function detailTicketOngoing($id_tiket){
       if(Auth::user()->role == 1){
-        $ticket = Ticket::find($id_tiket);
-
+        $ticket = Ticket::find($id_tiket);        
         return view('ticket.detail', compact('ticket'));
       }
       else{
