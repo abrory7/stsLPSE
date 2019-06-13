@@ -142,8 +142,7 @@ Route::prefix('tiket')->group(function(){
     Route::put('edit/update/{idaduan}', 'linkController@editAduan')->name('updateTicket');
     Route::get('track/{nomor_ticket}', 'linkController@track')->name('trackTicket');
     Route::get('ongoing', 'linkController@ongoing')->name('ongoingTicket');
-    Route::get('finish', 'linkController@finished')->name('finishedTicket');
-    Route::post('delete', 'linkController@delete')->name('deleteTicket');
+    Route::get('finish', 'linkController@finished')->name('finishedTicket');    
     Route::get('solution/{id_aduan}', 'linkController@solution')->name('solutionTicket');
     Route::post('addsolusi/{tiket_id}', 'linkController@solusi')->name('addSolution');
     Route::post('close', 'linkController@close')->name('closeTicket');

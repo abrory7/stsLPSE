@@ -13,7 +13,7 @@
         <button class="btn btn-success" data-toggle="modal" data-target="#solutionModal">Solusi</button>
         <a href="{{route('detailTicket', $tickets->aduan_id)}}" class="btn btn-default">Detail Tiket</a>
         <a href="{{ route('closeTicket') }}" class="btn btn-primary"
-            onclick="event.preventDefault(); return confirm('Apakah anda yakin akan mengakhiri tiket ini?');
+            onclick="event.preventDefault(); confirm('Apakah anda yakin akan mengakhiri tiket ini?');
                 document.getElementById('close-ticket').submit();">
             Akhiri Tiket
         </a>

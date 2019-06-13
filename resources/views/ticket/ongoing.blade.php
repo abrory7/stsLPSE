@@ -58,13 +58,14 @@
                           <a href="{{route('editTicket', $ticket->aduan->id)}}" class="btn btn-success" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Edit"><i class="icon-pencil"></i></a>
                           <a href="{{ route('destroyTicket') }}" class="btn btn-danger"
                              onclick="event.preventDefault();
-                                    document.getElementById('close-ticket').submit(); confirm('apakah anda yakin untuk menghapus tiket?')" data-toggle="tooltip" data-trigger="hover" data-placement="bottom" title="Hapus Tiket">
+                                    document.getElementById('close-ticket').submit(); return confirm('apakah anda yakin untuk menghapus tiket?');" data-toggle="tooltip" data-trigger="hover" data-placement="bottom" title="Hapus Tiket">
                               <i class="icon-trash"></i>
                           </a>
 
                           <form id="close-ticket" action="{{ route('destroyTicket') }}" method="POST" style="display: none;">
                               @csrf
-                              <input type="hidden" name="nomor_ticket" value="{{ $ticket->id }}">
+                              <input type="hidden" name="id" value="{{ $ticket->id }}">
+                              <input type="hidden" name="halaman" value="1">
                           </form>
 
                             <!-- MODAL -->

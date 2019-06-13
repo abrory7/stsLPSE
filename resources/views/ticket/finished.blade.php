@@ -46,13 +46,16 @@
                         </td>
                         <td>
                         <a href="{{ route('finishedDiscussion', $ticket->id)}}" class="btn btn-default" target="_blank" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Log Diskusi"><i class="icon-bubbles"></i></a>
-                        <a href="{{ route('destroyTicket')}}" class="btn btn-danger" onclick="event.preventDefault(); return confirm('Apakah anda yakin akan menghapus tiket ini?');
-                            document.getElementById('hapus-ticket').submit();" data-toggle="tooltip" data-trigger="hover" data-placement="bottom" title="Hapus Tiket"><i class="icon-trash"></i></a>
+                        @if(Auth::user()->role == 1)
+                        <a href="{{ route('destroyTicket')}}" class="btn btn-danger" onclick="event.preventDefault(); confirm('Apakah anda yakin akan menghapus tiket ini?'); console.log('clicked');
+                            document.getElementById('hapus-ticket').submit();" title="Hapus Tiket"><i class="icon-trash"></i></a>
 
                             <form id="hapus-ticket" action="{{ route('destroyTicket') }}" method="POST" style="display: none;">
                                 @csrf
                                 <input type="hidden" name="id" value="{{ $ticket->id }}">
+                                <input type="hidden" name="halaman" value="2">
                             </form>
+                        @endif
                         </td>
                     </tr>
                     @endforeach

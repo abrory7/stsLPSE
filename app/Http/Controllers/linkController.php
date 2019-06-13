@@ -505,12 +505,20 @@ class linkController extends Controller
         return view('ticket.report', compact('tickets', 'diskusiticket', 'listmember', 'diskusi', 'member'));
     }
 
-    public function destroy(Request $req){        
-        $ticket = Ticket::findOrFail($req->nomor_ticket);
-        $aduan = Aduan::findOrFail($ticket->aduan->id);
+    public function destroy(Request $req){     
+        // Halaman 1 OnGoing
+        // Halaman 2 Tiket Selesai
+        // dd($req->all());
+        $ticket = Ticket::find($req->id);             
+        $aduan = Aduan::find($ticket->aduan->id);
         $aduan->delete();
         $ticket->delete();
-        return redirect()->route('ongoingTicket')->with('danger', 'Tiket Berhasil di Hapus');
+        if($req->halaman == 1){
+            return redirect()->route('ongoingTicket')->with('danger', 'Tiket Telah Dihapus');
+        }else if($req->halaman == 2){
+            return redirect()->route('finishedTicket')->with('danger', 'Tiket Telah Dihapus');
+        }
+        
     }
 
     public function detailTicketOngoing($id_tiket){
