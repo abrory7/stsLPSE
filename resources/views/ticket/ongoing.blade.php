@@ -10,6 +10,13 @@
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
+      @elseif(session()->has('danger'))
+        <div class="alert alert-danger alert-dismissible" style="width: 50%; margin: 0 20% 0 20%;">
+          <strong><i class="icon-check"></i>&nbsp;{{ session()->get('danger') }}</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
       @endif
       <h4>On Going Ticket</h4>
     </div>

@@ -3,7 +3,15 @@
 @section('content')
 <div class="row">
     <div class="main-header">
-        <h4>Tiket Selesai</h4>
+      @if(session()->has('danger'))
+        <div class="alert alert-danger alert-dismissible" style="width: 50%; margin: 0 20% 0 20%;">
+          <strong><i class="icon-check"></i>&nbsp;{{ session()->get('danger') }}</strong>
+          <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+      @endif
+      <h4>Tiket Selesai</h4>
     </div>
 </div>
 <div class="card">
