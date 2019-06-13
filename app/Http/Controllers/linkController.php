@@ -30,7 +30,7 @@ class linkController extends Controller
     public function ongoing()
     {
       if(Auth::user()->role == 1){
-        $tickets = Ticket::where('finish', 0)->get();
+        $tickets = Ticket::where('finish', 0)->latest()->get();
 
         return view('ticket.ongoing', compact('tickets'));
       }
@@ -42,7 +42,7 @@ class linkController extends Controller
     public function received()
     {
       if(Auth::user()->role != 3){
-        $receives = Assign::where('users_id', Auth::user()->id)->get();
+        $receives = Assign::where('users_id', Auth::user()->id)->latest()->get();
 
         return view('ticket.received', compact('receives'));
       }
@@ -61,7 +61,7 @@ class linkController extends Controller
                 'status' => 3
             ]);
         }
-        $listmember = explode(',', $diskusiticket->member);        
+        $listmember = explode(',', $diskusiticket->member);
         $diskusi = Pesan::where('diskusi_id', $diskusiticket->id)->get();
         $member = User::whereNotIn('id', $listmember)->get();        
         $chatAble = True;
@@ -114,7 +114,7 @@ class linkController extends Controller
     public function finished()
     {
       if(Auth::user()->role != 3){
-        $tickets = Ticket::where('finish', 1)->orWhere('finish', 2)->get();
+        $tickets = Ticket::where('finish', 1)->orWhere('finish', 2)->latest()->get();
 
         return view('ticket.finished', compact('tickets'));
       }
@@ -381,7 +381,7 @@ class linkController extends Controller
         $invite = Diskusi::where('ticket_id', $id_ticket)->first();        
         $oldmembers = $invite->member;
         $invite->member = $oldmembers.','.$req->member;
-                        
+
         $assign = new Assign();
         $assign->users_id = $req->member;
         $assign->ticket_id = $invite->ticket_id;
@@ -505,11 +505,11 @@ class linkController extends Controller
         return view('ticket.report', compact('tickets', 'diskusiticket', 'listmember', 'diskusi', 'member'));
     }
 
-    public function destroy(Request $req){     
+    public function destroy(Request $req){
         // Halaman 1 OnGoing
         // Halaman 2 Tiket Selesai
         // dd($req->all());
-        $ticket = Ticket::find($req->id);             
+        $ticket = Ticket::find($req->id);
         $aduan = Aduan::find($ticket->aduan->id);
         $aduan->delete();
         $ticket->delete();
@@ -518,7 +518,7 @@ class linkController extends Controller
         }else if($req->halaman == 2){
             return redirect()->route('finishedTicket')->with('danger', 'Tiket Telah Dihapus');
         }
-        
+
     }
 
     public function detailTicketOngoing($id_tiket){
