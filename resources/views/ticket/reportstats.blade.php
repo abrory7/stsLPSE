@@ -89,7 +89,7 @@
                       {{ $arrurg[0] }}
                     </td>
                     <td>
-                      {{ $darurat }}%
+                      {{ number_format((float)$darurat, 1, ',', '') }}%
                     </td>
                   </tr>
                   <tr>
@@ -103,7 +103,7 @@
                       {{ $arrurg[1] }}
                     </td>
                     <td>
-                      {{ $penting }}%
+                      {{ number_format((float)$penting, 1, ',', '') }}%
                     </td>
                   </tr>
                   <tr>
@@ -117,7 +117,7 @@
                       {{ $arrurg[2] }}
                     </td>
                     <td>
-                      {{ $normal }}%
+                      {{ number_format((float)$normal, 1, ',', '') }}%
                     </td>
                   </tr>
                   <tr>
@@ -163,7 +163,7 @@
                     {{ $arrurgfinish[0] }}
                   </td>
                   <td>
-                    {{ $darurat2 }}%
+                    {{ number_format((float)$darurat2, 1, ',', '') }}%
                   </td>
                 </tr>
                 <tr>
@@ -177,7 +177,7 @@
                     {{ $arrurgfinish[1] }}
                   </td>
                   <td>
-                    {{ $penting2 }}%
+                    {{ number_format((float)$penting2, 1, ',', '') }}%
                   </td>
                 </tr>
                 <tr>
@@ -191,7 +191,7 @@
                     {{ $arrurgfinish[2] }}
                   </td>
                   <td>
-                    {{ $normal2 }}%
+                    {{ number_format((float)$normal2, 1, ',', '') }}%
                   </td>
                 </tr>
                 <tr>
@@ -210,46 +210,6 @@
           </div>
         </div>
         <hr>
-      </div>
-      <div class="card">
-        <div class="row">
-          <div class="card-block">
-            <center><h4>Tiket Selesai</h4></center>
-            <hr>
-          </div>
-          <div class="card-block">
-            <div class="col-md-6">
-              <center><div id="chart3"></div></center>
-            </div>
-            <h6>Penyelesai Tiket Terbanyak:</h6>
-            <div class="col-md-6">
-              <table class="table table-striped table-bordered">
-                <thead>
-                  <tr>
-                    <th>No.</th>
-                    <th>Nama</th>
-                    <th>Jabatan</th>
-                    <th>Tiket Terselesaikan</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <?php $x = 1; ?>
-                  @foreach($solvers as $key => $val)
-                  <tr>
-                    <td>{{ $x++ }}</td>
-                    <td>{{ $val[0] }}</td>
-                    <td>{{ $key }}</td>
-                    <td>{{ count($val)}}</td>
-                  </tr>
-                  @endforeach
-                </tbody>
-              </table>
-              <h6>Waktu Rata-Rata Untuk Merespon Sebuah Tiket:</h6>
-              <div class="btn btn-xlg btn-primary">{{$avgFirstResponseTime}} Menit</div>
-            </div>
-            <hr>
-          </div>
-        </div>
       </div>
       <div class="card">
         <div class="row">
@@ -289,7 +249,7 @@
               </table>
             </div>
             <div class="col-md-6">
-              <div id="chart4" style="margin-left: 25%"></div>
+              <div id="chart4" style="margin-left: 13%"></div>
             </div>
           </div>
         </div>
@@ -393,7 +353,7 @@
   <script>
   var options = {
         chart: {
-            width: 315,
+            width: 342,
             height: 270,
             type: 'pie',
         },
