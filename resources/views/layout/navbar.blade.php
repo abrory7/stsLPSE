@@ -1,5 +1,5 @@
 <header class="main-header-top hidden-print">
-  <a href="{{route('index')}}" class="logo"><img class="img-fluid able-logo" src="{{ asset('logo.png') }}" width="50%" alt="Theme-logo"></a>
+  <a href="{{route('index')}}" class="logo"><img src="{{ asset('logo.png') }}" height="50px" alt="Theme-logo"></a>
   <nav class="navbar navbar-static-top">
 
     <!-- Sidebar toggle button-->
