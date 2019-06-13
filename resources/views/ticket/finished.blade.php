@@ -55,7 +55,8 @@
                         <td>
                         <a href="{{ route('finishedDiscussion', $ticket->id)}}" class="btn btn-default" target="_blank" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Log Diskusi"><i class="icon-bubbles"></i></a>
                         @if(Auth::user()->role == 1)
-                        <a href="{{ route('destroyTicket')}}" class="btn btn-danger" onclick="event.preventDefault(); confirm('Apakah anda yakin akan menghapus tiket ini?'); console.log('clicked');
+                        <a href="{{ route('destroyTicket')}}" class="btn btn-danger" onclick="event.preventDefault();
+                               if(!confirm('apakah anda yakin untuk menghapus tiket?')) return false;
                             document.getElementById('hapus-ticket').submit();" title="Hapus Tiket"><i class="icon-trash"></i></a>
 
                             <form id="hapus-ticket" action="{{ route('destroyTicket') }}" method="POST" style="display: none;">

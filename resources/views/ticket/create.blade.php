@@ -78,7 +78,7 @@
         </div>
         <div class="form-group col-md-12">
           <label for="pesan">Pesan</label>
-          <textarea id="pesan" class="form-control" rows="5" name="pesan"> </textarea>
+          <textarea id="pesan" class="form-control" rows="5" name="pesan"></textarea>
         </div>
         <div class="form-group col-md-4">
           <label for="gambar">Lampiran Gambar atau Screenshot</label>

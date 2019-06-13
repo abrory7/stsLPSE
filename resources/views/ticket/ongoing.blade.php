@@ -63,9 +63,9 @@
                             @endif
                           <a href="{{route('detailTicketOngoing', $ticket->id)}}" class="btn btn-info" target="_blank" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Detail Tiket"><i class="icon-info"></i></a>
                           <a href="{{route('editTicket', $ticket->aduan->id)}}" class="btn btn-success" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Edit"><i class="icon-pencil"></i></a>
-                          <a href="{{ route('destroyTicket') }}" class="btn btn-danger"
+                          <a class="btn btn-danger"
                              onclick="event.preventDefault();
-                                    document.getElementById('close-ticket').submit(); return confirm('apakah anda yakin untuk menghapus tiket?');" data-toggle="tooltip" data-trigger="hover" data-placement="bottom" title="Hapus Tiket">
+                                    if(!confirm('apakah anda yakin untuk menghapus tiket?')) return false; document.getElementById('close-ticket').submit();" data-toggle="tooltip" data-trigger="hover" data-placement="bottom" title="Hapus Tiket">
                               <i class="icon-trash"></i>
                           </a>
 
