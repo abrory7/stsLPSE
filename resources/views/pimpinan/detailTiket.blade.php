@@ -69,7 +69,11 @@
             <?php $gambar = explode(',', $ticket->aduan->gambar); ?>
             <td>
               @foreach($gambar as $key => $gmbr)
+              @if($gmbr != "")
               <a href="{{ url('/gambar/'.$gmbr) }}" target="_blank" class="btn btn-default"><i class="icon-picture"></i> Gambar {{$key+1}}</a>
+              @else
+              Tidak ada lampiran
+              @endif
               @endforeach
             </td>
         </tr>

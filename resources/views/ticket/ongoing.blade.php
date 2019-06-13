@@ -44,13 +44,15 @@
                         @endif
                         <td>{{$ticket->aduan->subjek}}</td>
                         <td>{{$ticket->aduan->kategori->kategori}}</td>
-                        <td>{{$ticket->created_at}}</td>
+                        <td>{{date_format($ticket->created_at, 'd-m-Y H:i:s')}}</td>
                         <td>{{$ticket->expire}}</td>
                         <td>
                             @if(null !== $ticket->isAssigned)
                             <button class="btn btn-secondary" data-toggle="modal" data-target="#myModal" disabled>Assigned</button>
                             @else
-                            <button class="btn btn-primary" data-toggle="modal" data-target="#myModal{{$ticket->id}}" title="Assign Ticket"><i class="icon-flag"></i></button>
+                            <span data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Assign Ticket">
+                              <button class="btn btn-primary" data-toggle="modal" data-target="#myModal{{$ticket->id}}"><i class="icon-flag"></i></button>
+                            </span>
                             @endif
                           <a href="{{route('detailTicketOngoing', $ticket->id)}}" class="btn btn-info" target="_blank" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Detail Tiket"><i class="icon-info"></i></a>
                           <a href="{{route('editTicket', $ticket->aduan->id)}}" class="btn btn-success" data-toggle="tooltip" data-trigger="hover" data-placement="top" title="Edit"><i class="icon-pencil"></i></a>
@@ -82,7 +84,7 @@
                                     @endphp
                                         @csrf
                                         <label for="assign to"> Assign To</label>
-                                        <select name="assignTo" class="form-control">
+                                        <select name="assignTo" class="form-control" style="width: 90%">
                                         @foreach($users as $user)
                                             @if($user->role != 3)
                                             <option value="{{$user->role}}">{{$user->jabatan}}</option>
@@ -91,7 +93,7 @@
                                         </select>
                                         <input type="hidden" name="ticket_id" value="{{$ticket->id}}" class="form-control">
                                         <input type="hidden" name="nomor_ticket" value="{{$ticket->nomor_ticket}}" class="form-control">
-                                        <button type="submit" class="btn btn-primary">Submit</button>
+                                        <button type="submit" class="btn btn-primary" style="margin-top: 10px">Submit</button>
                                     </form>
                                 </div>
                                 <div class="modal-footer">

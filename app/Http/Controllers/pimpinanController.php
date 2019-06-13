@@ -27,13 +27,24 @@ class pimpinanController extends Controller
     }
 
     public function daftarTiket(){
-      $tickets = Ticket::orderBy('created_at', 'desc')->get();      
-      return view('pimpinan.daftarTiket', compact('tickets'));
+      if(Auth::user()->role == 3){
+        $tickets = Ticket::orderBy('created_at', 'desc')->get();
+
+        return view('pimpinan.daftarTiket', compact('tickets'));
+      }
+      else {
+        return redirect()->route('index');
+      }
     }
 
     public function detailTiket($id_tiket){
-      
-      $ticket = Ticket::where('id', $id_tiket)->first();
-      return view('pimpinan.detailTiket', compact('ticket'));
+      if(Auth::user()->role == 3){
+        $ticket = Ticket::where('id', $id_tiket)->first();
+
+        return view('pimpinan.detailTiket', compact('ticket'));
+      }
+      else {
+        return redirect()->route('index');
+      }
     }
 }

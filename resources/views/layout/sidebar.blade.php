@@ -1,9 +1,16 @@
 <aside class="main-sidebar hidden-print " >
   <section class="sidebar" id="sidebar-scroll">
     <div class="user-panel">
-      <div class="f-left image"><img src="{{ asset('res/assets/images/avatar-1.png') }}" alt="User Image" class="img-circle"></div>
+      <div class="f-left image">
+        @if(Auth::user()->role == 1)
+        <img src="{{ url('https://ui-avatars.com/api/?name='.Auth::user()->jabatan.'+Desk&background=1b8bf9&color=fff&rounded=true') }}" alt="User Image" class="img-circle">
+        @else
+        <img src="{{ url('https://ui-avatars.com/api/?name='.Auth::user()->jabatan.'&background=1b8bf9&color=fff&rounded=true') }}" alt="User Image" class="img-circle">
+        @endif
+      </div>
       <div class="f-left info">
-        <p>{{ Auth::user()->name }}</p>
+        <span style="display: block; margin-bottom: 12px"><b>{{ Auth::user()->name }}</b></span>
+        <span>{{ Auth::user()->jabatan }}</span>
       </div>
     </div>
 
